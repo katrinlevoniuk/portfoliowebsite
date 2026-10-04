@@ -90,6 +90,14 @@
     /* SCREENS */
     .eo-shot { width:100%; height:auto; display:block; border-radius:12px; border:1px solid var(--line); }
 
+    /* dense screen slides: swipe sideways on phones */
+    @media (max-width: 640px) {
+      .eo-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .eo-scroll::-webkit-scrollbar { display: none; }
+      .eo-scroll .eo-shot { width: 760px; max-width: none; }
+      .eo-scroll::after { content: "← swipe →"; display: block; position: sticky; left: 0; width: calc(100vw - 48px); text-align: center; font-size: 11px; letter-spacing: .1em; color: var(--text-3); padding-top: 10px; }
+    }
+
     /* CLOSING */
     .eo-closing {
       background:var(--bg-1); border:1px solid var(--line);
@@ -392,7 +400,7 @@
   </section>
 
   <div class="cs-img-row">
-    <div class="container">
+    <div class="container eo-scroll">
       <img src="../assets/images/eduopos/onboarding-screens.jpg" alt="EduOpos onboarding screens: splash, sign in, intent, region, specialty and verification" class="eo-shot reveal-up" loading="lazy" />
     </div>
   </div>
@@ -422,7 +430,7 @@
   </section>
 
   <div class="cs-img-row">
-    <div class="container">
+    <div class="container eo-scroll">
       <img src="../assets/images/eduopos/worksheets-screens.jpg" alt="EduOpos worksheet generator screens: catalog, activity type, filters, AI generation, result and credits" class="eo-shot reveal-up" loading="lazy" />
     </div>
   </div>
@@ -459,13 +467,13 @@
   </section>
 
   <div class="cs-img-row">
-    <div class="container">
+    <div class="container eo-scroll">
       <img src="../assets/images/eduopos/supuestos-before-after.jpg" alt="Before and after: case library, índice and Resultado in Supuestos prácticos" class="eo-shot reveal-up" loading="lazy" />
     </div>
   </div>
 
   <div class="cs-img-row">
-    <div class="container">
+    <div class="container eo-scroll">
       <img src="../assets/images/eduopos/supuestos-screens.jpg" alt="EduOpos Supuestos prácticos screens: case library, review dashboard, case status, practice, índice and reading" class="eo-shot reveal-up" loading="lazy" />
     </div>
   </div>
@@ -495,7 +503,7 @@
   </section>
 
   <div class="cs-img-row">
-    <div class="container">
+    <div class="container eo-scroll">
       <img src="../assets/images/eduopos/temario.jpg" alt="EduOpos Temario and study loop: flashcards, temario, notes, favorites and progress screens" class="eo-shot reveal-up" loading="lazy" />
     </div>
   </div>

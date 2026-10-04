@@ -260,6 +260,16 @@
       .between-nav { flex-direction: column; gap: 12px; }
     }
     @media (max-width: 640px) {
+      /* inline-styled two-column blocks stack on phones */
+      .photo-text-block { grid-template-columns: 1fr !important; gap: 28px !important; padding: 56px 24px !important; }
+      .photo-text-block .ptb-img-wrap { order: -1; }
+      .photo-text-block .ptb-img-wrap img { width: 100% !important; }
+      .overview-img { padding: 32px 16px !important; }
+      .w[style*="padding: 56px 48px"] { padding: 40px 24px !important; }
+      section[style*="padding: 100px 0 60px"] { padding: 72px 0 40px !important; }
+      .chapter { padding: 80px 0 48px; }
+      .problem-section { padding: 72px 0; }
+      .stat-n { font-size: 44px; }
       .img-grid--2, .img-grid--3 { grid-template-columns: 1fr; }
       .palette { grid-template-columns: repeat(2,1fr); }
     }
@@ -356,7 +366,7 @@
   </section>
 
   <!-- Full width overview image -->
-  <div style="padding: 60px 48px;">
+  <div class="overview-img" style="padding: 60px 48px;">
     <div class="reveal-scale">
       <img src="../assets/images/Slice_1.jpg" alt="Project overview" style="border-radius:16px;" />
     </div>
@@ -1363,8 +1373,8 @@
     }
     window.addEventListener('scroll', onScroll, { passive: true });
   </script>
-  
-  // Video
+
+  <!-- Video -->
   <script>
     (function(){
       const blocks = document.querySelectorAll('.photo-text-block');

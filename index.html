@@ -317,13 +317,16 @@
         gap: 24px;
       }
 
+      .project:nth-child(even) .project-link-wrap { grid-template-columns: 1fr; }
       .project:nth-child(even) .project-visual { order: 0; }
       .project:nth-child(even) .project-info { order: 0; padding: 0; }
       .project-info { padding: 0 !important; }
 
-      .hero-headline {
-        font-size: clamp(40px, 10vw, 64px);
+      .hero-headline .hero-line {
+        font-size: clamp(44px, 12vw, 64px);
+        line-height: 1;
       }
+      .hero-inner { padding: 0 24px; }
     }
   </style>
 </head>
