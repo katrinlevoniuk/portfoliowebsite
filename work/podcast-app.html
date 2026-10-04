@@ -40,9 +40,14 @@
     img { display: block; width: 100%; }
 
     /* ── CURSOR ── */
-    .cursor { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s; }
-    .cursor-f { width: 36px; height: 36px; border: 1px solid rgba(203,215,246,.35); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); }
-    @media (max-width: 640px) { .cursor, .cursor-f { display: none; } body { cursor: auto; } }
+    .cursor { width: 14px; height: 14px; background: #fff; border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); mix-blend-mode: difference; transition: width .25s var(--ease), height .25s var(--ease), opacity .2s; }
+    .cursor-f { width: 112px; height: 112px; border: 1.5px solid #7B6CF6; background: rgba(10,10,10,.28); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; display: flex; align-items: center; justify-content: center; transform: translate(-50%,-50%) scale(.2); opacity: 0; transition: transform .35s var(--ease), opacity .25s; }
+    .cursor-label { font-family: 'Inter', sans-serif; font-size: 18px; color: #fff; }
+    body { cursor: none; }
+    body.cursor-link .cursor { width: 40px; height: 40px; }
+    body.cursor-hover .cursor { opacity: 0; }
+    body.cursor-hover .cursor-f { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    @media (hover: none), (pointer: coarse) { .cursor, .cursor-f { display: none; } body { cursor: auto; } }
 
     /* ── NAV ── */
     nav {
@@ -1300,23 +1305,28 @@
 
 
   <script>
-    // Cursor
+    // Cursor — white dot; ring with a label over draggable areas
     const cur = document.getElementById('cur');
     const curf = document.getElementById('curf');
     let mx=0,my=0,fx=0,fy=0;
-    if(cur && curf) {
+    if(cur && curf && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const lbl = document.createElement('span'); lbl.className = 'cursor-label'; curf.appendChild(lbl);
       document.addEventListener('mousemove', e => {
         mx=e.clientX; my=e.clientY;
         cur.style.left=mx+'px'; cur.style.top=my+'px';
       });
       (function af(){
-        fx+=(mx-fx)*.11; fy+=(my-fy)*.11;
+        fx+=(mx-fx)*.18; fy+=(my-fy)*.18;
         curf.style.left=fx+'px'; curf.style.top=fy+'px';
         requestAnimationFrame(af);
       })();
       document.querySelectorAll('a,button').forEach(el=>{
-        el.addEventListener('mouseenter',()=>{ cur.style.width='14px'; cur.style.height='14px'; });
-        el.addEventListener('mouseleave',()=>{ cur.style.width='8px'; cur.style.height='8px'; });
+        el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-link'));
+        el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-link'));
+      });
+      document.querySelectorAll('[data-cursor], .h-scroll-wrap').forEach(el=>{
+        el.addEventListener('mouseenter',()=>{ lbl.textContent = el.dataset.cursor || 'Drag'; document.body.classList.add('cursor-hover'); });
+        el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
       });
     }
 

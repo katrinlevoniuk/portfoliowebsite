@@ -57,34 +57,47 @@ strong { font-weight: 500; color: var(--text); }
 }
 
 /* =============================================
-   CURSOR
+   CURSOR — white dot; ring with a label over cards
    ============================================= */
 .cursor {
-  width: 8px; height: 8px;
-  background: var(--accent);
+  width: 14px; height: 14px;
+  background: #fff;
   border-radius: 50%;
   position: fixed; top: 0; left: 0;
   pointer-events: none; z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: width 0.2s var(--ease), height 0.2s var(--ease), opacity 0.2s;
+  mix-blend-mode: difference;
+  transition: width 0.25s var(--ease), height 0.25s var(--ease), opacity 0.2s;
   will-change: left, top;
 }
 
 .cursor-follower {
-  width: 40px; height: 40px;
-  border: 1px solid var(--accent-mid);
+  width: 112px; height: 112px;
+  border: 1.5px solid #7B6CF6;
+  background: rgba(10,10,10,.28);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   border-radius: 50%;
   position: fixed; top: 0; left: 0;
   pointer-events: none; z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: width 0.35s var(--ease), height 0.35s var(--ease), border-color 0.2s, opacity 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  transform: translate(-50%, -50%) scale(.2);
+  opacity: 0;
+  transition: transform 0.35s var(--ease), opacity 0.25s;
   will-change: left, top;
 }
+.cursor-label {
+  font-family: var(--font-b); font-size: 18px; font-weight: 400;
+  color: #fff; letter-spacing: 0.01em;
+}
 
-body.cursor-link .cursor   { width: 14px; height: 14px; background: var(--text); }
-body.cursor-link .cursor-follower { width: 60px; height: 60px; border-color: var(--accent); }
-body.cursor-hover .cursor  { width: 10px; height: 10px; }
-body.cursor-hover .cursor-follower { width: 56px; height: 56px; border-color: var(--accent); }
+body.cursor-link .cursor   { width: 40px; height: 40px; }
+body.cursor-hover .cursor  { opacity: 0; }
+body.cursor-hover .cursor-follower { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+@media (hover: none), (pointer: coarse) {
+  .cursor, .cursor-follower { display: none; }
+  body { cursor: auto; }
+}
 
 /* =============================================
    SCROLL REVEAL

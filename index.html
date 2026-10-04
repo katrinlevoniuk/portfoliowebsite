@@ -215,6 +215,11 @@
       opacity: 1;
     }
 
+    /* the custom cursor already says "View" on mouse devices */
+    @media (hover: hover) and (pointer: fine) {
+      .project-view-label { display: none; }
+    }
+
     /* info side */
     .project-info {
       display: flex;

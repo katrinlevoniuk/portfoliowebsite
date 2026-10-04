@@ -3,11 +3,16 @@
    ============================================= */
 
 // ─── CURSOR ──────────────────────────────────
+// White dot everywhere; over project cards and draggable areas it turns
+// into a ring with a label ("View" / "Drag", or data-cursor="...").
 const cursor   = document.getElementById('cursor');
 const follower = document.getElementById('cursorFollower');
 
-if (cursor && follower) {
+if (cursor && follower && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
   let mx = 0, my = 0, fx = 0, fy = 0;
+  const label = document.createElement('span');
+  label.className = 'cursor-label';
+  follower.appendChild(label);
 
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
@@ -16,8 +21,8 @@ if (cursor && follower) {
   });
 
   (function animFollower() {
-    fx += (mx - fx) * 0.11;
-    fy += (my - fy) * 0.11;
+    fx += (mx - fx) * 0.18;
+    fy += (my - fy) * 0.18;
     follower.style.left = fx + 'px';
     follower.style.top  = fy + 'px';
     requestAnimationFrame(animFollower);
@@ -28,19 +33,27 @@ if (cursor && follower) {
     el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-link'));
   });
 
-  document.querySelectorAll('.project').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      document.body.classList.remove('cursor-link');
-      document.body.classList.add('cursor-hover');
+  const labelled = [
+    ['[data-cursor]', null],
+    ['.project', 'View'],
+    ['.slider-wrap, .eo-scroll', 'Drag'],
+  ];
+  labelled.forEach(([selector, text]) => {
+    document.querySelectorAll(selector).forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        label.textContent = el.dataset.cursor || text;
+        document.body.classList.remove('cursor-link');
+        document.body.classList.add('cursor-hover');
+      });
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
   });
 
   document.addEventListener('mouseleave', () => {
     cursor.style.opacity = '0'; follower.style.opacity = '0';
   });
   document.addEventListener('mouseenter', () => {
-    cursor.style.opacity = '1'; follower.style.opacity = '1';
+    cursor.style.opacity = ''; follower.style.opacity = '';
   });
 }
 
