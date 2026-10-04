@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Eduopos — Education Platform — UX/UI Case Study by Kateryna Levoniuk" />
+  <title>Eduopos Education Platform — Kateryna Levoniuk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+
+  <style>
+    .cs-chapter { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+    .cs-chapter-num {
+      font-family:var(--font-d); font-size:11px; font-weight:700;
+      color:var(--accent); letter-spacing:0.12em; text-transform:uppercase;
+    }
+    .cs-chapter-line { flex:1; height:1px; background:var(--line); }
+
+    .cs-pull { border-left:2px solid var(--accent); padding:4px 0 4px 24px; margin:32px 0; }
+    .cs-pull p {
+      font-family:var(--font-d); font-size:clamp(16px,1.9vw,22px);
+      font-weight:600; line-height:1.45; letter-spacing:-0.01em; color:var(--text); margin:0;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<nav class="nav scrolled" id="nav">
+  <a href="../index.html" class="nav-logo">KL</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#work">Work</a></li>
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#contact" class="nav-cta">Get in touch ↗</a></li>
+  </ul>
+</nav>
+
+<article class="case-study">
+
+  <!-- HEADER -->
+  <header class="cs-header">
+    <div class="container">
+      <a href="../index.html#work" class="cs-back reveal-up">← Back to work</a>
+      <div class="cs-tags reveal-up">
+        <span class="tag">EdTech</span>
+        <span class="tag">Web App</span>
+        <span class="tag">UX/UI</span>
+      </div>
+      <h1 class="cs-title reveal-up">Eduopos — Education Platform</h1>
+      <p class="cs-subtitle reveal-up">End-to-end UX/UI for an online education platform — structuring courses and learning flows so students always know where they are and what to do next.</p>
+
+      <div class="cs-meta reveal-up">
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Role</span>
+          <span class="cs-meta-value">UX/UI Designer</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Type</span>
+          <span class="cs-meta-value">Freelance · Upwork</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Platform</span>
+          <span class="cs-meta-value">Web</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Tools</span>
+          <span class="cs-meta-value">Figma · FigJam</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="cs-hero-img">
+    <div class="container">
+      <!-- swap in once the Figma cover is exported:
+      <img src="../assets/images/eduopos-cover.png" alt="Eduopos — main screen" style="border-radius:8px;border:1px solid var(--line);" /> -->
+      <div class="cs-img-placeholder cs-img-placeholder--wide">
+        <p class="cs-img-note">Main screen — assets/images/eduopos-cover.png</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 OVERVIEW -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">01</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Overview</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>The challenge</h2>
+        <p>Eduopos is an online education platform. Learning products easily become cluttered — courses, lessons, progress and settings all compete for attention. The goal was an interface that keeps the focus on learning and makes the next step obvious.</p>
+
+        <div class="cs-pull">
+          <p>"Students should always know where they are and what to do next."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <div class="cs-img-grid cs-img-grid--2">
+        <div class="cs-img-placeholder"><p class="cs-img-note">Dashboard</p></div>
+        <div class="cs-img-placeholder"><p class="cs-img-note">Course page</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 PROCESS -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">02</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Process</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Structure &amp; flows</h2>
+        <p>I mapped the core journeys — finding a course, moving through lessons, and tracking progress — and organised the information architecture around them, so each screen supports one clear task.</p>
+        <h2>UI design</h2>
+        <p>A calm, consistent visual system with clear hierarchy: content first, navigation predictable, and progress always visible.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-img-full">
+    <div class="cs-img-placeholder cs-img-placeholder--wide">
+      <p class="cs-img-note">Key screens — assets/images/eduopos-full.png</p>
+    </div>
+  </div>
+
+  <!-- 03 OUTCOME -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">03</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Outcome</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>What was delivered</h2>
+        <p>High-fidelity screens and a developer-ready Figma file for the platform's core flows.</p>
+        <div class="cs-outcome-stats">
+          <div class="cs-stat">
+            <span class="cs-stat-n">46h</span>
+            <span class="cs-stat-l">Design engagement</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <div class="cs-img-grid cs-img-grid--3">
+        <div class="cs-img-placeholder"><p class="cs-img-note">Lesson view</p></div>
+        <div class="cs-img-placeholder"><p class="cs-img-note">Progress</p></div>
+        <div class="cs-img-placeholder"><p class="cs-img-note">Profile</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV BETWEEN PROJECTS -->
+  <div class="cs-nav-projects">
+    <div class="container">
+      <a href="podcast-app.html" class="cs-nav-back">← Podcast App</a>
+      <a href="danceaway.html" class="cs-nav-next">Next: DanceAway →</a>
+    </div>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="container">
+    <span class="footer-name">Kateryna Levoniuk</span>
+    <span class="footer-copy">© 2025 · Product Designer · Barcelona</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
