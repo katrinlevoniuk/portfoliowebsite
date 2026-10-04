@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../styles.css" />
 
   <style>
+    .case-study { --cs-accent: #cbd7f6; --cs-hero-bg: #1d1433; }
     :root {
       --da:      var(--accent);
 
@@ -39,21 +40,6 @@
       font-size:12px; color:var(--text-3); letter-spacing:0.03em;
       background:var(--bg-2); border:1px solid var(--line);
       padding:6px 14px; border-radius:100px;
-    }
-
-    /* CHAPTER */
-    .cs-chapter { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-    .cs-chapter-num {
-      font-family:var(--font-d); font-size:11px; font-weight:700;
-      color:var(--accent); letter-spacing:0.12em; text-transform:uppercase;
-    }
-    .cs-chapter-line { flex:1; height:1px; background:var(--line); }
-
-    /* PULL QUOTE */
-    .cs-pull { border-left:2px solid var(--accent); padding:4px 0 4px 24px; margin:32px 0; }
-    .cs-pull p {
-      font-family:var(--font-d); font-size:clamp(16px,1.9vw,22px);
-      font-weight:600; line-height:1.45; letter-spacing:-0.01em; color:var(--text); margin:0;
     }
 
     /* NUMBERS */
@@ -260,21 +246,22 @@
 <article class="case-study">
 
   <!-- HEADER -->
-  <header class="cs-header">
-    <div class="container">
+  <section class="cs-hero">
+    <div class="cs-hero-bg"></div>
+    <div class="cs-hero-noise"></div>
+    <div class="cs-hero-inner">
       <a href="../index.html#work" class="cs-back reveal-up">← Back to work</a>
-      <div class="cs-tags reveal-up">
-        <span class="tag">iOS · Android</span>
+      <div class="cs-hero-eyebrow reveal-up"><span class="cs-hero-dot"></span>Product Design Case Study · Mobile App</div>
+      <h1 class="cs-hero-title reveal-up">Dance<span>Away</span></h1>
+      <p class="cs-hero-sub reveal-up">Lead Product Designer for an early-stage mobile product connecting dancers, teachers, studios, organizers, and dance brands. I led research, UX strategy, mobile UI, design system, brand, and web — from 0→1.</p>
+      <div class="cs-hero-pills reveal-up">
         <span class="tag">0 → 1</span>
+        <span class="tag">iOS · Android</span>
         <span class="tag">UX Research</span>
         <span class="tag">Design System</span>
         <span class="tag">Product Strategy</span>
       </div>
-      <h1 class="cs-title reveal-up">DanceAway</h1>
-      <p class="cs-subtitle reveal-up">Lead Product Designer for an early-stage mobile product connecting dancers, teachers, studios, organizers, and dance brands. I led research, UX strategy, mobile UI, design system, brand, and web — from 0→1.</p>
-      <p class="cs-subtitle reveal-up" style="margin-top:0;">The core product challenge: people in the dance ecosystem were scattered across disconnected platforms — making it hard to be discovered, build reputation, or find the right opportunities. DanceAway needed to turn that fragmented world into a structured mobile experience where different roles could connect around real needs.</p>
-
-      <div class="cs-meta reveal-up">
+      <div class="cs-hero-meta reveal-up">
         <div class="cs-meta-item">
           <span class="cs-meta-label">Role</span>
           <span class="cs-meta-value">Lead Product Designer</span>
@@ -292,8 +279,8 @@
           <span class="cs-meta-value">Figma · FigJam · Condens · Webflow</span>
         </div>
       </div>
-
-      <div class="da-cta-row reveal-up">
+      </div>
+      <div class="cs-hero-actions reveal-up">
         <a href="https://www.figma.com/design/BxkMGFId0O1VSF13Afea0i/Mobile-App-Design?node-id=3347-37676&t=yLBHedRyafmlmMAK-1"
            target="_blank" rel="noopener" class="da-btn">
           Mobile App →
@@ -305,20 +292,7 @@
         <span class="da-nda">Some product details are simplified due to NDA</span>
       </div>
     </div>
-  </header>
-
-  <!-- HERO -->
-  <div class="cs-hero-img">
-    <div class="container">
-      <div class="cs-img-placeholder cs-img-placeholder--wide cs-img-placeholder--phones">
-        <div class="placeholder-phones large">
-          <div class="placeholder-phone"></div>
-          <div class="placeholder-phone placeholder-phone--main"></div>
-          <div class="placeholder-phone"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </section>
 
   <!-- NUMBERS -->
   <div class="container">
@@ -341,6 +315,7 @@
       </div>
       <div class="cs-col-content reveal-up">
         <h2>Role, team &amp; constraints</h2>
+        <p>The core product challenge: people in the dance ecosystem were scattered across disconnected platforms — making it hard to be discovered, build reputation, or find the right opportunities. DanceAway needed to turn that fragmented world into a structured mobile experience where different roles could connect around real needs.</p>
         <p>Understanding the environment explains the scope of what I needed to build. I worked across product, research, UI, brand, content, and handoff — because the product was still being defined and the team was small.</p>
 
         <div class="da-constraints">

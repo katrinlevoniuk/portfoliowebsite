@@ -60,34 +60,7 @@
       .lb-brick-hex { font-size: 9px; }
     }
 
-    /* ── STORYTELLING ELEMENTS ── */
-    .cs-chapter {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 12px;
-    }
-    .cs-chapter-num {
-      font-family: var(--font-d); font-size: 11px; font-weight: 700;
-      color: #f5c514; letter-spacing: 0.12em; text-transform: uppercase;
-    }
-    .cs-chapter-line {
-      flex: 1; height: 1px; background: var(--line);
-    }
-    .cs-chapter-label {
-      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--text-3);
-    }
-
-    /* pull quote */
-    .cs-pull {
-      border-left: 2px solid #f5c514;
-      padding: 4px 0 4px 24px;
-      margin: 32px 0;
-    }
-    .cs-pull p {
-      font-family: var(--font-d); font-size: clamp(18px, 2.2vw, 26px);
-      font-weight: 600; line-height: 1.4; letter-spacing: -0.02em;
-      color: var(--text); margin: 0;
-    }
+    .case-study { --cs-accent: #f5c514; --cs-hero-bg: #2a2205; }
 
     /* step annotation */
     .cs-step {
@@ -140,18 +113,21 @@
 <article class="case-study">
 
   <!-- HEADER -->
-  <header class="cs-header">
-    <div class="container">
+  <section class="cs-hero">
+    <div class="cs-hero-bg"></div>
+    <div class="cs-hero-noise"></div>
+    <div class="cs-hero-inner">
       <a href="../index.html#work" class="cs-back reveal-up">← Back to work</a>
-      <div class="cs-tags reveal-up">
+      <div class="cs-hero-eyebrow reveal-up"><span class="cs-hero-dot"></span>UX/UI Case Study · Web Platform</div>
+      <h1 class="cs-hero-title reveal-up">LEGO <span>Block</span></h1>
+      <p class="cs-hero-sub reveal-up">End-to-end UX/UI design for a complex data tracking and analytics platform — making dense, multi-layered information immediately readable and actionable.</p>
+      <div class="cs-hero-pills reveal-up">
         <span class="tag">Web Platform</span>
         <span class="tag">Dashboard Design</span>
         <span class="tag">Data Visualisation</span>
         <span class="tag">UX/UI</span>
       </div>
-      <h1 class="cs-title reveal-up">Tracking &amp; Analysis Platform</h1>
-      <p class="cs-subtitle reveal-up">End-to-end UX/UI design for a complex data tracking and analytics platform — making dense, multi-layered information immediately readable and actionable.</p>
-      <div class="cs-meta reveal-up">
+      <div class="cs-hero-meta reveal-up">
         <div class="cs-meta-item">
           <span class="cs-meta-label">Role</span>
           <span class="cs-meta-value">Lead UX/UI Designer</span>
@@ -169,8 +145,9 @@
           <span class="cs-meta-value">Figma · FigJam</span>
         </div>
       </div>
+      </div>
     </div>
-  </header>
+  </section>
 
   <!-- HERO -->
   <div class="cs-hero-img">

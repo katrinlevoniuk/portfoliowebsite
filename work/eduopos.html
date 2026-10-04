@@ -11,22 +11,7 @@
   <link rel="stylesheet" href="../styles.css" />
 
   <style>
-    :root { --eo: #7C3AED; }
-
-    /* CHAPTER */
-    .cs-chapter { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-    .cs-chapter-num {
-      font-family:var(--font-d); font-size:11px; font-weight:700;
-      color:var(--accent); letter-spacing:0.12em; text-transform:uppercase;
-    }
-    .cs-chapter-line { flex:1; height:1px; background:var(--line); }
-
-    /* PULL QUOTE */
-    .cs-pull { border-left:2px solid var(--accent); padding:4px 0 4px 24px; margin:32px 0; }
-    .cs-pull p {
-      font-family:var(--font-d); font-size:clamp(16px,1.9vw,22px);
-      font-weight:600; line-height:1.45; letter-spacing:-0.01em; color:var(--text); margin:0;
-    }
+    .case-study { --cs-accent: #A78BFA; --cs-hero-bg: #2A1650; }
 
     /* NUMBERS */
     .eo-nums {
@@ -147,20 +132,21 @@
 <article class="case-study">
 
   <!-- HEADER -->
-  <header class="cs-header">
-    <div class="container">
+  <section class="cs-hero cs-hero--mockup">
+    <div class="cs-hero-bg"></div>
+    <div class="cs-hero-noise"></div>
+    <div class="cs-hero-inner">
       <a href="../index.html#work" class="cs-back reveal-up">← Back to work</a>
-      <div class="cs-tags reveal-up">
+      <div class="cs-hero-eyebrow reveal-up"><span class="cs-hero-dot"></span>Product/UX Case Study · Mobile App</div>
+      <h1 class="cs-hero-title reveal-up">Edu<span>Opos</span></h1>
+      <p class="cs-hero-sub reveal-up">A mobile learning app for teachers in Spain preparing for oposiciones: temario, practice cases, flashcards and an AI worksheet generator. Redesign of the app, plus a new Temario module built from scratch.</p>
+      <div class="cs-hero-pills reveal-up">
+        <span class="tag">Live on the App Store</span>
         <span class="tag">EdTech</span>
         <span class="tag">Mobile App</span>
         <span class="tag">Product/UX</span>
-        <span class="tag">Live on the App Store</span>
       </div>
-      <h1 class="cs-title reveal-up">EduOpos</h1>
-      <p class="cs-subtitle reveal-up">A mobile learning app for teachers in Spain preparing for oposiciones: temario, practice cases, flashcards and an AI worksheet generator.</p>
-      <p class="cs-subtitle reveal-up" style="margin-top:0;">Product/UX, working directly with the founder. Redesign of the app, plus a new Temario module built from scratch.</p>
-
-      <div class="cs-meta reveal-up">
+      <div class="cs-hero-meta reveal-up">
         <div class="cs-meta-item">
           <span class="cs-meta-label">Role</span>
           <span class="cs-meta-value">Product/UX</span>
@@ -178,8 +164,10 @@
           <span class="cs-meta-value">Figma</span>
         </div>
       </div>
+      </div>
     </div>
-  </header>
+    <img class="cs-hero-mockup" src="../assets/images/eduopos/hero-mockup.jpg" alt="EduOpos worksheet configuration screen on an iPhone" />
+  </section>
 
   <!-- HERO -->
   <div class="cs-hero-img">
