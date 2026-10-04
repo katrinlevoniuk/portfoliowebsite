@@ -95,18 +95,6 @@
       font-size:11px; font-weight:600; letter-spacing:0.1em; color:var(--accent);
     }
 
-    /* BEFORE / AFTER */
-    .eo-ba { display:flex; flex-direction:column; gap:10px; margin-top:24px; }
-    .eo-ba-row {
-      display:grid; grid-template-columns:120px 1fr 1fr; gap:1px;
-      background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;
-    }
-    .eo-ba-row > div { background:var(--bg-1); padding:16px 18px; font-size:13px; line-height:1.6; color:var(--text-2); }
-    .eo-ba-row .eo-ba-name { font-weight:600; color:var(--text); }
-    .eo-ba-row .eo-ba-after { background:var(--accent-dim); color:var(--text); }
-    .eo-ba-label { display:block; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-3); margin-bottom:6px; }
-    .eo-ba-after .eo-ba-label { color:var(--accent); }
-
     /* COLORS */
     .eo-swatches { display:flex; gap:16px; flex-wrap:wrap; margin-top:20px; }
     .eo-swatch { display:flex; align-items:center; gap:12px; }
@@ -135,7 +123,6 @@
       .eo-grid, .eo-grid--3 { grid-template-columns:1fr; }
       .eo-nums { flex-wrap:wrap; }
       .eo-num-item { flex:1 1 50%; border-right:none; border-bottom:1px solid var(--line); }
-      .eo-ba-row { grid-template-columns:1fr; }
       .eo-closing { padding:32px 20px; }
     }
   </style>
@@ -417,7 +404,7 @@
 
   <div class="cs-img-row">
     <div class="container">
-      <img src="../assets/images/eduopos/onboarding.jpg" alt="EduOpos onboarding flow: sign up, verification, intent, region and specialty screens" class="eo-shot reveal-up" loading="lazy" />
+      <img src="../assets/images/eduopos/onboarding-screens.jpg" alt="EduOpos onboarding screens: splash, sign in, intent, region, specialty and verification" class="eo-shot reveal-up" loading="lazy" />
     </div>
   </div>
 
@@ -447,7 +434,13 @@
 
   <div class="cs-img-row">
     <div class="container">
-      <img src="../assets/images/eduopos/worksheets.jpg" alt="EduOpos AI worksheet generator flow" class="eo-shot reveal-up" loading="lazy" />
+      <img src="../assets/images/eduopos/worksheets-screens.jpg" alt="EduOpos worksheet generator screens: catalog, activity type, filters, AI generation, result and credits" class="eo-shot reveal-up" loading="lazy" />
+    </div>
+  </div>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/eduopos/worksheets-photo.jpg" alt="A teacher configuring a worksheet in EduOpos" class="eo-shot reveal-up" loading="lazy" />
     </div>
   </div>
 
@@ -471,24 +464,6 @@
           <div class="eo-step"><div class="eo-step-num">04</div><div><div class="eo-step-title">Create or import.</div><div class="eo-step-text">Cases can be written step by step or imported from an existing PDF.</div></div></div>
         </div>
 
-        <h2>What changed</h2>
-        <div class="eo-ba">
-          <div class="eo-ba-row">
-            <div class="eo-ba-name">Case library</div>
-            <div><span class="eo-ba-label">Before</span>Centered grey text and star ratings; cases were hard to tell apart.</div>
-            <div class="eo-ba-after"><span class="eo-ba-label">After</span>Cards with code, subject and AI tag; create and generate as clear actions.</div>
-          </div>
-          <div class="eo-ba-row">
-            <div class="eo-ba-name">Índice</div>
-            <div><span class="eo-ba-label">Before</span>A flat list of 20+ items inside a tab; phases differed only by bold text.</div>
-            <div class="eo-ba-after"><span class="eo-ba-label">After</span>The índice becomes the main navigation, with phases and the current position visible.</div>
-          </div>
-          <div class="eo-ba-row">
-            <div class="eo-ba-name">Resultado</div>
-            <div><span class="eo-ba-label">Before</span>A wall of text. “Practicar tipo test” sat at the very bottom, and a whole “Empezar” tab held one button.</div>
-            <div class="eo-ba-after"><span class="eo-ba-label">After</span>Readable sections, phase progress on top and a clear next step.</div>
-          </div>
-        </div>
         <div class="eo-flow">LIBRARY → CREATE / IMPORT → REVIEW → PRACTICE → RESULT</div>
       </div>
     </div>
@@ -496,7 +471,13 @@
 
   <div class="cs-img-row">
     <div class="container">
-      <img src="../assets/images/eduopos/supuestos.jpg" alt="EduOpos Supuestos prácticos: case library, índice and reading screens" class="eo-shot reveal-up" loading="lazy" />
+      <img src="../assets/images/eduopos/supuestos-before-after.jpg" alt="Before and after: case library, índice and Resultado in Supuestos prácticos" class="eo-shot reveal-up" loading="lazy" />
+    </div>
+  </div>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/eduopos/supuestos-screens.jpg" alt="EduOpos Supuestos prácticos screens: case library, review dashboard, case status, practice, índice and reading" class="eo-shot reveal-up" loading="lazy" />
     </div>
   </div>
 
@@ -526,7 +507,13 @@
 
   <div class="cs-img-row">
     <div class="container">
-      <img src="../assets/images/eduopos/temario.jpg" alt="EduOpos Temario and study tools: flashcards, notes, favorites and progress" class="eo-shot reveal-up" loading="lazy" />
+      <img src="../assets/images/eduopos/temario.jpg" alt="EduOpos Temario and study loop: flashcards, temario, notes, favorites and progress screens" class="eo-shot reveal-up" loading="lazy" />
+    </div>
+  </div>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/eduopos/temario-photo.jpg" alt="A flashcard reviewed and marked as memorised in EduOpos" class="eo-shot reveal-up" loading="lazy" />
     </div>
   </div>
 
@@ -600,6 +587,12 @@
       </div>
     </div>
   </section>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/eduopos/outcomes.jpg" alt="EduOpos outcomes: 69 screens, 46 hours of UX/UI work, 7+ AI worksheet types" class="eo-shot reveal-up" loading="lazy" />
+    </div>
+  </div>
 
   <!-- CLOSING -->
   <section class="cs-section">
