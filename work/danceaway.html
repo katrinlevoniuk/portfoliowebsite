@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DanceAway — Product Design Case Study by Kateryna Levoniuk" />
+  <title>DanceAway — Kateryna Levoniuk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+
+  <style>
+    :root {
+      --da:      var(--accent);
+
+      --da-dim:  var(--accent-dim);
+      --da-mid:  var(--accent-mid);
+      --da-green:#22C55E;
+    }
+
+    /* BUTTONS */
+    .da-cta-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:32px; }
+    .da-btn {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:11px 22px; border-radius:100px;
+      font-size:13px; font-weight:500; letter-spacing:0.02em;
+      background:var(--accent); color:var(--bg);
+      transition:opacity 0.2s, transform 0.15s;
+    }
+    .da-btn:hover { opacity:0.85; transform:translateY(-1px); }
+    .da-btn--ghost {
+      background:transparent; color:var(--accent);
+      border:1px solid var(--da-mid);
+    }
+    .da-btn--ghost:hover { background:var(--da-dim); }
+    .da-nda {
+      display:inline-flex; align-items:center; gap:7px;
+      font-size:12px; color:var(--text-3); letter-spacing:0.03em;
+      background:var(--bg-2); border:1px solid var(--line);
+      padding:6px 14px; border-radius:100px;
+    }
+
+    /* CHAPTER */
+    .cs-chapter { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+    .cs-chapter-num {
+      font-family:var(--font-d); font-size:11px; font-weight:700;
+      color:var(--accent); letter-spacing:0.12em; text-transform:uppercase;
+    }
+    .cs-chapter-line { flex:1; height:1px; background:var(--line); }
+
+    /* PULL QUOTE */
+    .cs-pull { border-left:2px solid var(--accent); padding:4px 0 4px 24px; margin:32px 0; }
+    .cs-pull p {
+      font-family:var(--font-d); font-size:clamp(16px,1.9vw,22px);
+      font-weight:600; line-height:1.45; letter-spacing:-0.01em; color:var(--text); margin:0;
+    }
+
+    /* NUMBERS */
+    .da-nums {
+      display:flex; border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin:48px 0;
+    }
+    .da-num-item { flex:1; padding:26px 0; text-align:center; border-right:1px solid var(--line); }
+    .da-num-item:last-child { border-right:none; }
+    .da-num-n {
+      display:block; font-family:var(--font-d); font-size:36px; font-weight:800;
+      color:var(--accent); letter-spacing:-0.03em; line-height:1; margin-bottom:6px;
+    }
+    .da-num-l { font-size:11px; color:var(--text-3); letter-spacing:0.06em; text-transform:uppercase; }
+
+    /* CONSTRAINTS */
+    .da-constraints {
+      display:grid; grid-template-columns:1fr 1fr; gap:1px;
+      background:var(--line); border:1px solid var(--line);
+      border-radius:10px; overflow:hidden; margin-top:28px;
+    }
+    .da-constraint-cell { background:var(--bg-1); padding:22px 24px; }
+    .da-constraint-label {
+      font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--accent); margin-bottom:12px; display:block;
+    }
+    .da-constraint-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px; }
+    .da-constraint-list li {
+      font-size:13px; color:var(--text-2); line-height:1.55;
+      padding-left:14px; position:relative;
+    }
+    .da-constraint-list li::before {
+      content:''; position:absolute; left:0; top:8px;
+      width:5px; height:5px; border-radius:50%; background:var(--accent); opacity:0.45;
+    }
+
+    /* RESEARCH STEPS */
+    .da-steps { display:flex; flex-direction:column; gap:0; margin-top:24px; }
+    .da-step {
+      display:grid; grid-template-columns:48px 1fr; gap:20px;
+      padding:20px 0; border-bottom:1px solid var(--line); align-items:start;
+    }
+    .da-step:first-child { border-top:1px solid var(--line); }
+    .da-step-num {
+      font-family:var(--font-d); font-size:11px; font-weight:700;
+      color:var(--accent); letter-spacing:0.08em; padding-top:2px;
+    }
+    .da-step-title { font-size:14px; font-weight:600; color:var(--text); margin-bottom:4px; }
+    .da-step-text { font-size:13px; color:var(--text-2); line-height:1.65; }
+
+    /* USER QUOTES */
+    .da-quotes { display:flex; flex-direction:column; gap:10px; margin-top:24px; }
+    .da-quote {
+      background:var(--bg-2); border:1px solid var(--line);
+      border-left:2px solid var(--da-light);
+      border-radius:8px; padding:16px 20px;
+      font-size:14px; color:var(--text-2); line-height:1.7; font-style:italic;
+    }
+
+    /* DISCOVERY CHAIN */
+    .da-chain {
+      display:flex; gap:0; align-items:center; flex-wrap:wrap;
+      margin-top:28px; margin-bottom:8px;
+    }
+    .da-chain-item {
+      background:var(--bg-2); border:1px solid var(--line);
+      border-radius:8px; padding:14px 16px; text-align:center; flex:1; min-width:80px;
+    }
+    .da-chain-n { font-size:10px; color:var(--accent); font-weight:700; letter-spacing:0.08em; display:block; margin-bottom:5px; }
+    .da-chain-t { font-size:12px; color:var(--text); font-weight:600; line-height:1.3; }
+    .da-chain-arrow { color:var(--text-3); font-size:16px; padding:0 6px; flex-shrink:0; }
+
+    /* BEFORE / AFTER */
+    .da-ba { display:grid; grid-template-columns:1fr 32px 1fr; gap:12px; align-items:start; margin-top:28px; }
+    .da-ba-arrow { display:flex; align-items:center; justify-content:center; padding-top:40px; color:var(--accent); font-size:20px; font-weight:800; }
+    .da-ba-card {
+      background:var(--bg-2); border:1px solid var(--line); border-radius:10px; padding:22px;
+    }
+    .da-ba-card.after { border-color:var(--da-mid); background:var(--da-dim); }
+    .da-ba-label { font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-3); margin-bottom:10px; display:block; }
+    .da-ba-card.after .da-ba-label { color:var(--accent); }
+    .da-ba-field {
+      background:var(--bg-3); border:1px solid var(--line-md);
+      border-radius:6px; padding:10px 12px; margin-bottom:14px;
+    }
+    .da-ba-field-label { font-size:10px; color:var(--text-3); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:4px; }
+    .da-ba-field-val { font-size:13px; color:var(--text-2); font-style:italic; line-height:1.5; }
+    .da-ba-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+    .da-tag {
+      font-size:11px; font-weight:600; padding:4px 10px;
+      border-radius:100px; background:var(--accent); color:var(--bg);
+    }
+    .da-ba-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px; }
+    .da-ba-list li { font-size:12px; color:var(--text-2); padding-left:16px; position:relative; line-height:1.5; }
+    .da-ba-list li::before { content:'—'; position:absolute; left:0; color:var(--text-3); }
+    .da-ba-card.after .da-ba-list li::before { content:'✓'; color:var(--da-green); }
+
+    /* AUDIT GRID */
+    .da-audit { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:24px; }
+    .da-audit-item {
+      background:var(--bg-2); border:1px solid var(--line); border-radius:8px; padding:18px;
+      transition:border-color 0.2s, background 0.2s;
+    }
+    .da-audit-item:hover { border-color:var(--da-mid); background:var(--da-dim); }
+    .da-audit-num { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:0.1em; margin-bottom:6px; display:block; }
+    .da-audit-name { font-size:13px; font-weight:600; color:var(--text); margin-bottom:3px; }
+    .da-audit-desc { font-size:12px; color:var(--text-3); line-height:1.5; }
+
+    /* IMPACT LIST */
+    .da-impact { display:flex; flex-direction:column; gap:0; margin-top:24px; }
+    .da-impact-item {
+      display:grid; grid-template-columns:32px 1fr; gap:16px; align-items:start;
+      padding:18px 0; border-bottom:1px solid var(--line);
+    }
+    .da-impact-item:first-child { border-top:1px solid var(--line); }
+    .da-impact-num {
+      font-family:var(--font-d); font-size:11px; font-weight:700;
+      color:var(--accent); letter-spacing:0.08em; padding-top:2px;
+    }
+    .da-impact-title { font-size:14px; font-weight:600; color:var(--text); margin-bottom:4px; }
+    .da-impact-text { font-size:13px; color:var(--text-2); line-height:1.65; }
+
+    /* OUTCOMES GRID */
+    .da-outcomes { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-top:28px; }
+    .da-outcome-cell { background:var(--bg-1); padding:24px; transition:background 0.2s; }
+    .da-outcome-cell:hover { background:var(--bg-2); }
+    .da-outcome-n { font-family:var(--font-d); font-size:11px; font-weight:700; color:var(--accent); letter-spacing:0.1em; margin-bottom:8px; display:block; }
+    .da-outcome-title { font-size:14px; font-weight:600; color:var(--text); margin-bottom:6px; }
+    .da-outcome-text { font-size:13px; color:var(--text-2); line-height:1.65; }
+
+    /* SKILLS */
+    .da-skills { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:24px; }
+    .da-skill {
+      background:var(--bg-2); border:1px solid var(--line); border-radius:8px;
+      padding:14px 16px; display:flex; gap:12px; align-items:baseline;
+    }
+    .da-skill-num { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:0.08em; flex-shrink:0; }
+    .da-skill-body {}
+    .da-skill-name { font-size:13px; font-weight:600; color:var(--text); margin-bottom:2px; }
+    .da-skill-desc { font-size:12px; color:var(--text-3); line-height:1.5; }
+
+    /* COLORS */
+    .da-color-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; }
+    .da-swatch { display:flex; flex-direction:column; align-items:center; gap:6px; }
+    .da-swatch-dot { width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.08); }
+    .da-swatch-label { font-size:10px; color:var(--text-3); text-align:center; }
+    .da-swatch-hex { font-size:10px; color:var(--text-3); font-family:monospace; }
+
+    /* TIMELINE */
+    .da-timeline { display:flex; flex-direction:column; }
+    .da-tl-item { display:grid; grid-template-columns:120px 1fr; gap:20px; padding:18px 0; border-bottom:1px solid var(--line); }
+    .da-tl-item:first-child { border-top:1px solid var(--line); }
+    .da-tl-date { font-size:11px; color:var(--text-3); letter-spacing:0.04em; padding-top:2px; }
+    .da-tl-role { font-size:14px; font-weight:600; color:var(--text); margin-bottom:3px; }
+    .da-tl-desc { font-size:13px; color:var(--text-2); line-height:1.6; }
+
+    /* CLOSING */
+    .da-closing {
+      background:var(--bg-1); border:1px solid var(--line);
+      border-radius:12px; padding:52px 48px; text-align:center;
+    }
+    .da-closing-q {
+      font-family:var(--font-d); font-size:clamp(22px,3.2vw,40px);
+      font-weight:800; letter-spacing:-0.03em; line-height:1.1;
+      color:var(--text); margin-bottom:28px;
+    }
+    .da-closing-q em { font-style:normal; color:var(--accent); }
+    .da-closing-list { list-style:none; padding:0; margin:0 auto; max-width:560px; text-align:left; display:flex; flex-direction:column; gap:10px; }
+    .da-closing-list li { font-size:14px; color:var(--text-2); line-height:1.6; display:flex; gap:10px; }
+    .da-closing-list li::before { content:'→'; color:var(--accent); flex-shrink:0; }
+
+    @media (max-width:760px) {
+      .da-constraints, .da-outcomes, .da-skills { grid-template-columns:1fr; }
+      .da-audit { grid-template-columns:1fr 1fr; }
+      .da-ba { grid-template-columns:1fr; }
+      .da-ba-arrow { display:none; }
+      .da-nums { flex-wrap:wrap; }
+      .da-num-item { flex:1 1 50%; border-right:none; border-bottom:1px solid var(--line); }
+      .da-tl-item { grid-template-columns:1fr; gap:4px; }
+      .da-chain { gap:4px; }
+      .da-closing { padding:32px 20px; }
+    }
+    @media (max-width:520px) {
+      .da-audit { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<nav class="nav scrolled" id="nav">
+  <a href="../index.html" class="nav-logo">KL</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#work">Work</a></li>
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#contact" class="nav-cta">Get in touch ↗</a></li>
+  </ul>
+</nav>
+
+<article class="case-study">
+
+  <!-- HEADER -->
+  <header class="cs-header">
+    <div class="container">
+      <a href="../index.html#work" class="cs-back reveal-up">← Back to work</a>
+      <div class="cs-tags reveal-up">
+        <span class="tag">iOS · Android</span>
+        <span class="tag">0 → 1</span>
+        <span class="tag">UX Research</span>
+        <span class="tag">Design System</span>
+        <span class="tag">Product Strategy</span>
+      </div>
+      <h1 class="cs-title reveal-up">DanceAway</h1>
+      <p class="cs-subtitle reveal-up">Lead Product Designer for an early-stage mobile product connecting dancers, teachers, studios, organizers, and dance brands. I led research, UX strategy, mobile UI, design system, brand, and web — from 0→1.</p>
+      <p class="cs-subtitle reveal-up" style="margin-top:0;">The core product challenge: people in the dance ecosystem were scattered across disconnected platforms — making it hard to be discovered, build reputation, or find the right opportunities. DanceAway needed to turn that fragmented world into a structured mobile experience where different roles could connect around real needs.</p>
+
+      <div class="cs-meta reveal-up">
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Role</span>
+          <span class="cs-meta-value">Lead Product Designer</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Stage</span>
+          <span class="cs-meta-value">Pre-launch · Early-stage startup</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Timeline</span>
+          <span class="cs-meta-value">2022 – Present</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Tools</span>
+          <span class="cs-meta-value">Figma · FigJam · Condens · Webflow</span>
+        </div>
+      </div>
+
+      <div class="da-cta-row reveal-up">
+        <a href="https://www.figma.com/design/BxkMGFId0O1VSF13Afea0i/Mobile-App-Design?node-id=3347-37676&t=yLBHedRyafmlmMAK-1"
+           target="_blank" rel="noopener" class="da-btn">
+          Mobile App →
+        </a>
+        <a href="https://www.figma.com/design/dRduvcC0BT0tayBzWZq8Lb/Design-System---DanceAway?node-id=3366-39262&t=bia4sTenaucqrCev-1"
+           target="_blank" rel="noopener" class="da-btn da-btn--ghost">
+          Design System →
+        </a>
+        <span class="da-nda">Some product details are simplified due to NDA</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="cs-hero-img">
+    <div class="container">
+      <div class="cs-img-placeholder cs-img-placeholder--wide cs-img-placeholder--phones">
+        <div class="placeholder-phones large">
+          <div class="placeholder-phone"></div>
+          <div class="placeholder-phone placeholder-phone--main"></div>
+          <div class="placeholder-phone"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NUMBERS -->
+  <div class="container">
+    <div class="da-nums reveal-up">
+      <div class="da-num-item"><span class="da-num-n">15+</span><span class="da-num-l">User interviews</span></div>
+      <div class="da-num-item"><span class="da-num-n">31</span><span class="da-num-l">User statements</span></div>
+      <div class="da-num-item"><span class="da-num-n">37</span><span class="da-num-l">Platforms audited</span></div>
+      <div class="da-num-item"><span class="da-num-n">50+</span><span class="da-num-l">Screens designed</span></div>
+      <div class="da-num-item"><span class="da-num-n">50+</span><span class="da-num-l">Components built</span></div>
+      <div class="da-num-item"><span class="da-num-n">40+</span><span class="da-num-l">Reels produced</span></div>
+    </div>
+  </div>
+
+  <!-- ① WHERE I STARTED -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">01</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Where I started</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Role, team &amp; constraints</h2>
+        <p>Understanding the environment explains the scope of what I needed to build. I worked across product, research, UI, brand, content, and handoff — because the product was still being defined and the team was small.</p>
+
+        <div class="da-constraints">
+          <div class="da-constraint-cell">
+            <span class="da-constraint-label">My role &amp; team</span>
+            <ul class="da-constraint-list">
+              <li><strong>Role:</strong> Lead Product Designer</li>
+              <li><strong>Team:</strong> Founder · Developer · Content team · External collaborators</li>
+              <li><strong>Stage:</strong> Pre-launch / early-stage startup</li>
+              <li><strong>Reporting:</strong> No design manager — self-directed</li>
+            </ul>
+          </div>
+          <div class="da-constraint-cell">
+            <span class="da-constraint-label">Constraints I worked within</span>
+            <ul class="da-constraint-list">
+              <li>No prior UX process or design documentation</li>
+              <li>No design manager or feedback structure</li>
+              <li>Fast iteration with limited QA resources</li>
+              <li>Shifting product scope as research evolved</li>
+              <li>Responsible for research, design, and handoff simultaneously</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="margin-top:20px;font-size:14px;color:var(--text-3);font-style:italic;">
+          These constraints are why I built systems, not just deliverables.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② RESEARCH SYSTEM -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">02</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Research</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Research system built from scratch</h2>
+        <p>I designed the entire infrastructure — recruitment, screening, interview scripts, synthesis frameworks, and insight storage — so it was repeatable and scalable as the product evolved.</p>
+
+        <div class="da-steps">
+          <div class="da-step">
+            <div class="da-step-num">01</div>
+            <div>
+              <div class="da-step-title">Recruit &amp; Screen</div>
+              <div class="da-step-text">Instagram + Google Forms · 30–40 candidates per cycle · screened by segment and role</div>
+            </div>
+          </div>
+          <div class="da-step">
+            <div class="da-step-num">02</div>
+            <div>
+              <div class="da-step-title">Interview Scripts</div>
+              <div class="da-step-text">Structured per proto-persona · targeting goals, pain points, and behavioral triggers</div>
+            </div>
+          </div>
+          <div class="da-step">
+            <div class="da-step-num">03</div>
+            <div>
+              <div class="da-step-title">15+ Interviews</div>
+              <div class="da-step-text">Condens for live tagging · identified 6 core pain patterns across roles</div>
+            </div>
+          </div>
+          <div class="da-step">
+            <div class="da-step-num">04</div>
+            <div>
+              <div class="da-step-title">31 User Statements</div>
+              <div class="da-step-text">"When [context], I feel [emotion], because [reason], so I need [need]" — a format the team could use directly for decision-making</div>
+            </div>
+          </div>
+          <div class="da-step">
+            <div class="da-step-num">05</div>
+            <div>
+              <div class="da-step-title">5 Personas</div>
+              <div class="da-step-text">Assumption clusters validated against interview evidence · each tied to features and pain themes</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="margin-top:40px;">What users actually said</h2>
+        <div class="da-quotes">
+          <div class="da-quote">"I feel like all profiles look the same. There is no way to understand what style someone actually focuses on, or what makes them different."</div>
+          <div class="da-quote">"People don't understand what I do from my profile. I need a clearer way to show my style and focus — not just that I dance."</div>
+          <div class="da-quote">"Finding the right teacher is really hard. Everyone says 'I teach salsa' but that tells me nothing about their approach or who they work with."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ WHAT I DISCOVERED -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">03</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Discovery</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>From assumptions to a core insight</h2>
+
+        <div class="da-chain">
+          <div class="da-chain-item"><span class="da-chain-n">01</span><span class="da-chain-t">Team assumptions</span></div>
+          <span class="da-chain-arrow">→</span>
+          <div class="da-chain-item"><span class="da-chain-n">02</span><span class="da-chain-t">Proto-personas</span></div>
+          <span class="da-chain-arrow">→</span>
+          <div class="da-chain-item"><span class="da-chain-n">03</span><span class="da-chain-t">15+ Interviews</span></div>
+          <span class="da-chain-arrow">→</span>
+          <div class="da-chain-item"><span class="da-chain-n">04</span><span class="da-chain-t">Pattern found</span></div>
+          <span class="da-chain-arrow">→</span>
+          <div class="da-chain-item"><span class="da-chain-n">05</span><span class="da-chain-t">Product decision</span></div>
+          <span class="da-chain-arrow">→</span>
+          <div class="da-chain-item"><span class="da-chain-n">06</span><span class="da-chain-t">Product value</span></div>
+        </div>
+
+        <div class="cs-pull">
+          <p>"People in the dance ecosystem don't just need a profile — they need visibility. They want to be discovered for their specific role, style, focus, and unique value."</p>
+        </div>
+
+        <p>This insight became the foundation for onboarding redesign, profile structure, discovery logic, and future matching — not just a UX improvement, but a product-level shift.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ WHEN I SAW WHAT THE BRIEF MISSED -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">04</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Product thinking</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>When I saw what the brief missed</h2>
+        <p>My mentor advised starting with proto-personas — a standard approach. But as I mapped the ecosystem, I noticed something: we were only designing for dancers. Organizers, studios, and recruiters were completely invisible in our model.</p>
+
+        <div class="da-steps">
+          <div class="da-step">
+            <div class="da-step-num" style="color:var(--text-3);">→</div>
+            <div>
+              <div class="da-step-title">Original scope</div>
+              <div class="da-step-text">Dancers only. One user type. One research focus.</div>
+            </div>
+          </div>
+          <div class="da-step">
+            <div class="da-step-num" style="color:#EF4444;">!</div>
+            <div>
+              <div class="da-step-title">Risk I identified</div>
+              <div class="da-step-text">Organizers, studios, recruiters, and event promoters were absent from the model — but would shape how the product grows and monetizes.</div>
+            </div>
+          </div>
+          <div class="da-step">
+            <div class="da-step-num" style="color:var(--da-green);">✓</div>
+            <div>
+              <div class="da-step-title">My intervention</div>
+              <div class="da-step-text">Mapped the full dance ecosystem in parallel: all roles, their interactions, and what each segment needed from the product.</div>
+            </div>
+          </div>
+          <div class="da-step">
+            <div class="da-step-num" style="color:var(--accent);">↑</div>
+            <div>
+              <div class="da-step-title">Product impact</div>
+              <div class="da-step-text">Changed personas, onboarding logic, post types, and surfaced monetization paths we hadn't seen before.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-pull">
+          <p>"This is the difference between executing a brief and owning a product."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ CORE PRODUCT DECISION -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">05</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Core decision</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Bio → structured tags</h2>
+        <p>Research insight → UX decision → scalable product value. One screen redesign that changed the product's ability to create discovery.</p>
+
+        <div class="da-ba">
+          <div class="da-ba-card">
+            <span class="da-ba-label">Before</span>
+            <div class="da-ba-field">
+              <div class="da-ba-field-label">Write your bio</div>
+              <div class="da-ba-field-val">I've been dancing bachata for 6 years. I love connection and musicality in social dancing. I also teach beginners.</div>
+            </div>
+            <ul class="da-ba-list">
+              <li>Bio is unsearchable — data buried in free text</li>
+              <li>No way to filter or match by style or focus</li>
+              <li>Users don't know what to write</li>
+              <li>Platform can't extract structured signals</li>
+            </ul>
+          </div>
+          <div class="da-ba-arrow">→</div>
+          <div class="da-ba-card after">
+            <span class="da-ba-label">After</span>
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">What makes you unique?</div>
+            <div style="font-size:12px;color:var(--text-3);margin-bottom:12px;">We'll help turn your bio into searchable profile signals</div>
+            <div class="da-ba-tags">
+              <span class="da-tag">Bachata</span>
+              <span class="da-tag">Connection</span>
+              <span class="da-tag">Musicality</span>
+              <span class="da-tag">Beginner Teacher</span>
+            </div>
+            <ul class="da-ba-list">
+              <li>Profile searchable by role, style &amp; focus</li>
+              <li>Structured data enables better recommendations</li>
+              <li>Reduces friction — voice input &amp; auto-suggestions</li>
+              <li>Foundation for discovery, matching &amp; monetization</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑥ WIDER IMPACT -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">06</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Product impact</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>How the insight changed the product</h2>
+        <p>One research pattern rippled through the entire product structure.</p>
+
+        <div class="da-impact">
+          <div class="da-impact-item">
+            <div class="da-impact-num">01</div>
+            <div>
+              <div class="da-impact-title">Expanded the user model</div>
+              <div class="da-impact-text">Moved from 'dancers only' to full ecosystem: organizers, studios, recruiters, event promoters.</div>
+            </div>
+          </div>
+          <div class="da-impact-item">
+            <div class="da-impact-num">02</div>
+            <div>
+              <div class="da-impact-title">Bio → structured profile tags</div>
+              <div class="da-impact-text">Turned free-text bio into searchable signals. Foundation for discovery, matching, and future monetization.</div>
+            </div>
+          </div>
+          <div class="da-impact-item">
+            <div class="da-impact-num">03</div>
+            <div>
+              <div class="da-impact-title">Separated account creation from profile setup</div>
+              <div class="da-impact-text">Split onboarding into intent-first steps to reduce cognitive load and collect better data at each stage.</div>
+            </div>
+          </div>
+          <div class="da-impact-item">
+            <div class="da-impact-num">04</div>
+            <div>
+              <div class="da-impact-title">Content types in feed</div>
+              <div class="da-impact-text">Defined distinct logic for Article, Event, Job, Huddle, Social Post, Merch, Venue — separate goals, layouts, permissions.</div>
+            </div>
+          </div>
+          <div class="da-impact-item">
+            <div class="da-impact-num">05</div>
+            <div>
+              <div class="da-impact-title">Persona-based post creation</div>
+              <div class="da-impact-text">Post creation logic varies by account type, reducing cognitive load and irrelevant options per role.</div>
+            </div>
+          </div>
+          <div class="da-impact-item">
+            <div class="da-impact-num">06</div>
+            <div>
+              <div class="da-impact-title">Discovery &amp; matching foundation</div>
+              <div class="da-impact-text">Structured tags created the data layer needed for search, recommendations, and future matching logic.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENS -->
+  <div class="cs-img-row">
+    <div class="container">
+      <div class="cs-img-grid cs-img-grid--2">
+        <div class="cs-img-placeholder"><p class="cs-img-note">Onboarding flow</p></div>
+        <div class="cs-img-placeholder"><p class="cs-img-note">Profile &amp; tags</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="cs-img-full">
+    <div class="cs-img-placeholder cs-img-placeholder--wide">
+      <p class="cs-img-note">Full screens — assets/images/danceaway-full.jpg</p>
+    </div>
+  </div>
+  <div class="cs-img-row">
+    <div class="container">
+      <div class="cs-img-grid cs-img-grid--3">
+        <div class="cs-img-placeholder"><p class="cs-img-note">Feed / post types</p></div>
+        <div class="cs-img-placeholder"><p class="cs-img-note">Discovery</p></div>
+        <div class="cs-img-placeholder"><p class="cs-img-note">Profile</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑦ COMPETITIVE AUDIT -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">07</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Research</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>37-platform competitive audit</h2>
+        <p>Not a UI teardown — a business intelligence exercise. 37 platforms across 6 market segments, analyzed for positioning, feature gaps, monetization models, UX friction, and tone of voice.</p>
+
+        <div class="da-audit">
+          <div class="da-audit-item"><span class="da-audit-num">01</span><div class="da-audit-name">Dance Learning</div><div class="da-audit-desc">Curriculum, video-led, skill progression</div></div>
+          <div class="da-audit-item"><span class="da-audit-num">02</span><div class="da-audit-name">Events &amp; Ticketing</div><div class="da-audit-desc">Discovery, booking flows, organizer tools</div></div>
+          <div class="da-audit-item"><span class="da-audit-num">03</span><div class="da-audit-name">Talent Marketplaces</div><div class="da-audit-desc">Hiring, portfolio, recruiter-dancer match</div></div>
+          <div class="da-audit-item"><span class="da-audit-num">04</span><div class="da-audit-name">Studio Management</div><div class="da-audit-desc">Scheduling, retention, business tools</div></div>
+          <div class="da-audit-item"><span class="da-audit-num">05</span><div class="da-audit-name">Social &amp; Community</div><div class="da-audit-desc">Short video, discovery, dance-adjacent</div></div>
+          <div class="da-audit-item"><span class="da-audit-num">06</span><div class="da-audit-name">Fitness &amp; Lifestyle</div><div class="da-audit-desc">Indirect competitors, overlapping intent</div></div>
+        </div>
+        <p style="margin-top:16px;font-size:13px;color:var(--text-3);">Output: strategic differentiation brief — what no competitor was doing, and where DanceAway could own a unique position.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑧ DESIGN SYSTEM -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">08</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Design System</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>50+ components · built before scaling screens</h2>
+        <p>I built the component library before designing flows — not after. This prevented design debt, ensured consistency across 50+ screens, and gave developers a clean handoff with all interaction states documented.</p>
+
+        <div class="da-color-row">
+          <div class="da-swatch"><div class="da-swatch-dot" style="background:#CBD7F6;"></div><span class="da-swatch-label">Primary</span><span class="da-swatch-hex">#CBD7F6</span></div>
+          <div class="da-swatch"><div class="da-swatch-dot" style="background:#F3F4F6;border-color:rgba(255,255,255,0.1);"></div><span class="da-swatch-label">Surface</span><span class="da-swatch-hex">#F3F4F6</span></div>
+          <div class="da-swatch"><div class="da-swatch-dot" style="background:#0D0D0D;"></div><span class="da-swatch-label">On Surface</span><span class="da-swatch-hex">#0D0D0D</span></div>
+          <div class="da-swatch"><div class="da-swatch-dot" style="background:#6B7280;"></div><span class="da-swatch-label">Muted</span><span class="da-swatch-hex">#6B7280</span></div>
+          <div class="da-swatch"><div class="da-swatch-dot" style="background:#22C55E;"></div><span class="da-swatch-label">Success</span><span class="da-swatch-hex">#22C55E</span></div>
+          <div class="da-swatch"><div class="da-swatch-dot" style="background:#EF4444;"></div><span class="da-swatch-label">Error</span><span class="da-swatch-hex">#EF4444</span></div>
+        </div>
+
+        <p style="margin-top:20px;font-size:13px;color:var(--text-2);">Components: Buttons · Inputs · Cards · Navigation · Tags · Alerts · Modals · States · Progress · Calendar · Avatar</p>
+        <p style="font-size:13px;color:var(--text-2);">Typography scale: Display 32px bold · Heading 20px semi · Body 14px regular · Caption 11px regular</p>
+
+        <div style="margin-top:20px;">
+          <img src="../assets/images/danceaway-colors.png" alt="DanceAway colour system" style="width:100%;display:block;border-radius:8px;border:1px solid var(--line);" />
+        </div>
+
+        <div class="da-cta-row" style="margin-top:20px;">
+          <a href="https://www.figma.com/design/dRduvcC0BT0tayBzWZq8Lb/Design-System---DanceAway?node-id=3366-39262&t=bia4sTenaucqrCev-1"
+             target="_blank" rel="noopener" class="da-btn">View Design System →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑨ OUTCOMES -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">09</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Outcomes</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>What I actually delivered</h2>
+        <p>Concrete outcomes — not just tasks completed.</p>
+
+        <div class="da-outcomes">
+          <div class="da-outcome-cell">
+            <span class="da-outcome-n">01</span>
+            <div class="da-outcome-title">Built UX research from zero</div>
+            <div class="da-outcome-text">No process existed. I designed the full system: recruitment, scripts, templates, Condens tagging, insight storage — used by the whole team.</div>
+          </div>
+          <div class="da-outcome-cell">
+            <span class="da-outcome-n">02</span>
+            <div class="da-outcome-title">15+ interviews, 31 user statements</div>
+            <div class="da-outcome-text">Ran every session myself. Synthesized patterns into structured statements that directly shaped product and design decisions.</div>
+          </div>
+          <div class="da-outcome-cell">
+            <span class="da-outcome-n">03</span>
+            <div class="da-outcome-title">Expanded the product's user model</div>
+            <div class="da-outcome-text">Identified that proto-personas covered only dancers. Mapped the full ecosystem — changing product scope, onboarding, and monetization paths.</div>
+          </div>
+          <div class="da-outcome-cell">
+            <span class="da-outcome-n">04</span>
+            <div class="da-outcome-title">37-platform competitive audit</div>
+            <div class="da-outcome-text">Created a reusable audit framework across 6 market segments. Output: a strategic differentiation brief for the product team.</div>
+          </div>
+          <div class="da-outcome-cell">
+            <span class="da-outcome-n">05</span>
+            <div class="da-outcome-title">50+ screens + design system</div>
+            <div class="da-outcome-text">Built the component library before scaling screens. 50+ components with tokens, states, and documentation for clean developer handoff.</div>
+          </div>
+          <div class="da-outcome-cell">
+            <span class="da-outcome-n">06</span>
+            <div class="da-outcome-title">Bio → structured tags redesign</div>
+            <div class="da-outcome-text">Turned a free-text field into searchable profile signals. Created foundation for discovery, matching, and future monetization.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑩ HOW I WORK -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">10</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Skills</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>What this work maps to</h2>
+
+        <div class="da-skills">
+          <div class="da-skill"><span class="da-skill-num">01</span><div><div class="da-skill-name">UX Research &amp; Synthesis</div><div class="da-skill-desc">Built the system from scratch — recruitment, scripts, Condens, patterns</div></div></div>
+          <div class="da-skill"><span class="da-skill-num">02</span><div><div class="da-skill-name">Figma — screens &amp; variables</div><div class="da-skill-desc">50+ screens, tokens, semantic colors, all interaction states documented</div></div></div>
+          <div class="da-skill"><span class="da-skill-num">03</span><div><div class="da-skill-name">User Interviews</div><div class="da-skill-desc">15+ sessions, synthesis into 31 structured user statements</div></div></div>
+          <div class="da-skill"><span class="da-skill-num">04</span><div><div class="da-skill-name">Competitive Audit</div><div class="da-skill-desc">37 platforms, 6 segments — strategy brief, not a UI teardown</div></div></div>
+          <div class="da-skill"><span class="da-skill-num">05</span><div><div class="da-skill-name">Design System (mobile)</div><div class="da-skill-desc">50+ components, tokens, states — handoff-ready</div></div></div>
+          <div class="da-skill"><span class="da-skill-num">06</span><div><div class="da-skill-name">TestFlight UX Review</div><div class="da-skill-desc">Reviewed builds before release, flagged usability gaps pre-launch</div></div></div>
+          <div class="da-skill"><span class="da-skill-num">07</span><div><div class="da-skill-name">Webflow</div><div class="da-skill-desc">Built and launched full website — design + implementation</div></div></div>
+          <div class="da-skill"><span class="da-skill-num">08</span><div><div class="da-skill-name">Cross-functional coordination</div><div class="da-skill-desc">Founder, developer, content team — translated between all</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="cs-section">
+    <div class="container">
+      <div class="da-closing reveal-up">
+        <p class="da-closing-q">I joined to make things.<br><em>I ended up building systems.</em></p>
+        <ul class="da-closing-list">
+          <li>I can enter ambiguity and create structure where there was none.</li>
+          <li>I can build research systems from zero and translate them into product decisions.</li>
+          <li>I think about user needs, business goals, and product scalability together.</li>
+          <li>I design scalable mobile systems — not just individual screens.</li>
+          <li>I work independently in early-stage teams and define my own scope.</li>
+        </ul>
+        <div class="da-cta-row" style="justify-content:center;margin-top:36px;">
+          <a href="https://www.figma.com/design/BxkMGFId0O1VSF13Afea0i/Mobile-App-Design?node-id=3347-37676&t=yLBHedRyafmlmMAK-1"
+             target="_blank" rel="noopener" class="da-btn">View Mobile App in Figma →</a>
+          <a href="https://www.figma.com/design/dRduvcC0BT0tayBzWZq8Lb/Design-System---DanceAway?node-id=3366-39262&t=bia4sTenaucqrCev-1"
+             target="_blank" rel="noopener" class="da-btn da-btn--ghost">Design System →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAV -->
+  <div class="cs-nav-projects">
+    <div class="container">
+      <a href="tracking-platform.html" class="cs-nav-back">← Tracking Platform</a>
+      <a href="../index.html#work" class="cs-nav-next">All projects →</a>
+    </div>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="container">
+    <span class="footer-name">Kateryna Levoniuk</span>
+    <span class="footer-copy">© 2025 · Product Designer · Barcelona</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

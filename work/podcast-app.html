@@ -1,0 +1,1392 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Podreads — Podcast Mobile App. UX/UI Case Study by Kateryna Levoniuk." />
+  <title>Podreads — Podcast App · Kateryna Levoniuk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --surface2: #181818;
+      --line: rgba(255,255,255,0.07);
+      --text: #f0ede8;
+      --text2: rgba(240,237,232,0.5);
+      --text3: rgba(240,237,232,0.25);
+      --accent: #cbd7f6;
+      --red: #FF3A46;
+      --yellow: #FFBF00;
+      --navy: #0B1736;
+      --ease: cubic-bezier(0.16,1,0.3,1);
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+
+    /* ── CURSOR ── */
+    .cursor { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s; }
+    .cursor-f { width: 36px; height: 36px; border: 1px solid rgba(203,215,246,.35); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); }
+    @media (max-width: 640px) { .cursor, .cursor-f { display: none; } body { cursor: auto; } }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(10,10,10,.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: .1em; }
+    .nav-back { font-size: 13px; color: var(--text2); transition: color .2s; }
+    .nav-back:hover { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    .nav-right a { font-size: 13px; color: var(--text2); transition: color .2s; }
+    .nav-right a:hover { color: var(--text); }
+    .nav-cta { color: var(--accent) !important; font-weight: 500; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+    .reveal-left.in { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+    .reveal-right.in { opacity: 1; transform: translateX(0); }
+    .reveal-scale { opacity: 0; transform: scale(.94); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+    .reveal-scale.in { opacity: 1; transform: scale(1); }
+    .d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; } .d3 { transition-delay: .24s; } .d4 { transition-delay: .32s; } .d5 { transition-delay: .4s; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100svh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 80px 48px 72px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #0B1736 0%, #0a0a0a 55%);
+    }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: .18; }
+    .hero-noise { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E"); }
+    .hero-inner { position: relative; z-index: 2; max-width: 1160px; margin: 0 auto; width: 100%; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text3); border: 1px solid rgba(255,255,255,.1); padding: 7px 16px; border-radius: 100px; margin-bottom: 36px; }
+    .hero-dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; animation: blink 1.8s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1}50%{opacity:.3} }
+    .hero-title { font-family: 'Syne', sans-serif; font-size: clamp(52px, 9vw, 128px); font-weight: 800; line-height: .92; letter-spacing: -.04em; margin-bottom: 32px; }
+    .hero-title span { color: var(--red); }
+    .hero-sub { font-size: 17px; color: var(--text2); line-height: 1.7; max-width: 560px; margin-bottom: 48px; }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 60px; }
+    .pill { font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; padding: 7px 16px; border-radius: 100px; border: 1px solid rgba(255,255,255,.12); color: var(--text2); }
+    .pill--red { border-color: rgba(255,58,70,.3); color: var(--red); }
+    .hero-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .hero-meta-item { background: transparent; padding: 20px 0; }
+    .hero-meta-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
+    .hero-meta-val { font-size: 14px; font-weight: 500; }
+    .hero-mockup { position: absolute; right: 48px; bottom: 0; width: 42%; max-width: 600px; z-index: 3; transform: translateY(20px) rotate(3deg); transition: transform .6s var(--ease); }
+    .hero-mockup:hover { transform: translateY(8px) rotate(1deg); }
+
+    /* ── CONTAINER ── */
+    .w { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+
+    /* ── SECTION LABELS ── */
+    .label { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text3); display: block; margin-bottom: 20px; }
+
+    /* ── CHAPTER INTRO ── */
+    .chapter { padding: 120px 0 80px; }
+    .chapter-num { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; display: block; }
+    .chapter-title { font-family: 'Syne', sans-serif; font-size: clamp(36px, 5vw, 64px); font-weight: 800; letter-spacing: -.03em; line-height: 1.02; margin-bottom: 0; }
+    .chapter-title em { font-style: normal; color: var(--accent); }
+    .chapter-body { font-size: 17px; color: var(--text2); line-height: 1.8; max-width: 600px; }
+
+    /* ── TWO COL ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .two-col--wide { grid-template-columns: 1.2fr 1fr; }
+    .two-col-text h2 { font-family: 'Syne', sans-serif; font-size: clamp(24px, 3vw, 36px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; margin-bottom: 16px; }
+    .two-col-text p { font-size: 16px; color: var(--text2); line-height: 1.8; margin-bottom: 16px; }
+    .two-col-text p:last-child { margin-bottom: 0; }
+
+    /* ── FULL IMG ── */
+    .full-img { margin: 0; overflow: hidden; }
+    .full-img img { width: 100%; display: block; transform: scale(1.02); transition: transform 8s linear; }
+    .full-img.in img { transform: scale(1); }
+
+    /* ── CONTAINED IMG ── */
+    .contained-img { padding: 0 48px; }
+    .contained-img img { border-radius: 12px; max-width: 1160px; margin: 0 auto; }
+
+    /* ── IMG GRID ── */
+    .img-grid { display: grid; gap: 2px; }
+    .img-grid--2 { grid-template-columns: 1fr 1fr; }
+    .img-grid--3 { grid-template-columns: 1fr 1fr 1fr; }
+    .img-grid img { transition: transform .6s var(--ease); }
+    .img-grid img:hover { transform: scale(1.02); }
+
+    /* ── STAT STRIP ── */
+    .stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 60px 0; }
+    .stat-item { background: var(--surface); padding: 40px 36px; }
+    .stat-n { font-family: 'Syne', sans-serif; font-size: 52px; font-weight: 800; color: var(--accent); letter-spacing: -.04em; line-height: 1; display: block; margin-bottom: 8px; }
+    .stat-l { font-size: 14px; color: var(--text2); }
+    .stat-n.counting { color: var(--red); }
+
+    /* ── FEEDBACK CARDS ── */
+    .feedback-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .feedback-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 28px 32px; font-size: 15px; color: var(--text2); line-height: 1.7; font-style: italic; position: relative; }
+    .feedback-card::before { content: '"'; font-family: 'Syne', sans-serif; font-size: 64px; color: var(--red); opacity: .2; position: absolute; top: 8px; left: 24px; line-height: 1; }
+    .feedback-card p { padding-top: 24px; }
+
+    /* ── PROBLEM SECTION ── */
+    .problem-section { padding: 100px 0; border-top: 1px solid var(--line); }
+    .problem-tag { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,58,70,.08); border: 1px solid rgba(255,58,70,.2); color: var(--red); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 7px 16px; border-radius: 100px; margin-bottom: 24px; }
+    .problem-num { background: var(--red); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+    .problem-title { font-family: 'Syne', sans-serif; font-size: clamp(32px, 4.5vw, 56px); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; margin-bottom: 16px; }
+    .problem-desc { font-size: 16px; color: var(--text2); line-height: 1.75; max-width: 520px; }
+    .problem-insight { font-size: 14px; color: var(--text2); line-height: 1.7; padding: 24px; background: var(--surface); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; margin-top: 24px; }
+
+    /* ── PROCESS STEPS ── */
+    .process-timeline { display: flex; flex-direction: column; gap: 0; border-left: 1px solid var(--line); margin-left: 24px; padding-left: 40px; margin-top: 60px; }
+    .process-step { padding: 32px 0; border-bottom: 1px solid var(--line); position: relative; }
+    .process-step::before { content: ''; width: 10px; height: 10px; background: var(--red); border-radius: 50%; position: absolute; left: -45px; top: 38px; border: 2px solid var(--bg); }
+    .process-step:last-child { border-bottom: none; }
+    .process-step-num { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: block; }
+    .process-step h3 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .process-step p { font-size: 15px; color: var(--text2); line-height: 1.7; }
+
+    /* ── GOAL CARD ── */
+    .goal-card { background: var(--yellow); color: #111; border-radius: 16px; padding: 48px; margin: 60px 0; }
+    .goal-card h2 { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 20px; }
+    .goal-card p { font-size: 16px; line-height: 1.75; margin-bottom: 12px; opacity: .75; }
+    .goal-card .goal-highlight { background: rgba(0,0,0,.08); border-radius: 8px; padding: 20px 24px; margin-top: 16px; font-size: 15px; font-weight: 500; line-height: 1.7; }
+    .goal-card .goal-highlight span { color: var(--red); font-weight: 700; }
+
+    /* ── COLOR PALETTE ── */
+    .palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 40px; }
+    .palette-swatch { border-radius: 10px; aspect-ratio: 1; display: flex; align-items: flex-end; padding: 14px; font-size: 12px; font-weight: 600; }
+    .palette-swatch--red { background: #FF3A46; color: white; }
+    .palette-swatch--navy1 { background: #0B1736; color: rgba(255,255,255,.6); }
+    .palette-swatch--navy2 { background: #14213E; color: rgba(255,255,255,.5); }
+    .palette-swatch--yellow { background: #FFBF00; color: rgba(0,0,0,.7); }
+    .palette-swatch--gray { background: #B6BBC3; color: rgba(0,0,0,.6); }
+
+    /* ── HORIZONTAL SCROLL PHONES ── */
+    .h-scroll-wrap { overflow: hidden; padding: 48px 0; }
+    .h-scroll-track { display: flex; gap: 20px; padding: 0 48px; animation: hscroll 30s linear infinite; width: max-content; }
+    .h-scroll-track:hover { animation-play-state: paused; }
+    .h-scroll-phone { flex-shrink: 0; width: 220px; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); }
+    .h-scroll-phone img { width: 100%; }
+    @keyframes hscroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* ── QUOTE BLOCK ── */
+    .big-quote { padding: 100px 48px; text-align: center; }
+    .big-quote blockquote { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; letter-spacing: -.03em; max-width: 900px; margin: 0 auto 24px; }
+    .big-quote blockquote em { font-style: normal; color: var(--accent); }
+    .big-quote cite { font-size: 13px; color: var(--text3); letter-spacing: .08em; text-transform: uppercase; }
+
+    /* ── DARK CARD ── */
+    .dark-card { background: var(--navy); border-radius: 16px; overflow: hidden; margin: 60px 0; }
+    .dark-card img { width: 100%; }
+
+    /* ── RED BG ── */
+    .red-bg { background: var(--red); border-radius: 16px; overflow: hidden; margin: 60px 0; }
+
+    /* ── YELLOW BG ── */
+    .yellow-bg { background: var(--yellow); border-radius: 16px; overflow: hidden; margin: 60px 0; }
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider { height: 1px; background: var(--line); margin: 0; }
+
+    /* ── OUTRO ── */
+    .outro { padding: 140px 48px; text-align: center; background: radial-gradient(ellipse at 50% 100%, rgba(203,215,246,.06) 0%, transparent 70%); }
+    .outro h2 { font-family: 'Syne', sans-serif; font-size: clamp(40px, 6vw, 80px); font-weight: 800; letter-spacing: -.04em; line-height: 1; margin-bottom: 24px; }
+    .outro h2 em { font-style: normal; color: var(--red); }
+    .outro p { font-size: 18px; color: var(--text2); margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .outro-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-red { background: var(--red); color: white; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; padding: 14px 28px; border-radius: 100px; transition: background .2s, transform .15s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-red:hover { background: #e02030; transform: translateY(-1px); }
+    .btn-outline { border: 1px solid var(--line); color: var(--text2); font-size: 14px; padding: 13px 28px; border-radius: 100px; transition: border-color .2s, color .2s; display: inline-flex; align-items: center; }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── NAV BETWEEN ── */
+    .between-nav { display: flex; justify-content: space-between; padding: 40px 0; border-top: 1px solid var(--line); margin-top: 0; }
+    .between-nav a { font-size: 14px; color: var(--text2); transition: color .2s; }
+    .between-nav a:hover { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--line); padding: 28px 48px; display: flex; justify-content: space-between; }
+    footer span { font-size: 12px; color: var(--text3); letter-spacing: .04em; }
+
+    /* ── PARALLAX HOST ── */
+    .parallax-wrap { overflow: hidden; }
+    .parallax-img { will-change: transform; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .w { padding: 0 24px; }
+      nav { padding: 0 24px; }
+      .hero { padding: 80px 24px 60px; }
+      .hero-mockup { display: none; }
+      .hero-meta { grid-template-columns: repeat(2,1fr); }
+      .two-col, .two-col--wide { grid-template-columns: 1fr; gap: 40px; }
+      .feedback-grid { grid-template-columns: 1fr; }
+      .stat-strip { grid-template-columns: 1fr; }
+      .palette { grid-template-columns: repeat(3,1fr); }
+      .contained-img { padding: 0 24px; }
+      .h-scroll-track { padding: 0 24px; }
+      .big-quote { padding: 72px 24px; }
+      .outro { padding: 100px 24px; }
+      footer { padding: 24px; flex-direction: column; gap: 8px; }
+      .between-nav { flex-direction: column; gap: 12px; }
+    }
+    @media (max-width: 640px) {
+      .img-grid--2, .img-grid--3 { grid-template-columns: 1fr; }
+      .palette { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal-left, .reveal-right, .reveal-scale { opacity: 1; transform: none; transition: none; }
+      .h-scroll-track { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cur"></div>
+  <div class="cursor-f" id="curf"></div>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">KL</a>
+    <div class="nav-right">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact" class="nav-cta">Get in touch ↗</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       HERO
+  ════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="../assets/images/Slice_2.jpg" alt="" aria-hidden="true" />
+    </div>
+    <div class="hero-noise"></div>
+
+    <div class="hero-inner">
+      <div class="hero-eyebrow reveal">
+        <span class="hero-dot"></span>
+        UX/UI Case Study · Mobile App
+      </div>
+
+      <h1 class="hero-title reveal d1">
+        Pod<span>Reads</span>
+      </h1>
+
+      <p class="hero-sub reveal d2">
+        A podcast app that lets you both <em>listen to and read</em> your favourite shows — designed from zero based on real user research.
+      </p>
+
+      <div class="hero-pills reveal d3">
+        <span class="pill pill--red">iOS · Android</span>
+        <span class="pill">UX Research</span>
+        <span class="pill">Design Systems</span>
+        <span class="pill">0→1 Product</span>
+        <span class="pill">50+ Screens</span>
+      </div>
+
+      <div class="hero-meta reveal d4">
+        <div class="hero-meta-item">
+          <div class="hero-meta-label">Role</div>
+          <div class="hero-meta-val">Lead UX/UI Designer</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-label">Type</div>
+          <div class="hero-meta-val">Freelance · Personal Project</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-label">Deliverables</div>
+          <div class="hero-meta-val">Research · IA · UI · Prototype</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-label">Tools</div>
+          <div class="hero-meta-val">Figma · FigJam · Maze</div>
+        </div>
+      </div>
+    </div>
+
+    <img class="hero-mockup" src="../assets/images/Slice_2.jpg" alt="Podreads app screens" />
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       OVERVIEW
+  ════════════════════════════════════════ -->
+  <section class="chapter" style="padding-bottom: 0;">
+    <div class="w">
+      <div class="two-col">
+        <div class="two-col-text">
+          <span class="chapter-num reveal">01 — The Idea</span>
+          <h2 class="chapter-title reveal d1">Bringing podcasts<br /><em>together with reading</em></h2>
+        </div>
+        <div class="reveal d2">
+          <p style="font-size:16px; color:var(--text2); line-height:1.8;">Podreads is an innovative app that changes how users interact with podcasts. Unlike competitors, it lets you both listen to and read your favorite shows — enhancing the experience for different contexts and needs.</p>
+          <p style="font-size:16px; color:var(--text2); line-height:1.8; margin-top:16px;">Whether you prefer listening on the go or reading, Podreads offers a flexible way to enjoy podcasts like never before.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full width overview image -->
+  <div style="padding: 60px 48px;">
+    <div class="reveal-scale">
+      <img src="../assets/images/Slice_1.jpg" alt="Project overview" style="border-radius:16px;" />
+    </div>
+  </div>
+
+  <!-- Stat strip -->
+  <div class="w">
+    <div class="stat-strip">
+      <div class="stat-item reveal">
+        <span class="stat-n" data-target="8">0</span>
+        <span class="stat-l">Survey participants</span>
+      </div>
+      <div class="stat-item reveal d1">
+        <span class="stat-n" data-target="6">0</span>
+        <span class="stat-l">Problem statements identified</span>
+      </div>
+      <div class="stat-item reveal d2">
+        <span class="stat-n" data-target="50">0</span>
+        <span class="stat-l">Screens designed</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       DESIGN PROCESS
+  ════════════════════════════════════════ -->
+  <section style="padding: 100px 0 60px;">
+    <div class="w">
+      <span class="label reveal">02 — Design Process</span>
+      <div class="two-col" style="align-items: start; gap: 60px;">
+        <div>
+          <h2 class="chapter-title reveal d1">A human-centred<br /><em>design thinking</em><br />framework</h2>
+          <p class="reveal d2" style="font-size:16px; color:var(--text2); line-height:1.8; margin-top:24px;">I used the design thinking framework, emphasizing research and empathy before touching the UI — making sure the product would be not only functional but aligned with real user needs.</p>
+        </div>
+        <div class="process-timeline">
+          <div class="process-step reveal">
+            <span class="process-step-num">Empathize</span>
+            <h3>Survey</h3>
+            <p>8 participants. Gathered insights into user habits, preferences, and pain points around podcast listening.</p>
+          </div>
+          <div class="process-step reveal d1">
+            <span class="process-step-num">Define</span>
+            <h3>Problem Statement + Goal</h3>
+            <p>Synthesised survey data into 6 core problem statements representing distinct user types and needs.</p>
+          </div>
+          <div class="process-step reveal d2">
+            <span class="process-step-num">Ideate</span>
+            <h3>User Flow + Information Architecture</h3>
+            <p>Mapped every path through the app, from discovery to segment saving — covering edge cases and decision branches.</p>
+          </div>
+          <div class="process-step reveal d3">
+            <span class="process-step-num">Prototype</span>
+            <h3>Lo-Fi → Hi-Fi Wireframes</h3>
+            <p>Started with hand sketches to explore variations before moving to detailed Figma screens.</p>
+          </div>
+          <div class="process-step reveal d4">
+            <span class="process-step-num">Test</span>
+            <h3>Usability Testing with Eye Tracking</h3>
+            <p>Conducted eye-tracking usability tests to identify visual hierarchy issues and navigation gaps.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURVEY DATA BLOCK — вставити замість img Slice_5.jpg -->
+  <div class="w" style="padding: 56px 48px;">
+
+    <style>
+      .sv-q-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+      .sv-q { font-size: 20px; font-weight: 500; color: var(--text); margin-bottom: 2rem; line-height: 1.35; }
+      .sv-bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+      @media (max-width: 640px) { .sv-bars { grid-template-columns: 1fr; } }
+      .sv-track { height: 4px; background: rgba(255,255,255,.1); border-radius: 2px; margin-bottom: 14px; overflow: hidden; }
+      .sv-fill { height: 100%; border-radius: 2px; background: var(--red); width: 0; transition: width 1.2s cubic-bezier(.16,1,.3,1); }
+      .sv-pct { font-size: 36px; font-weight: 800; font-family: 'Syne', sans-serif; color: var(--text); letter-spacing: -.03em; margin-bottom: 6px; }
+      .sv-lbl { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+      .sv-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+      .sv-divider { height: 1px; background: var(--line); margin: 48px 0; }
+    </style>
+
+    <!-- Question 1 -->
+    <p class="sv-q-label">Quantitative data</p>
+    <p class="sv-q">What is your main goal when listening to podcasts?</p>
+    <div class="sv-bars" id="sv1">
+      <div>
+        <div class="sv-track"><div class="sv-fill" data-w="54.5"></div></div>
+        <div class="sv-pct" data-to="54.5">0%</div>
+        <div class="sv-lbl">Listen to something new</div>
+        <div class="sv-desc">Most participants listen to discover something new and expand their knowledge.</div>
+      </div>
+      <div>
+        <div class="sv-track"><div class="sv-fill" data-w="18.2"></div></div>
+        <div class="sv-pct" data-to="18.2">0%</div>
+        <div class="sv-lbl">Learn interesting information</div>
+        <div class="sv-desc">A significant portion values educational content and seeks to acquire new insights.</div>
+      </div>
+      <div>
+        <div class="sv-track"><div class="sv-fill" data-w="9.1"></div></div>
+        <div class="sv-pct" data-to="9.1">0%</div>
+        <div class="sv-lbl">Self-development & motivation</div>
+        <div class="sv-desc">A smaller share listens for personal growth, rising skills, and guidance.</div>
+      </div>
+    </div>
+
+    <div class="sv-divider"></div>
+
+    <!-- Question 2 -->
+    <p class="sv-q-label">Quantitative data</p>
+    <p class="sv-q">Can you envision a life without podcasts?</p>
+    <div class="sv-bars" id="sv2">
+      <div>
+        <div class="sv-track"><div class="sv-fill" data-w="50"></div></div>
+        <div class="sv-pct" data-to="50">0%</div>
+        <div class="sv-lbl">Yes</div>
+        <div class="sv-desc">Some find podcasts valuable — listening to experts and learning from their experiences.</div>
+      </div>
+      <div>
+        <div class="sv-track"><div class="sv-fill" data-w="38"></div></div>
+        <div class="sv-pct" data-to="38">0%</div>
+        <div class="sv-lbl">No</div>
+        <div class="sv-desc">Others believe similar content is available through YouTube or audiobooks.</div>
+      </div>
+      <div>
+        <div class="sv-track"><div class="sv-fill" data-w="12"></div></div>
+        <div class="sv-pct" data-to="12">0%</div>
+        <div class="sv-lbl">Other</div>
+        <div class="sv-desc">Podcasts are often consumed in the background; some don't need visuals at all.</div>
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        function runSurvey(root) {
+          root.querySelectorAll('.sv-fill[data-w]').forEach(el => {
+            el.style.width = el.dataset.w + '%';
+          });
+          root.querySelectorAll('.sv-pct[data-to]').forEach(el => {
+            const target = parseFloat(el.dataset.to);
+            const dur = 1200;
+            const t0 = performance.now();
+            (function tick(now) {
+              const p = Math.min((now - t0) / dur, 1);
+              const ease = 1 - Math.pow(1 - p, 3);
+              el.textContent = (ease * target).toFixed(1) + '%';
+              if (p < 1) requestAnimationFrame(tick);
+              else el.textContent = target + '%';
+            })(t0);
+          });
+        }
+        ['sv1','sv2'].forEach(id => {
+          const el = document.getElementById(id);
+          const io = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) { runSurvey(el); io.disconnect(); }
+          }, { threshold: 0.25 });
+          io.observe(el);
+        });
+      })();
+    </script>
+
+  </div>
+
+  <div class="section-divider" style="margin-top: 60px;"></div>
+
+  <!-- ═══════════════════════════════════════
+       SURVEY
+  ════════════════════════════════════════ -->
+  <section style="padding: 100px 0 60px;">
+    <div class="w">
+      <span class="label reveal">03 — UX Research</span>
+      <div class="two-col" style="align-items: start;">
+        <div>
+          <h2 class="chapter-title reveal d1">Survey:<br /><em>8 participants,</em><br />real answers</h2>
+          <p class="reveal d2" style="font-size:16px; color:var(--text2); line-height:1.8; margin-top:24px;">I aimed to gather insights into user habits, preferences, and pain points related to podcast listening — asking what people actually use today and what they're missing.</p>
+        </div>
+        <div class="reveal d2" style="display: flex; flex-direction: column; gap: 16px; padding-top: 48px;">
+          <div class="feedback-card">
+            <p>"I personally haven't found any good podcast apps, so I just listen to them on Telegram or watch on YouTube."</p>
+          </div>
+          <div class="feedback-card">
+            <p>"Sometimes it's hard to understand what the speaker is saying, so having the option to read while listening would be helpful."</p>
+          </div>
+          <div class="feedback-card">
+            <p>"Being able to save specific parts of the audio would be great for future reference."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="contained-img reveal-scale">
+    <img src="../assets/images/Slice_5.jpg" alt="Survey data and statistics" />
+  </div>
+  
+  <!-- Big quote -->
+  <div class="big-quote reveal">
+    <blockquote>"The research didn't just tell me <em>what</em> to build. It told me <em>who</em> I was designing for — and what their actual lives look like."</blockquote>
+    <cite>— Design note</cite>
+  </div>
+
+  <div class="section-divider"></div>
+
+
+  <!-- ═══════════════════════════════════════
+       GOAL STATEMENT
+  ════════════════════════════════════════ -->
+  <section style="padding: 100px 0 60px;">
+    <div class="w">
+      <span class="label reveal">04 — Strategy</span>
+      <h2 class="chapter-title reveal d1" style="margin-bottom: 48px;">The <em>goal statement</em></h2>
+      <div class="goal-card reveal-scale">
+        <h2>Goal Statement</h2>
+        <p>A podcast app will allow users to discover and listen to podcasts tailored to their specific interests, which will positively affect them by enhancing their knowledge, personal growth, and entertainment experience.</p>
+        <div class="goal-highlight">
+          <span style="color:var(--red);font-weight:700;">The goal</span> is to create a <span style="color:var(--red);font-weight:700;">user-centred podcast app</span> that caters to diverse user needs. <span style="color:var(--red);">Through</span> personalised features and efficient content organisation, we aim to enhance user satisfaction. <span style="color:var(--red);">Success</span> will be measured by positive user feedback reflecting their satisfaction with the app's content and features.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       INFORMATION ARCHITECTURE
+  ════════════════════════════════════════ -->
+  <section style="padding: 100px 0 60px;">
+    <div class="w">
+      <span class="label reveal">05 — Structure</span>
+      <div class="two-col" style="align-items: start; margin-bottom: 48px;">
+        <h2 class="chapter-title reveal d1">Information<br /><em>Architecture</em></h2>
+        <p class="reveal d2" style="font-size:16px; color:var(--text2); line-height:1.8; padding-top: 48px;">Using all available data, I crafted an IA to organise information effectively. By understanding user behaviours and needs, this IA guides the design toward a user-friendly app that enhances the podcast listening experience.</p>
+      </div>
+    </div>
+    <div class="contained-img reveal-scale">
+      <img src="../assets/images/Slice_26.jpg" alt="Information Architecture diagram" />
+    </div>
+  </section>
+
+  <!-- User Flow -->
+  <section style="padding: 60px 0;">
+    <div class="w" style="margin-bottom: 40px;">
+      <span class="label reveal">User Flow</span>
+      <h2 class="chapter-title reveal d1" style="margin-bottom: 16px;">Mapping <em>every path</em></h2>
+      <p class="reveal d2" style="font-size:16px; color:var(--text2); line-height:1.8; max-width: 560px;">Based on the gathered data, I created a user flow illustrating every step within the app — ensuring a smooth and intuitive journey by analysing user behaviours and covering decision branches.</p>
+    </div>
+    <div class="contained-img reveal-scale">
+      <img src="../assets/images/Slice_23.jpg" alt="User flow diagram" />
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+
+  <section style="padding: 100px 0 60px;">
+    <div class="w">
+      <span class="label reveal">06 — Lo-Fi Wireframes</span>
+      <div class="two-col" style="align-items: start; margin-bottom: 48px;">
+        <h2 class="chapter-title reveal d1">Lo-Fi<br /><em>Wireframes</em></h2>
+        <p class="reveal d2" style="font-size:16px; color:var(--text2); line-height:1.8; padding-top: 48px;">I realized the first ideas that came to my head weren’t always the best. I understood that before jumping to the software, I should be able to come up with some variation in my thoughts, and thus, my designs. Whiteboarding and hand sketches became the first step of the design process. Once I start whiteboarding, I realize that the first idea that pops into my brain is the most obvious solution.</p>
+      </div>
+    </div>
+    <div class="full-img parallax-wrap reveal-scale">
+      <img class="parallax-img" src="../assets/images/Slice_25.jpg" alt="User listening" />
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       LO-FI + HI-FI WIREFRAMES
+  ════════════════════════════════════════ -->
+  <section style="padding: 100px 0 60px;">
+    <div class="w">
+      <span class="label reveal">06 — Wireframes</span>
+      <div class="two-col" style="align-items: start; margin-bottom: 48px;">
+        <h2 class="chapter-title reveal d1">From sketch<br />to <em>screen</em></h2>
+        <p class="reveal d2" style="font-size:16px; color:var(--text2); line-height:1.8; padding-top:40px;">I realised the first ideas that come to mind aren't always the best. Whiteboarding and hand sketches became the first step — helping me explore variations before committing to any direction in Figma.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hi-Fi transition -->
+  <section style="padding: 60px 0;">
+    <div class="w" style="margin-bottom: 40px;">
+      <div style="background: var(--yellow); border-radius: 12px; padding: 32px 40px;" class="reveal-scale">
+        <h3 style="font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:#111; margin-bottom:12px;">Hi-Fi Wireframes</h3>
+        <p style="font-size:15px; color:rgba(0,0,0,.65); line-height:1.7;">Using all the information I collected, I began making Hi-Fi Wireframes. These are detailed sketches showing how each screen of the app will look — ensuring the app looks good and works well for people who want to listen to podcasts.</p>
+
+      </div>
+    </div>
+    <div class="w" style="overflow:hidden; clip-path:inset(0 0 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1); display:flex; justify-content:center;">
+      <video
+              src="../assets/images/Scene (3).mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              style="width:100%; display:block; transform:scale(1); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+      ></video>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       USABILITY TESTING
+  ════════════════════════════════════════ -->
+  <section style="padding: 100px 0 60px;">
+    <div class="w">
+      <span class="label reveal">09 — Testing</span>
+      <div class="two-col" style="align-items: start; margin-bottom: 48px;">
+        <h2 class="chapter-title reveal d1">Usability testing<br />with <em>eye tracking</em></h2>
+        <p class="reveal d2" style="font-size:16px; color:var(--text2); line-height:1.8; padding-top:40px;">I conducted usability testing using eye tracking technology. By tracking users' eye movements, I gained a deeper understanding of where their attention is focused — identifying areas for improvement in visual hierarchy, readability, and overall UX.</p>
+      </div>
+    </div>
+    <div class="contained-img reveal-scale">
+      <img src="../assets/images/Slice_27.jpg" alt="Usability testing heat maps" />
+    </div>
+  </section>
+
+  <div class="contained-img reveal-scale">
+    <img src="../assets/images/Slice_28.jpg" alt="Content organization screens" />
+  </div>
+
+
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       PROBLEMS → SOLUTIONS (6 problems)
+  ════════════════════════════════════════ -->
+
+  <!-- PROBLEM 1: Content Organization -->
+  <section class="problem-section">
+    <div class="w">
+      <div class="problem-tag reveal">
+        <span class="problem-num">1</span>
+        Content Organization
+      </div>
+      <h2 class="problem-title reveal d1">Busy users need<br />to find content fast.</h2>
+      <p class="problem-desc reveal d2">Alex is a busy marketing specialist who needs a podcast app that offers efficient content organisation because of limited time.</p>
+      <div class="problem-insight reveal d2">
+        <strong style="color:var(--text);">Solution:</strong> Intuitive episode management — add episodes to playlists directly from the player view. Users can create collections or choose existing ones on the spot.
+      </div>
+    </div>
+  </section>
+
+
+  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding:100px 0; border-top:1px solid var(--line);">
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc reveal d2">Our intuitive design allows users to add episodes to their playlists directly from the podcast episode view. This feature simplifies content organization and ensures that users can categorize episodes with ease.</p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Alex → </span>
+    </div>
+
+    <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+      <img
+              src="../assets/images/Slice_2.jpg"
+              alt="Library screen"
+              style="width:76%; display:block; transform:scale(1.12); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+      />
+    </div>
+
+  </div>
+
+  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding:100px 0; border-top:1px solid var(--line);">
+
+    <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+      <img
+              src="../assets/images/Slice_3.jpg"
+              alt="Library screen"
+              style="width:75%; display:block; transform:scale(1.12); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+      />
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc reveal d2">When adding episodes to playlists, users have the option to choose between adding them to existing folders or creating new ones on the spot. This flexibility guarantees a seamless and efficient podcast organization experience.</p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Alex ← </span>
+    </div>
+
+  </div>
+
+  
+
+  <div class="contained-img reveal-scale">
+    <img src="../assets/images/Slice_7.jpg" alt="Content organization screens" />
+  </div>
+
+
+
+  <div class="section-divider"></div>
+
+  <!-- PROBLEM 2: Language Barrier -->
+  <section class="problem-section">
+    <div class="w">
+      <div class="problem-tag reveal">
+        <span class="problem-num">2</span>
+        Language Barrier
+      </div>
+      <h2 class="problem-title reveal d1">Understanding spoken<br />content across languages.</h2>
+      <p class="problem-desc reveal d2">Emily is a student who needs a podcast app with subtitles because the language barrier sometimes makes it difficult to understand spoken content.</p>
+      <div class="problem-insight reveal d2">
+        <strong style="color:var(--text);">Solution:</strong> A convenient toggle switch lets users enable or disable subtitles. A word-highlighting feature visually links spoken words to their written counterparts in real time.
+      </div>
+    </div>
+  </section>
+
+  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding:100px 0; border-top:1px solid var(--line);">
+
+    <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+      <img
+              src="../assets/images/Slice_4.jpg"
+              alt="Library screen"
+              style="width:75%; display:block; transform:scale(1.12); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+      />
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc reveal d2">To cater to user preferences, a convenient toggle switch has been provided, empowering users to easily enable or disable subtitles for a personalized viewing experience.</p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Emily ← </span>
+    </div>
+
+
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc  d2">Recognizing diverse user needs, our platform integrates a language selection option for subtitles. Users can choose the language in which they prefer to view subtitles, enhancing their understanding of content in their primary language. Additionally, it's been integrated a word-highlighting feature within the subtitles, which aids in comprehension by visually linking spoken words to their written counterparts, resulting in an enhanced reading experience.</p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Emily ↓ </span>
+    </div>
+
+  </div>
+
+
+
+  <div class="contained-img reveal-scale">
+    <img src="../assets/images/Slice_7.jpg" alt="Language barrier solution screens" />
+  </div>
+
+
+
+  <div class="section-divider" style="margin-top: 60px;"></div>
+
+  <!-- PROBLEM 3: Manage Subscription -->
+  <section class="problem-section">
+    <div class="w">
+      <div class="problem-tag reveal">
+        <span class="problem-num">3</span>
+        Manage Subscription
+      </div>
+      <h2 class="problem-title reveal d1">Following content<br />that actually matters.</h2>
+      <p class="problem-desc reveal d2">Sarah is a self-development person who needs a podcast app that makes it easy to manage subscriptions because it helps her find content faster.</p>
+      <div class="problem-insight reveal d2">
+        <strong style="color:var(--text);">Solution:</strong> A switcher between "All Podcasts" and "Following" lets users segment content by preference. The "Following" section organises topics alphabetically for effortless navigation.
+      </div>
+    </div>
+  </section>
+
+
+  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding-top:100px; border-top:1px solid var(--line);">
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc reveal d2">The switcher between "All Podcasts" and "Following" provides a user-friendly method to segment content based on individual preferences. This feature empowers users to streamline their focus and engage with podcasts aligned with their specific interests.</p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Sarah ↓ </span>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc reveal d2">Organizing the "Following" section with alphabetically arranged topics reflects an organized approach. The distinctiveness of each topic facilitates user navigation, making it effortless for users to quickly access the content they care about.</p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Sarah ↓ </span>
+    </div>
+
+  </div>
+
+
+  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:100px 0;">
+
+    <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+      <img
+              src="../assets/images/Slice_8.jpg"
+              alt="Library screen"
+              style="width:75%; display:block; transform:scale(1.12); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+      />
+    </div>
+
+   <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+    <img
+            src="../assets/images/Slice_9.jpg"
+            alt="Library screen"
+            style="width:75%; display:block; transform:scale(1.12); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+    />
+    </div>
+
+  </div>
+  
+
+  <div style="padding: 0 48px; margin: 40px 0;">
+    <div class="w">
+      <img src="../assets/images/Slice_10.jpg" alt="Categories screens" />
+    </div>
+  </div>
+
+  <!-- Big quote -->
+  <div class="big-quote reveal">
+    <blockquote>"Organising the <em>'Following'</em> section alphabetically reflects an organised approach — making it effortless for users to quickly access the content they care about."</blockquote>
+    <cite>— Design decision note</cite>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- PROBLEM 4: Segment Saving -->
+  <section class="problem-section">
+    <div class="w">
+      <div class="problem-tag reveal">
+        <span class="problem-num">4</span>
+        Effortless Segment Saving
+      </div>
+      <h2 class="problem-title reveal d1">Save the moments<br />that matter most.</h2>
+      <p class="problem-desc reveal d2">Ed is a writer who needs a podcast app with easy-to-save segments because he wants to capture important information he often misses while listening.</p>
+      <div class="problem-insight reveal d2">
+        <strong style="color:var(--text);">Solution:</strong> Users can save specific segments, add written notes with custom font styling, and filter saved content for easy retrieval — without ever pausing the podcast.
+      </div>
+    </div>
+  </section>
+
+  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding:100px 0; border-top:1px solid var(--line);">
+
+    <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+      <img
+              src="../assets/images/Slice_12.jpg"
+              alt="Library screen"
+              style="width:75%; display:block; transform:scale(1.12); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+      />
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc reveal d2">Saved segments can be filtered and organized efficiently for easy navigation.</p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Ed ← </span>
+    </div>
+
+  </div>
+
+  <div class="contained-img reveal-scale">
+    <img src="../assets/images/Slice_14.jpg" alt="Segment saving screens" />
+  </div>
+
+  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding:100px 0; border-top:1px solid var(--line);">
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc reveal d2">Saved segments can be filtered and organized efficiently for easy navigation.</p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Ed → </span>
+    </div>
+
+    <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+      <img
+              src="../assets/images/Slice_29.jpg"
+              alt="Library screen"
+              style="width:75%; display:block; transform:scale(1.12); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+      />
+    </div>
+
+
+
+  </div>
+
+
+  <div class="contained-img reveal-scale">
+    <img src="../assets/images/Slice_15.jpg" alt="Segment saving screens" />
+  </div>
+ 
+
+<!-- <div class="img-grid img-grid&#45;&#45;2 reveal-scale" style="margin: 2px 0;">-->
+<!--   <img src="../assets/images/Slice_16.jpg" alt="Add to notes modal" />-->
+<!--    <img src="../assets/images/Slice_17.jpg" alt="Transcript selection" />-->
+<!--  </div>-->
+
+  <div class="section-divider"></div>
+
+  <!-- PROBLEM 5: Personalized Recommendations -->
+  <section class="problem-section">
+    <div class="w">
+      <div class="problem-tag reveal">
+        <span class="problem-num">5</span>
+        Personalized Recommendations
+      </div>
+      <h2 class="problem-title reveal d1">Content tailored<br />to your interests.</h2>
+      <p class="problem-desc reveal d2">Michael is a back-end developer who needs a podcast app with personalised recommendations because of a lack of content diversity in existing apps.</p>
+      <div class="problem-insight reveal d2">
+        <strong style="color:var(--text);">Solution:</strong> "Trending Podcasts" and "Top Podcasts" sections personalised by user preferences. A dedicated section for live and real-time broadcasts.
+      </div>
+    </div>
+  </section>
+
+
+  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding-top:100px; border-top:1px solid var(--line);">
+
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc reveal d2">Personalizing the "Trending Podcasts" and "Top Podcasts" sections based on user preferences. This can ensure that the recommendations are more tailored to their interests. Introduce a section that displays podcasts currently live or airing in real-time. This feature allows users to explore and engage with podcasts actively being broadcasted or streamed.</p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Michael ↓ </span>
+    </div>
+
+
+  </div>
+
+
+  <div class="contained-img reveal-scale">
+    <img src="../assets/images/Slice_18.jpg" alt="Personalized recommendations" />
+  </div>
+
+
+
+  <div class="section-divider" style="margin-top: 60px;"></div>
+
+  <!-- PROBLEM 6: Real-Time Interaction -->
+  <section class="problem-section">
+    <div class="w">
+      <div class="problem-tag reveal">
+        <span class="problem-num">6</span>
+        Real-Time Interaction
+      </div>
+      <h2 class="problem-title reveal d1">Engage live with<br />hosts and listeners.</h2>
+      <p class="problem-desc reveal d2">Maria is a podcast enthusiast who needs real-time interaction during live podcast sessions because she wants to engage with hosts as the podcast unfolds.</p>
+      <div class="problem-insight reveal d2">
+        <strong style="color:var(--text);">Solution:</strong> A live chat feature lets users ask questions, share opinions, and interact in real time. Users can also join before a live session to set reminders and prepare questions.
+      </div>
+    </div>
+  </section>
+
+  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding:100px 0; border-top:1px solid var(--line);">
+
+    <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+      <img
+              src="../assets/images/Slice_19.jpg"
+              alt="Library screen"
+              style="width:75%; display:block; transform:scale(1.12); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+      />
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc reveal d2">Implement a live chat feature within the app that allows users to engage with hosts and other listeners in real time. </p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Maria ← </span>
+    </div>
+
+  </div>
+
+
+  <div class="contained-img reveal-scale">
+    <img src="../assets/images/Slice_20.jpg" alt="Real-time interaction screens" />
+  </div>
+
+  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding-top:100px; padding-bottom: 60px; border-top:1px solid var(--line);">
+
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc reveal d2">The chat feature is accessible during live podcast sessions, enabling users to ask questions, share opinions, and interact with the hosts as the podcast unfolds.</p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Maria → </span>
+    </div>
+
+    <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+      <img
+              src="../assets/images/Slice_21.jpg"
+              alt="Library screen"
+              style="width:75%; display:block; transform:scale(1.12); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+      />
+    </div>
+
+    <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+      <img
+              src="../assets/images/Slice_22.jpg"
+              alt="Library screen"
+              style="width:75%; display:block; transform:scale(1.12); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+      />
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <p class="problem-desc reveal d2">Users can join podcasts before they go live. This feature allows users to access event details, view schedules, and set reminders for upcoming live sessions. Users can engage with the community, explore topics, and prepare questions or comments in advance, fostering anticipation and participation.</p>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Maria ← </span>
+    </div>
+
+
+  </div>
+  
+
+
+  <div class="section-divider" style="margin-top: 60px;"></div>
+
+
+
+  <!-- ═══════════════════════════════════════
+       VISUAL IDENTIFICATION
+  ════════════════════════════════════════ -->
+  <section style="padding: 100px 0 60px;">
+    <div class="w">
+      <span class="label reveal">07 — Visual Design</span>
+      <div class="two-col" style="align-items: start; margin-bottom: 48px;">
+        <h2 class="chapter-title reveal d1">Visual<br /><em>identity</em></h2>
+        <p class="reveal d2" style="font-size:16px; color:var(--text2); line-height:1.8; padding-top:40px;">Based on gathered data, I created the visual identity for the app — deciding on colours, fonts, and images that give Podreads its unique look and feel. Bold red energy, dark navy depth, yellow warmth.</p>
+      </div>
+      <div class="palette reveal">
+        <div class="palette-swatch palette-swatch--red">#FF3A46</div>
+        <div class="palette-swatch palette-swatch--navy1">#0B1736</div>
+        <div class="palette-swatch palette-swatch--navy2">#14213E</div>
+        <div class="palette-swatch palette-swatch--yellow">#FFBF00</div>
+        <div class="palette-swatch palette-swatch--gray">#B6BBC3</div>
+      </div>
+      <p class="reveal d2" style="font-size:14px; color:var(--text3); margin-top:20px; letter-spacing:.06em; text-transform:uppercase;">Typeface: SF Pro Display · Regular, Medium, Bold</p>
+    </div>
+  </section>
+
+
+
+  <div class="section-divider" style="margin-top: 60px;"></div>
+
+  <!-- ═══════════════════════════════════════
+       UI SCREENS
+  ════════════════════════════════════════ -->
+  <section style="padding: 100px 0 0;">
+    <div class="w">
+      <span class="label reveal">08 — The Mobile App</span>
+      <h2 class="chapter-title reveal d1" style="margin-bottom: 60px;">Every screen,<br /><em>designed with intent</em></h2>
+    </div>
+  </section>
+
+  <!-- Onboarding -->
+  <section style="padding: 60px 0 0;">
+    <div class="w" style="margin-bottom: 40px;">
+      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Onboarding</span>
+      <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Your journey begins here — explore, discover, and dive into the world of podcasts.</p>
+    </div>
+    <div style="padding: 0 48px; margin-bottom: 40px;">
+      <div class="yellow-bg reveal-scale" style="padding: 40px;">
+        <img src="../assets/images/Slice_30.jpg" alt="Onboarding screens" style="border-radius:12px;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Login -->
+  <section style="padding: 60px 0 0;">
+    <div class="w" style="margin-bottom: 40px;">
+      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Login</span>
+      <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Unlock limitless podcast enjoyment with a simple login.</p>
+    </div>
+    <div class="contained-img reveal-scale">
+      <img src="../assets/images/Slice_31.jpg" alt="Login screen" />
+    </div>
+  </section>
+
+  <!-- Create Account -->
+  <section style="padding: 60px 0 0;">
+    <div class="w" style="margin-bottom: 40px;">
+      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Create an Account</span>
+      <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Unlock exclusive content and join the conversation.</p>
+    </div>
+    <div class="contained-img reveal-scale">
+      <img src="../assets/images/Slice_32.jpg" alt="Create account screens" />
+    </div>
+  </section>
+
+
+  <!-- Home -->
+  <section style="padding: 60px 0 0;">
+    <div class="w" style="margin-bottom: 40px;">
+      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Home</span>
+      <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Your hub to explore any podcast topic you desire, fuelling endless curiosity.</p>
+    </div>
+    <div class="contained-img reveal-scale">
+      <img src="../assets/images/Slice_34.jpg" alt="Home screen" />
+    </div>
+  </section>
+
+  <!-- Discover - horizontal scroll -->
+  <section style="padding: 60px 0 0;">
+    <div class="w" style="margin-bottom: 40px;">
+      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Discover</span>
+      <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Choose from the following options or explore our suggested podcasts.</p>
+    </div>
+    <div class="full-img reveal-scale">
+      <img src="../assets/images/Slice_35.jpg" alt="Discover screen" />
+    </div>
+  </section>
+
+  <!-- Library -->
+  <section style="padding: 60px 0 60px 0;">
+    <div class="w" style="margin-bottom: 40px;">
+      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Library</span>
+      <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Access your saved podcasts, notes, playlists, and downloads all in one place.</p>
+    </div>
+
+    <div class="w" style="overflow:hidden; clip-path:inset(0 0 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1); display:flex; justify-content:center;">
+      <video
+              src="../assets/images/Scene (4).mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              style="width:100%; display:block; transform:scale(1); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
+      ></video>
+    </div>
+  </section>
+
+  <!-- Podcasts full screen grid -->
+  <section style="padding: 60px 0 0;">
+    <div class="w" style="margin-bottom: 40px;">
+      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Podcasts</span>
+      <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Explore a world of captivating conversations, stories, and insights.</p>
+    </div>
+    <div class="contained-img reveal-scale">
+      <img src="../assets/images/Slice_38.jpg" alt="Podcast screens" />
+    </div>
+  </section>
+
+  <!-- Live Podcasts -->
+  <section style="padding: 60px 0 0;">
+    <div class="w" style="margin-bottom: 40px;">
+      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Live Podcasts</span>
+      <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Tune into live discussions and events with our dynamic selection.</p>
+    </div>
+    <div">
+    <div class="contained-img reveal-scale">
+      <img src="../assets/images/Slice_40.jpg" alt="Podcast screens" />
+    </div>
+    </div>
+    <div class="full-img reveal-scale" style="padding: 60px 0 60px 0;">
+      <img src="../assets/images/Slice_41.jpg" alt="Discover screen" />
+    </div>
+  </section>
+
+  <!-- Profile -->
+  <section style="padding: 60px 0 0;">
+    <div class="w" style="margin-bottom: 40px;">
+      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Profile</span>
+      <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Personalise your profile to tailor your podcast experience to your preferences.</p>
+    </div>
+    <div class="contained-img reveal-scale">
+      <img src="../assets/images/Slice_42.jpg" alt="Profile screen" />
+    </div>
+  </section>
+
+  <div class="section-divider" style="margin-top: 80px;"></div>
+
+
+
+  <!-- ═══════════════════════════════════════
+       FINAL SHOWCASE
+  ════════════════════════════════════════ -->
+  <section style="padding: 100px 0 0;">
+    <div class="w">
+      <span class="label reveal">10 — Final Result</span>
+      <h2 class="chapter-title reveal d1" style="margin-bottom: 60px;">The complete<br /><em>Podreads experience</em></h2>
+    </div>
+  </section>
+
+  
+
+  <!-- Big final stat strip -->
+  <div class="w" style="margin-top: 80px;">
+    <div class="stat-strip">
+      <div class="stat-item reveal">
+        <span class="stat-n" data-target="50">0</span>
+        <span class="stat-l">Screens in the final Figma file</span>
+      </div>
+      <div class="stat-item reveal d1">
+        <span class="stat-n" data-target="6">0</span>
+        <span class="stat-l">User problems solved</span>
+      </div>
+      <div class="stat-item reveal d2">
+        <span class="stat-n" data-target="7">0</span>
+        <span class="stat-l">Eye-tracking sessions</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       OUTRO / CTA
+  ════════════════════════════════════════ -->
+  <div class="outro">
+    <h2 class="reveal">Like what<br />you <em>see?</em></h2>
+    <p class="reveal d1">I'm available for senior Product Designer roles and select freelance work. Let's build something together.</p>
+    <div class="outro-links reveal d2">
+      <a href="https://calendar.app.google/REaLpt2wEwKqR5L9A" target="_blank" class="btn-red">Book a call ↗</a>
+      <a href="mailto:katrinlevoniuk@gmail.com" class="btn-outline">katrinlevoniuk@gmail.com</a>
+    </div>
+  </div>
+
+  <!-- Between project nav -->
+  <div class="w">
+    <div class="between-nav">
+      <a href="../index.html#work">← All projects</a>
+      <a href="tracking-platform.html">Next: Tracking Platform →</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>Kateryna Levoniuk · Product Designer</span>
+    <span>© 2025 · Barcelona</span>
+  </footer>
+
+
+  <script>
+    //photo animations
+    (function(){
+      const blocks = document.querySelectorAll('.photo-text-block');
+      if(!blocks.length) return;
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(!entry.isIntersecting) return;
+
+          const block = entry.target;
+          const imgWraps = block.querySelectorAll('.ptb-img-wrap');
+
+          imgWraps.forEach((imgWrap, index) => {
+            const img = imgWrap.querySelector('img');
+
+            setTimeout(() => {
+              imgWrap.style.clipPath = 'inset(0 0% 0 0)';
+              if(img) img.style.transform = 'scale(1)';
+            }, index * 180);
+          });
+
+          io.unobserve(block);
+        });
+      }, { threshold: 0.25 });
+
+      blocks.forEach(block => io.observe(block));
+    })();
+
+    ctas.forEach(cta => {
+      cta.style.opacity = '1';
+      cta.style.transform = 'translateY(0)';
+    });
+  </script>
+
+
+  <script>
+    // Cursor
+    const cur = document.getElementById('cur');
+    const curf = document.getElementById('curf');
+    let mx=0,my=0,fx=0,fy=0;
+    if(cur && curf) {
+      document.addEventListener('mousemove', e => {
+        mx=e.clientX; my=e.clientY;
+        cur.style.left=mx+'px'; cur.style.top=my+'px';
+      });
+      (function af(){
+        fx+=(mx-fx)*.11; fy+=(my-fy)*.11;
+        curf.style.left=fx+'px'; curf.style.top=fy+'px';
+        requestAnimationFrame(af);
+      })();
+      document.querySelectorAll('a,button').forEach(el=>{
+        el.addEventListener('mouseenter',()=>{ cur.style.width='14px'; cur.style.height='14px'; });
+        el.addEventListener('mouseleave',()=>{ cur.style.width='8px'; cur.style.height='8px'; });
+      });
+    }
+
+    // Intersection observer for all reveal classes
+    const revEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .full-img');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(!e.isIntersecting) return;
+        e.target.classList.add('in');
+        // Count-up for stat numbers
+        e.target.querySelectorAll('.stat-n[data-target]').forEach(el => countUp(el));
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+    revEls.forEach(el => io.observe(el));
+
+    // Also observe stat items individually
+    document.querySelectorAll('.stat-item').forEach(el => {
+      const io2 = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if(!e.isIntersecting) return;
+          e.target.querySelectorAll('.stat-n[data-target]').forEach(n => countUp(n));
+          io2.unobserve(e.target);
+        });
+      }, { threshold: 0.5 });
+      io2.observe(el);
+    });
+
+    // Count-up
+    function countUp(el) {
+      const target = parseInt(el.dataset.target);
+      if(!target || el.dataset.done) return;
+      el.dataset.done = '1';
+      const dur = 1400;
+      const start = performance.now();
+      function step(now) {
+        const pct = Math.min((now - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - pct, 3);
+        el.textContent = Math.round(ease * target) + (target >= 50 ? '+' : '');
+        if(pct < 1) requestAnimationFrame(step);
+        else el.textContent = target + (target >= 50 ? '+' : '');
+      }
+      requestAnimationFrame(step);
+    }
+
+    // Parallax
+    const pImgs = document.querySelectorAll('.parallax-img');
+    function onScroll() {
+      pImgs.forEach(img => {
+        const rect = img.closest('.parallax-wrap').getBoundingClientRect();
+        const pct = (window.innerHeight/2 - rect.top) / window.innerHeight;
+        img.style.transform = `translateY(${pct * -40}px) scale(1.08)`;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  </script>
+  
+  // Video
+  <script>
+    (function(){
+      const blocks = document.querySelectorAll('.photo-text-block');
+      if(!blocks.length) return;
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(!entry.isIntersecting) return;
+
+          const block = entry.target;
+          const imgWraps = block.querySelectorAll('.ptb-img-wrap');
+
+          imgWraps.forEach((imgWrap, index) => {
+            const media = imgWrap.querySelector('img, video');
+
+            setTimeout(() => {
+              imgWrap.style.clipPath = 'inset(0 0% 0 0)';
+              if(media) media.style.transform = 'scale(1)';
+            }, index * 180);
+          });
+
+          io.unobserve(block);
+        });
+      }, { threshold: 0.25 });
+
+      blocks.forEach(block => io.observe(block));
+    })();
+  </script>
+
+</body>
+</html>

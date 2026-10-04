@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kateryna Levoniuk — Product Designer helping businesses increase conversions and reduce drop-off through clear, intuitive digital products. Based in Barcelona." />
+  <meta property="og:title" content="Kateryna Levoniuk — Product Designer" />
+  <meta property="og:description" content="I help businesses increase conversions and reduce drop-off by designing product experiences that guide users to key actions." />
+  <meta property="og:type" content="website" />
+  <title>Kateryna Levoniuk — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ── HERO REDESIGN ──────────────────────────────── */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding-top: 120px;
+      padding-bottom: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 clamp(24px, 5vw, 80px);
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      gap: 0;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted, #6b6b6b);
+      margin-bottom: 32px;
+    }
+
+    .hero-tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4CAF82;
+      flex-shrink: 0;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .hero-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(48px, 7vw, 96px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .hero-line { display: block; }
+    .hero-line--dim { color: var(--text-muted, #5a5a5a); }
+
+    .hero-name-accent {
+      background: linear-gradient(135deg, var(--accent, #cbd7f6) 0%, #a8bdf5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      margin-top: 28px;
+      max-width: 520px;
+      font-size: clamp(15px, 1.5vw, 17px);
+      line-height: 1.65;
+      color: var(--text-muted, #888);
+    }
+
+    .hero-cta {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    /* ── PROJECT CARDS REDESIGN ─────────────────────── */
+    .projects {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .project {
+      position: relative;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .project:last-child {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .project-link-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      text-decoration: none;
+      color: inherit;
+      padding: 40px clamp(24px, 5vw, 80px);
+      transition: background 0.3s ease;
+      min-height: 340px;
+    }
+
+    .project-link-wrap:hover {
+      background: rgba(255,255,255,0.025);
+    }
+
+    /* visual side */
+    .project-visual {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #111;
+      aspect-ratio: 16/10;
+      align-self: center;
+    }
+
+    .project-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .project-link-wrap:hover .project-visual img {
+      transform: scale(1.04);
+    }
+
+    /* placeholder visual for projects without real images */
+    .project-visual-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #3a3a3a;
+    }
+
+    .proj-placeholder-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .proj-placeholder-dots {
+      display: grid;
+      grid-template-columns: repeat(5, 10px);
+      gap: 6px;
+    }
+
+    .proj-placeholder-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* for podcast — gradient placeholder */
+    .proj-visual--podcast {
+      background: linear-gradient(135deg, #0f0f14 0%, #1a1030 100%);
+    }
+
+    .proj-visual--podcast .proj-placeholder-dots span:nth-child(3) {
+      background: rgba(120, 80, 200, 0.4);
+    }
+
+    /* for eduopos */
+    .proj-visual--eduopos {
+      background: linear-gradient(135deg, #0a0e14 0%, #0f1a2a 100%);
+    }
+
+    .proj-visual--eduopos .proj-placeholder-dots span:nth-child(2) {
+      background: rgba(70, 130, 220, 0.35);
+    }
+
+    /* for danceaway */
+    .proj-visual--danceaway {
+      background: linear-gradient(135deg, #100810 0%, #1a0e20 100%);
+    }
+
+    .proj-visual--danceaway .proj-placeholder-dots span:nth-child(4) {
+      background: rgba(160, 80, 200, 0.35);
+    }
+
+    /* view label overlay */
+    .project-view-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 16px;
+    }
+
+    .project-link-wrap:hover .project-view-label {
+      opacity: 1;
+    }
+
+    /* info side */
+    .project-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 24px 0 24px 48px;
+    }
+
+    .project-index {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted, #555);
+      margin-bottom: 12px;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(22px, 2.5vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin: 0 0 14px;
+      transition: color 0.2s;
+    }
+
+    .project-link-wrap:hover .project-title {
+      color: var(--accent, #cbd7f6);
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .project-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-muted, #888);
+      max-width: 380px;
+    }
+
+    .project-arrow {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--accent, #cbd7f6);
+      letter-spacing: 0.02em;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .project-link-wrap:hover .project-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* muted / coming soon project */
+    .project--muted .project-link-wrap {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .project--muted .project-link-wrap[href] {
+      pointer-events: auto;
+      opacity: 0.65;
+    }
+
+    /* odd projects — flip visual to right side */
+    .project:nth-child(even) .project-link-wrap {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .project:nth-child(even) .project-visual {
+      order: 2;
+    }
+
+    .project:nth-child(even) .project-info {
+      order: 1;
+      padding: 24px 48px 24px 0;
+    }
+
+    /* responsive */
+    @media (max-width: 800px) {
+      .project-link-wrap {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        gap: 24px;
+      }
+
+      .project:nth-child(even) .project-visual { order: 0; }
+      .project:nth-child(even) .project-info { order: 0; padding: 0; }
+      .project-info { padding: 0 !important; }
+
+      .hero-headline {
+        font-size: clamp(40px, 10vw, 64px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">KL</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact" class="nav-cta">Get in touch ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag reveal-up">
+      <span class="hero-tag-dot"></span>
+      Open to roles &amp; freelance · Barcelona
+    </div>
+
+    <h1 class="hero-headline">
+      <span class="hero-line reveal-up" data-delay="0">Product Designer</span>
+      <span class="hero-line hero-line--dim reveal-up" data-delay="100">who helps</span>
+      <span class="hero-line reveal-up" data-delay="200">businesses</span>
+      <span class="hero-line hero-line--dim reveal-up" data-delay="300">
+          <span class="hero-morph" id="heroMorph">ship faster</span><span class="hero-morph-tail" id="heroMorphTail">.</span>
+        </span>
+    </h1>
+
+    <p class="hero-sub reveal-up" data-delay="400">
+      I design digital products that are clear, intuitive, and aligned with business goals — reducing friction so more users complete the actions that matter.
+    </p>
+
+    <div class="hero-cta reveal-up" data-delay="500">
+      <a href="https://calendar.app.google/REaLpt2wEwKqR5L9A" target="_blank" rel="noopener" class="btn-primary">Intro chat ↗</a>
+      <a href="#contact" class="btn-ghost">Tell me about your project ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-inner">
+    <span>UX Research</span><span class="sep">·</span>
+    <span>Mobile Apps</span><span class="sep">·</span>
+    <span>Design Systems</span><span class="sep">·</span>
+    <span>EdTech</span><span class="sep">·</span>
+    <span>SaaS Platforms</span><span class="sep">·</span>
+    <span>Conversion Design</span><span class="sep">·</span>
+    <span>Figma</span><span class="sep">·</span>
+    <span>0→1 Products</span><span class="sep">·</span>
+    <span>UX Research</span><span class="sep">·</span>
+    <span>Mobile Apps</span><span class="sep">·</span>
+    <span>Design Systems</span><span class="sep">·</span>
+    <span>EdTech</span><span class="sep">·</span>
+    <span>SaaS Platforms</span><span class="sep">·</span>
+    <span>Conversion Design</span><span class="sep">·</span>
+    <span>Figma</span><span class="sep">·</span>
+    <span>0→1 Products</span><span class="sep">·</span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section class="section work" id="work">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label reveal-up">Selected work</p>
+      <p class="section-head-note reveal-up">Click to view case study</p>
+    </div>
+  </div>
+
+  <div class="projects">
+
+    <!-- 01 — LEGO Block (real photo) -->
+    <article class="project" data-num="01">
+      <a href="work/tracking-platform.html" class="project-link-wrap">
+        <div class="project-visual">
+          <img src="assets/images/lego hero.png" alt="LEGO Block — Tracking & Analysis Platform" loading="lazy" />
+          <div class="project-view-label">View case study →</div>
+        </div>
+        <div class="project-info">
+          <p class="project-index">01 / 04</p>
+          <div class="project-tags">
+            <span class="tag">Web Platform</span>
+            <span class="tag">Dashboard</span>
+            <span class="tag">Data Visualisation</span>
+          </div>
+          <h2 class="project-title">LEGO Block — Tracking &amp; Analysis</h2>
+          <p class="project-desc">End-to-end UX/UI for a complex data tracking and analytics platform. Designed the dashboard architecture, login flows, and data visualisation system — making dense information immediately readable.</p>
+          <p class="project-arrow">View case study →</p>
+        </div>
+      </a>
+    </article>
+
+    <!-- 02 — Podcast App -->
+    <article class="project" data-num="02">
+      <a href="work/podcast-app.html" class="project-link-wrap">
+        <div class="project-visual proj-visual--podcast">
+          <div class="project-visual-placeholder">
+            <div class="proj-placeholder-inner">
+              <div class="proj-placeholder-dots">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <span style="color:#3a3a3a;font-size:11px;letter-spacing:0.06em;">Podcast App · iOS &amp; Android</span>
+            </div>
+          </div>
+          <div class="project-view-label">View case study →</div>
+        </div>
+        <div class="project-info">
+          <p class="project-index">02 / 04</p>
+          <div class="project-tags">
+            <span class="tag">iOS · Android</span>
+            <span class="tag">Mobile App</span>
+            <span class="tag">Audio UX</span>
+          </div>
+          <h2 class="project-title">Podcast Mobile App</h2>
+          <p class="project-desc">UX/UI for a podcast listening app — IA, discovery flows, subscription, and player UX. 50+ screens with a focus on clarity, hierarchy, and cross-platform consistency.</p>
+          <p class="project-arrow">View case study →</p>
+        </div>
+      </a>
+    </article>
+
+    <!-- 03 — Eduopos -->
+    <article class="project" data-num="03">
+      <a href="work/eduopos.html" class="project-link-wrap">
+        <div class="project-visual proj-visual--eduopos">
+          <!-- swap in once the Figma cover is exported:
+          <img src="assets/images/eduopos-cover.png" alt="Eduopos — Education Platform" loading="lazy" /> -->
+          <div class="project-visual-placeholder">
+            <div class="proj-placeholder-inner">
+              <div class="proj-placeholder-dots">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <span style="color:#3a3a3a;font-size:11px;letter-spacing:0.06em;">Eduopos · EdTech · Web App</span>
+            </div>
+          </div>
+          <div class="project-view-label">View case study →</div>
+        </div>
+        <div class="project-info">
+          <p class="project-index">03 / 04</p>
+          <div class="project-tags">
+            <span class="tag">EdTech</span>
+            <span class="tag">Web App</span>
+            <span class="tag">UX/UI</span>
+          </div>
+          <h2 class="project-title">Eduopos — Education Platform</h2>
+          <p class="project-desc">End-to-end UX/UI for an online education platform — structuring courses and learning flows so students always know where they are and what to do next.</p>
+          <p class="project-arrow">View case study →</p>
+        </div>
+      </a>
+    </article>
+
+    <!-- 04 — DanceAway -->
+    <article class="project" data-num="04">
+      <a href="work/danceaway.html" class="project-link-wrap">
+        <div class="project-visual proj-visual--danceaway">
+          <div class="project-visual-placeholder">
+            <div class="proj-placeholder-inner">
+              <div class="proj-placeholder-dots">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <span style="color:#3a3a3a;font-size:11px;letter-spacing:0.06em;">DanceAway · Mobile App · In progress</span>
+            </div>
+          </div>
+          <div class="project-view-label">View case study →</div>
+        </div>
+        <div class="project-info">
+          <p class="project-index">04 / 04</p>
+          <div class="project-tags">
+            <span class="tag">0→1 Product</span>
+            <span class="tag">Mobile App</span>
+            <span class="tag">Community</span>
+            <span class="tag">In progress</span>
+          </div>
+          <h2 class="project-title">DanceAway — Community App</h2>
+          <p class="project-desc">Lead Product Designer on a pre-launch mobile app for the dance community. 15+ user interviews, 37 platforms audited, 50+ screens, full design system with variables and tokens.</p>
+          <p class="project-arrow">View case study →</p>
+        </div>
+      </a>
+    </article>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left">
+        <p class="section-label reveal-up">About</p>
+        <h2 class="about-headline reveal-up">
+          I make<br />
+          <em>complex products</em><br />
+          feel obvious.
+        </h2>
+        <div class="about-stats reveal-up">
+          <div class="stat">
+            <span class="stat-n">4+</span>
+            <span class="stat-l">Years in design</span>
+          </div>
+          <div class="stat">
+            <span class="stat-n">12+</span>
+            <span class="stat-l">Projects shipped</span>
+          </div>
+          <div class="stat">
+            <span class="stat-n">5.0</span>
+            <span class="stat-l">Upwork rating</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-right reveal-up">
+        <p>I'm Kateryna — a Product Designer based in Barcelona with 4+ years of experience in mobile apps, EdTech, and SaaS products. I lead design end-to-end: from UX research and user interviews through to final UI and component systems in Figma.</p>
+        <p>I specialise in products where complexity needs to be untangled — content-heavy platforms, multi-step flows, dashboards, and 0→1 builds. I think in systems, document the edge cases others skip, and care about the decisions that make a product feel trustworthy, not just polished.</p>
+        <p>Currently the Lead Product Designer at DanceAway.app — a pre-launch mobile app for the dance community — while taking select freelance projects on the side.</p>
+        <div class="about-links">
+          <a href="https://www.linkedin.com/in/katrinlevoniuk/" target="_blank" rel="noopener" class="about-link">LinkedIn ↗</a>
+          <a href="https://www.behance.net/katrinlevoniuk" target="_blank" rel="noopener" class="about-link">Behance ↗</a>
+          <a href="https://drive.google.com/file/d/1tg4LzZDU39xo2M193EfuUgnUz6D19UMw/view?usp=sharing" target="_blank" class="about-link">Download CV ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section skills" id="skills">
+  <div class="container">
+    <p class="section-label reveal-up">What I bring</p>
+    <div class="skills-list">
+
+      <div class="skill-row reveal-up">
+        <div class="skill-num">01</div>
+        <div class="skill-body">
+          <h3>UX Research &amp; Strategy</h3>
+          <p>User interviews, competitive audits, persona creation, assumption mapping. I've built research systems from scratch and conducted 15+ interviews on a single product — synthesising findings into clear product direction.</p>
+        </div>
+        <div class="skill-tags">
+          <span>User Interviews</span><span>Competitive Audit</span><span>Personas</span><span>User Flows</span>
+        </div>
+      </div>
+
+      <div class="skill-row reveal-up">
+        <div class="skill-num">02</div>
+        <div class="skill-body">
+          <h3>Mobile App Design</h3>
+          <p>Native iOS and Android — gestures, platform conventions, cross-device consistency. 50+ screen flows for consumer apps, from onboarding through core product loops.</p>
+        </div>
+        <div class="skill-tags">
+          <span>iOS</span><span>Android</span><span>Prototyping</span><span>TestFlight</span>
+        </div>
+      </div>
+
+      <div class="skill-row reveal-up">
+        <div class="skill-num">03</div>
+        <div class="skill-body">
+          <h3>Design Systems</h3>
+          <p>Built a 50+ component library using Figma variables and tokens, reducing design time and improving consistency. Comfortable owning governance, documentation, and iterating systems with developers.</p>
+        </div>
+        <div class="skill-tags">
+          <span>Figma Variables</span><span>Tokens</span><span>Components</span><span>Docs</span>
+        </div>
+      </div>
+
+      <div class="skill-row reveal-up">
+        <div class="skill-num">04</div>
+        <div class="skill-body">
+          <h3>Dashboard &amp; Platform Design</h3>
+          <p>Data-heavy interfaces, admin tools, CRM systems, EdTech platforms. I structure complex information architectures and multi-step flows to make powerful products feel approachable.</p>
+        </div>
+        <div class="skill-tags">
+          <span>Dashboards</span><span>Data Viz</span><span>B2B</span><span>CRM</span>
+        </div>
+      </div>
+
+      <div class="skill-row reveal-up">
+        <div class="skill-num">05</div>
+        <div class="skill-body">
+          <h3>End-to-End Ownership</h3>
+          <p>From discovery to delivery. I run research, define flows, prototype, hand off to developers, and follow up with usability reviews. Solo or as lead designer in cross-functional teams.</p>
+        </div>
+        <div class="skill-tags">
+          <span>0→1</span><span>Stakeholder Comms</span><span>Delivery</span>
+        </div>
+      </div>
+
+      <div class="skill-row reveal-up">
+        <div class="skill-num">06</div>
+        <div class="skill-body">
+          <h3>Tools</h3>
+          <p>Figma · FigJam · Condens · Miro · Adobe Photoshop · Illustrator · Webflow · Notion · GitHub · Meta Ads Manager · Calendly · TestFlight · HTML/CSS basics</p>
+        </div>
+        <div class="skill-tags">
+          <span>Figma</span><span>FigJam</span><span>Condens</span><span>Webflow</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section experience" id="experience">
+  <div class="container">
+    <p class="section-label reveal-up">Experience</p>
+    <div class="exp-list">
+
+      <div class="exp-item reveal-up">
+        <div class="exp-period">2022 — Present</div>
+        <div class="exp-main">
+          <h3>Lead Product Designer</h3>
+          <p class="exp-company">DanceAway.app · Pre-launch startup, Barcelona</p>
+          <p class="exp-desc">Leading design in a 0→1 environment. Defined core user flows, built the UX research system from scratch, conducted 15+ user interviews, audited 37 competing platforms. Designed 50+ mobile screens and a 50+ component design system with Figma variables and tokens.</p>
+        </div>
+      </div>
+
+      <div class="exp-item reveal-up">
+        <div class="exp-period">2022 — Present</div>
+        <div class="exp-main">
+          <h3>UX/UI Designer — Freelance</h3>
+          <p class="exp-company">Upwork &amp; Personal Brand · Remote</p>
+          <p class="exp-desc">12+ projects across EdTech, productivity, community platforms, and automotive. Clients include Eduopos (46h education platform), Orbity (EdTech kids app), automotive CRM platform, restaurant rating service. ⭐ 5.0 rating across all reviewed projects.</p>
+        </div>
+      </div>
+
+      <div class="exp-item reveal-up">
+        <div class="exp-period">May — Aug 2023</div>
+        <div class="exp-main">
+          <h3>UX/UI Designer</h3>
+          <p class="exp-company">Grivallure Design Agency · Kyiv, Ukraine</p>
+          <p class="exp-desc">Designed digital products across B2B and B2C domains working cross-functionally with developers and PMs. Conducted usability reviews and iterative testing to identify UX gaps.</p>
+        </div>
+      </div>
+
+      <div class="exp-item reveal-up">
+        <div class="exp-period">Jun — Oct 2019</div>
+        <div class="exp-main">
+          <h3>Web Designer</h3>
+          <p class="exp-company">XION.PRO · Kyiv, Ukraine</p>
+          <p class="exp-desc">Built responsive websites using HTML, CSS, and Bootstrap. Mobile-first, cross-device compatible layouts.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="edu-block reveal-up">
+      <p class="section-label" style="margin-bottom:32px;margin-top:80px;">Education</p>
+      <div class="edu-list">
+        <div class="edu-item">
+          <span class="edu-year">2023 — 2024</span>
+          <div>
+            <p class="edu-degree">Master's — Computer Science, Information Management &amp; Data Analytics</p>
+            <p class="edu-school">National University of Food Technologies, Kyiv</p>
+          </div>
+        </div>
+        <div class="edu-item">
+          <span class="edu-year">2020 — 2022</span>
+          <div>
+            <p class="edu-degree">Bachelor's — Computer Science</p>
+            <p class="edu-school">National University of Food Technologies, Kyiv</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS SLIDER -->
+<section class="section testimonials">
+  <div class="container">
+    <p class="section-label reveal-up">What clients say</p>
+    <div class="slider-wrap reveal-up">
+      <div class="slider" id="slider">
+
+        <div class="slide">
+          <div class="slide-stars">★★★★★</div>
+          <blockquote>"Kateryna did an amazing job designing the full community experience. The flows are clear, visually strong, and well thought through. She has a deep understanding of product logic, paid communities, and user experience. Beyond design execution, she thinks strategically about the product and the business. Highly recommended."</blockquote>
+          <p class="slide-author">— Community Platform Client · Upwork</p>
+        </div>
+
+        <div class="slide">
+          <div class="slide-stars">★★★★★</div>
+          <blockquote>"Kateryna really understood the assignment and delivered promptly. She was able to understand the idea and deliver to my expectations, as well as provide me with valuable suggestions. She took ownership of the task. I enjoyed working with her on my edtech app and I highly recommend her services!"</blockquote>
+          <p class="slide-author">— Orbity EdTech App · Upwork</p>
+        </div>
+
+        <div class="slide">
+          <div class="slide-stars">★★★★★</div>
+          <blockquote>"Kateryna did great, the project went as smooth as it could have gone. She did it right and ahead of time."</blockquote>
+          <p class="slide-author">— UX design Client · Upwork</p>
+        </div>
+
+        <div class="slide">
+          <div class="slide-stars">★★★★★</div>
+          <blockquote>"Kateryna helped us create a page for rating restaurant services. She thoroughly understood the requirements and shared multiple quality design recommendations in a very short period of time. We will definitely hire Kateryna for future needs. Looking forward to working with her again."</blockquote>
+          <p class="slide-author">— Restaurant Services Client · Upwork</p>
+        </div>
+
+        <div class="slide">
+          <div class="slide-stars">★★★★★</div>
+          <blockquote>"Very good work from Kate — understands the requirements well and gives free mockup designs very quickly. Quick to make changes on feedback given. We would like to work with her in future on more projects."</blockquote>
+          <p class="slide-author">— Content-Heavy Mobile App Client · Upwork</p>
+        </div>
+
+      </div>
+
+      <div class="slider-controls">
+        <button class="slider-btn slider-prev" id="sliderPrev" aria-label="Previous review">←</button>
+        <div class="slider-dots" id="sliderDots"></div>
+        <button class="slider-btn slider-next" id="sliderNext" aria-label="Next review">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div class="contact-left">
+        <p class="section-label reveal-up">Let's work together</p>
+        <h2 class="contact-headline reveal-up">
+          Have a project<br />
+          <em>in mind?</em>
+        </h2>
+        <p class="contact-sub reveal-up">I'm looking for a Product Designer role at a tech company building mobile apps or digital platforms. Also open to select freelance work. Based in Barcelona, available immediately.</p>
+        <div class="contact-social reveal-up">
+          <a href="https://www.linkedin.com/in/katrinlevoniuk/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://www.behance.net/katrinlevoniuk" target="_blank" rel="noopener">Behance ↗</a>
+          <a href="mailto:katrinlevoniuk@gmail.com">katrinlevoniuk@gmail.com</a>
+          <a href="https://drive.google.com/file/d/1tg4LzZDU39xo2M193EfuUgnUz6D19UMw/view?usp=sharing" target="_blank">Download CV ↗</a>
+        </div>
+      </div>
+
+      <div class="contact-right reveal-up">
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" placeholder="Full name" required />
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="email@company.com" required />
+          </div>
+          <div class="form-field">
+            <label for="project">What are you working on?</label>
+            <select id="project" name="project">
+              <option value="" disabled selected>Select a type</option>
+              <option value="mobile-app">Mobile app</option>
+              <option value="web-platform">Web platform / SaaS</option>
+              <option value="design-system">Design system</option>
+              <option value="ux-research">UX research</option>
+              <option value="fulltime">Full-time role</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="message">Tell me more</label>
+            <textarea id="message" name="message" placeholder="A bit about the project, timeline, and what you need..." rows="5" required></textarea>
+          </div>
+          <button type="submit" class="form-submit">
+            <span id="submitText">Send message</span>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+          </button>
+          <p class="form-success" id="formSuccess">Thanks! I'll be in touch soon ✦</p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <span class="footer-name">Kateryna Levoniuk</span>
+    <span class="footer-copy">© 2025 · Product Designer · Barcelona</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

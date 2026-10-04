@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tracking & Analysis Platform — UX/UI Case Study by Kateryna Levoniuk" />
+  <title>Tracking & Analysis Platform — Kateryna Levoniuk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+
+  <style>
+    .cs-lego-wrap {
+      position: relative; width: 100%; border-radius: 40px;
+      overflow: hidden; border: 1px solid var(--line);
+      background: var(--bg-2); aspect-ratio: unset; height: 750px; cursor: none;
+    }
+    .cs-lego-wrap img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    #brickCanvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    #legoCursor {
+      position: absolute; width: 10px; height: 10px; border-radius: 50%;
+      background: #f5c514; box-shadow: 0 0 0 5px rgba(245,197,20,0.15);
+      pointer-events: none; transform: translate(-50%,-50%); display: none; z-index: 10;
+    }
+    .cs-lego-badge {
+      position: absolute; bottom: 16px; right: 20px;
+      display: flex; align-items: center; gap: 8px; padding: 6px 14px;
+      background: rgba(10,10,10,0.72); border: 1px solid var(--line-md);
+      border-radius: 100px; font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-3); transition: opacity 0.6s; z-index: 10;
+    }
+    .cs-lego-badge-dot {
+      width: 5px; height: 5px; border-radius: 50%; background: #f5c514;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    .cs-lego-badge.done { opacity: 0; pointer-events: none; }
+    @media (prefers-reduced-motion: reduce) { .cs-lego-badge-dot { animation: none; } }
+
+    .cs-slice { width: 100%; display: block; border-radius: 8px; border: 1px solid var(--line); }
+    .cs-slice-full { width: 100%; display: block; }
+
+    .lb-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 32px;
+    }
+    .lb-brick {
+      aspect-ratio: 1; border-radius: 6px; position: relative;
+      overflow: hidden; display: flex; align-items: center; justify-content: center;
+    }
+    .lb-brick canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .lb-brick-hex {
+      position: relative; z-index: 2; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.04em; text-align: center; pointer-events: none; margin-top: 52%;
+    }
+    @media (max-width: 640px) {
+      .lb-grid { grid-template-columns: repeat(3, 1fr); }
+      .lb-brick-hex { font-size: 9px; }
+    }
+
+    /* ── STORYTELLING ELEMENTS ── */
+    .cs-chapter {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 12px;
+    }
+    .cs-chapter-num {
+      font-family: var(--font-d); font-size: 11px; font-weight: 700;
+      color: #f5c514; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .cs-chapter-line {
+      flex: 1; height: 1px; background: var(--line);
+    }
+    .cs-chapter-label {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    /* pull quote */
+    .cs-pull {
+      border-left: 2px solid #f5c514;
+      padding: 4px 0 4px 24px;
+      margin: 32px 0;
+    }
+    .cs-pull p {
+      font-family: var(--font-d); font-size: clamp(18px, 2.2vw, 26px);
+      font-weight: 600; line-height: 1.4; letter-spacing: -0.02em;
+      color: var(--text); margin: 0;
+    }
+
+    /* step annotation */
+    .cs-step {
+      display: flex; gap: 16px; align-items: flex-start; margin-bottom: 20px;
+    }
+    .cs-step-n {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      background: #f5c514; color: #0a0a0a;
+      font-family: var(--font-d); font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cs-step-text { font-size: 15px; color: var(--text-2); line-height: 1.7; padding-top: 3px; }
+
+    /* caption under image */
+    .cs-caption {
+      font-size: 12px; color: var(--text-3); letter-spacing: 0.04em;
+      margin-top: 12px; padding-left: 4px;
+    }
+
+    /* stat callout inline */
+    .cs-inline-stats {
+      display: flex; gap: 40px; flex-wrap: wrap;
+      padding: 28px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      margin: 32px 0;
+    }
+    .cs-inline-stat-n {
+      display: block; font-family: var(--font-d); font-size: 36px; font-weight: 800;
+      color: #f5c514; letter-spacing: -0.03em; line-height: 1; margin-bottom: 4px;
+    }
+    .cs-inline-stat-l { font-size: 12px; color: var(--text-3); letter-spacing: 0.04em; }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<nav class="nav scrolled" id="nav">
+  <a href="../index.html" class="nav-logo">KL</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#work">Work</a></li>
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#contact" class="nav-cta">Get in touch ↗</a></li>
+  </ul>
+</nav>
+
+<article class="case-study">
+
+  <!-- HEADER -->
+  <header class="cs-header">
+    <div class="container">
+      <a href="../index.html#work" class="cs-back reveal-up">← Back to work</a>
+      <div class="cs-tags reveal-up">
+        <span class="tag">Web Platform</span>
+        <span class="tag">Dashboard Design</span>
+        <span class="tag">Data Visualisation</span>
+        <span class="tag">UX/UI</span>
+      </div>
+      <h1 class="cs-title reveal-up">Tracking &amp; Analysis Platform</h1>
+      <p class="cs-subtitle reveal-up">End-to-end UX/UI design for a complex data tracking and analytics platform — making dense, multi-layered information immediately readable and actionable.</p>
+      <div class="cs-meta reveal-up">
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Role</span>
+          <span class="cs-meta-value">Lead UX/UI Designer</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Type</span>
+          <span class="cs-meta-value">Freelance</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Deliverables</span>
+          <span class="cs-meta-value">UX Research · UI Design · Prototype</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Tools</span>
+          <span class="cs-meta-value">Figma · FigJam</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="cs-hero-img">
+    <div class="container">
+      <div class="cs-lego-wrap" id="legoWrap">
+        <img src="../assets/images/lego hero.png" alt="Tracking Platform overview" id="heroImg" />
+        <canvas id="brickCanvas"></canvas>
+        <div id="legoCursor" style="width:6px;height:6px;border-radius:20%;background:#fff;opacity:0.6;"></div>
+        <div class="cs-lego-badge" id="legoBadge">
+          <span class="cs-lego-badge-dot"></span>
+          Building…
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ① OVERVIEW -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter">
+          <span class="cs-chapter-num">01</span>
+          <span class="cs-chapter-line"></span>
+        </div>
+        <p class="section-label">Overview</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>The challenge</h2>
+        <p>LEGO BLOCK is a dynamic platform for LEGO enthusiasts seeking the best deals across 5,893+ sets sourced from multiple retail sites. The goal was to turn scattered pricing data into something immediately readable and actionable.</p>
+
+        <div class="cs-pull">
+          <p>"Users were drowning in tabs and spreadsheets just to find the best price for one set."</p>
+        </div>
+
+        <p>The existing solution was a manual process — open multiple retailer sites, compare prices, track changes over time. The goal was to design a platform that does all of that automatically and surfaces the right information at the right moment.</p>
+
+        <div class="cs-inline-stats">
+          <div>
+            <span class="cs-inline-stat-n">5,893+</span>
+            <span class="cs-inline-stat-l">LEGO sets tracked</span>
+          </div>
+          <div>
+            <span class="cs-inline-stat-n">50+</span>
+            <span class="cs-inline-stat-l">Screens designed</span>
+          </div>
+          <div>
+            <span class="cs-inline-stat-n">1</span>
+            <span class="cs-inline-stat-l">Design system built</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/lego/Slice 2.png" alt="LEGO BLOCK intro" class="cs-slice-full reveal-up" style="width:50%;display:block;margin:0 auto;padding-bottom:80px;" />
+    </div>
+  </div>
+
+  <!-- ② BRAND -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter">
+          <span class="cs-chapter-num">02</span>
+          <span class="cs-chapter-line"></span>
+        </div>
+        <p class="section-label">Brand</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Built from the brick up</h2>
+        <p>Before touching a single screen, I established a visual language rooted in LEGO's own DNA. Yellow is the hero — the same vibrant hue that's been on every LEGO box since 1958. The supporting palette pulls directly from iconic LEGO brick colours.</p>
+
+        <div class="lb-grid" id="lbColorGrid"></div>
+        <p class="cs-caption">Brand colours mapped to real LEGO brick colours — yellow, blue, grey, green, red.</p>
+
+        <h2>Typeface — Inter</h2>
+        <p>Inter carries the functional load. Clean, legible at every size, and neutral enough to step back and let the yellow accents and product photography do the talking. Used from 10px data labels all the way to 80px hero headings.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="w video-crop">
+    <video src="../assets/images/lego/bricks.mp4" autoplay muted loop playsinline></video>
+  </div>
+
+  <!-- ③ HOME PAGE -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter">
+          <span class="cs-chapter-num">03</span>
+          <span class="cs-chapter-line"></span>
+        </div>
+        <p class="section-label">Home Page</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Your first brick</h2>
+        <p>The home page is where the journey starts. A returning user lands here and immediately sees what changed — trending sets, price movers, new arrivals. A new user gets a clear sense of the platform in seconds.</p>
+
+        <div class="cs-pull">
+          <p>"Everything a LEGO collector needs to know — in one view, without scrolling."</p>
+        </div>
+
+        <div class="cs-step">
+          <div class="cs-step-n">1</div>
+          <div class="cs-step-text"><strong>Hero banner</strong> — featured set or promotion with a clear CTA to create a wishlist.</div>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-n">2</div>
+          <div class="cs-step-text"><strong>Trending sidebar</strong> — live price changes for sets the community watches most.</div>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-n">3</div>
+          <div class="cs-step-text"><strong>Categories &amp; Popular now</strong> — browse by theme or jump to what's hot today.</div>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-n">4</div>
+          <div class="cs-step-text"><strong>LEGO baseplate border</strong> — the signature visual that anchors every page in the brand's world.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/lego/Slice 5.png" alt="Home page UI" class="cs-slice-full reveal-up" />
+      <p class="cs-caption">Home page — hero, trending sidebar, categories, and popular sets.</p>
+    </div>
+  </div>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <div class="cs-img-grid cs-img-grid--2">
+        <div>
+          <img src="../assets/images/lego/Slice 12.png" alt="New sets" class="cs-slice reveal-up" />
+          <p class="cs-caption">New Sets — sortable table with price per brick and RRP comparison.</p>
+        </div>
+        <div>
+          <img src="../assets/images/lego/Slice 14.png" alt="Best deals" class="cs-slice reveal-up" />
+          <p class="cs-caption">Best Deals — colour-coded badges rank deals by discount type.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ PROCESS -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter">
+          <span class="cs-chapter-num">04</span>
+          <span class="cs-chapter-line"></span>
+        </div>
+        <p class="section-label">Process</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Research &amp; discovery</h2>
+        <p>I mapped three core user types — the casual collector who wants a quick deal, the serious investor tracking price history, and the gifter trying to find something specific fast. Each had very different mental models and jobs-to-be-done.</p>
+
+        <h2>Architecture &amp; flows</h2>
+        <p>The key decision was separating <em>browsing</em> from <em>tracking</em>. Browsing lives in Recent Changes, New Sets, and Best Deals — passive discovery. Tracking is personal: the wishlist and likes pages are yours alone. This split made navigation intuitive without any onboarding.</p>
+
+        <h2>UI design</h2>
+        <p>White cards on a dark editorial background. Yellow as the single action colour — every button, badge, and highlight uses it. Price changes get red or green. Everything else is neutral. The visual hierarchy is almost mathematical: you always know what matters most.</p>
+      </div>
+    </div>
+
+    <div class="cs-img-row">
+      <div class="container">
+        <img src="../assets/images/lego/Slice 7.png" alt="Colour palette" class="cs-slice-full reveal-up" />
+        <p class="cs-caption" style="padding-left:0;">Colour system — yellow as the primary action colour, supported by red and green for price signals.</p>
+      </div>
+    </div>
+
+    <div class="w video-crop">
+      <video src="../assets/images/space.mp4" autoplay muted loop playsinline></video>
+    </div>
+
+    <div class="cs-img-row">
+      <div class="container">
+        <img src="../assets/images/lego/Slice 16.png" alt="Likes page" class="cs-slice-full reveal-up" />
+        <p class="cs-caption" style="padding-left:0;">Likes &amp; Cart — personal space to bookmark sets and compare total cost across retailers.</p>
+      </div>
+    </div>
+
+    <div class="w video-crop">
+      <video src="../assets/images/paint.mp4" autoplay muted loop playsinline></video>
+    </div>
+  </section>
+
+  <!-- ⑤ SCREENS -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter">
+          <span class="cs-chapter-num">05</span>
+          <span class="cs-chapter-line"></span>
+        </div>
+        <p class="section-label">Key Screens</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Walking through the platform</h2>
+        <p>Each screen solves one problem clearly. Price changes are the heartbeat of the platform — so Recent Changes is always one click away from anywhere. The Set Overview page goes deep: price history chart, store comparison, piece count, availability. Everything a collector needs to make the call.</p>
+
+        <div class="cs-pull">
+          <p>"Every screen answers exactly one question. Nothing more, nothing less."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/lego/Slice 11.png" alt="New sets mockup" class="cs-slice-full reveal-up" />
+      <p class="cs-caption">New Sets page — live in context. The data table is clean, scannable, and sortable.</p>
+    </div>
+  </div>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <div class="cs-img-grid cs-img-grid--2">
+        <div>
+          <img src="../assets/images/lego/Slice 10.png" alt="Recent changes" class="cs-slice reveal-up" />
+          <p class="cs-caption">Recent Changes — grid view of the 16 latest price movements.</p>
+        </div>
+        <div>
+          <img src="../assets/images/lego/Slice 4.png" alt="Typeface" class="cs-slice reveal-up" />
+          <p class="cs-caption">Typeface — Inter at every weight, from data labels to hero text.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w video-crop">
+    <video src="../assets/images/lego/walle.mp4" autoplay muted loop playsinline></video>
+  </div>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/lego/Slice 17.png" alt="Set overview" class="cs-slice-full reveal-up" />
+      <p class="cs-caption">Set Overview — price history chart, store comparison table, and similar sets. The deepest view in the platform.</p>
+    </div>
+  </div>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/lego/Slice 13.png" alt="Best deals stormtrooper" class="cs-slice-full reveal-up" />
+      <p class="cs-caption">Best Deals — editorial photography meets data. The Stormtrooper knows a good deal when he sees one.</p>
+    </div>
+  </div>
+
+  <div class="w video-crop">
+    <video src="../assets/images/lego/person.mp4" autoplay muted loop playsinline></video>
+  </div>
+
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/lego/Slice 20.png" alt="Forgot password" class="cs-slice-full reveal-up" />
+      <p class="cs-caption">Even the edge cases get the full treatment — login, register, and forgot password all live inside the product's visual world.</p>
+    </div>
+  </div>
+
+  <!-- ⑥ OUTCOME -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter">
+          <span class="cs-chapter-num">06</span>
+          <span class="cs-chapter-line"></span>
+        </div>
+        <p class="section-label">Outcome</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>What was delivered</h2>
+        <p>A complete product — 50+ high-fidelity screens covering every user flow from first visit to daily use. A full design system with components, colour tokens, and typography scale. A clickable Figma prototype and annotated handoff documentation ready for development.</p>
+
+        <div class="cs-pull">
+          <p>"From spreadsheet chaos to a platform that works as hard as the collectors who use it."</p>
+        </div>
+
+        <div class="cs-outcome-stats">
+          <div class="cs-stat">
+            <span class="cs-stat-n">50+</span>
+            <span class="cs-stat-l">Screens designed</span>
+          </div>
+          <div class="cs-stat">
+            <span class="cs-stat-n">1</span>
+            <span class="cs-stat-l">Design system created</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MORE IMAGES -->
+  <div class="cs-img-row">
+    <div class="container">
+      <div class="cs-img-grid cs-img-grid--3">
+        <img src="../assets/images/lego/Slice 6.png" alt="LEGO pixel visual" class="cs-slice reveal-up" />
+        <img src="../assets/images/lego/Slice 19.png" alt="Register modal" class="cs-slice reveal-up" />
+        <img src="../assets/images/lego/Slice 21.png" alt="Final screen" class="cs-slice reveal-up" />
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV BETWEEN PROJECTS -->
+  <div class="cs-nav-projects">
+    <div class="container">
+      <a href="../index.html#work" class="cs-nav-back">← All projects</a>
+      <a href="podcast-app.html" class="cs-nav-next">Next: Podcast App →</a>
+    </div>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="container">
+    <span class="footer-name">Kateryna Levoniuk</span>
+    <span class="footer-copy">© 2025 · Product Designer · Barcelona</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+
+<script>
+  (function () {
+    function init() {
+      const wrap   = document.getElementById('legoWrap');
+      const img    = document.getElementById('heroImg');
+      const canvas = document.getElementById('brickCanvas');
+      const badge  = document.getElementById('legoBadge');
+      const cursor = document.getElementById('legoCursor');
+      if (!wrap || !img || !canvas) return;
+      const ctx = canvas.getContext('2d');
+      const CELL = 18, RADIUS = 80;
+      let W, H, COLS, ROWS, BW, BH;
+      let grid = [], rafId = null, isAnimating = false;
+
+      function setup() {
+        W = wrap.offsetWidth; H = wrap.offsetHeight;
+        if (!W || !H) return false;
+        canvas.width = W; canvas.height = H;
+        COLS = Math.ceil(W / CELL); ROWS = Math.ceil(H / CELL);
+        BW = W / COLS; BH = H / ROWS;
+        return true;
+      }
+
+      function sampleColors() {
+        try {
+          const off = document.createElement('canvas');
+          off.width = COLS; off.height = ROWS;
+          const offCtx = off.getContext('2d');
+          offCtx.drawImage(img, 0, 0, COLS, ROWS);
+          const d = offCtx.getImageData(0, 0, COLS, ROWS).data;
+          return Array.from({length: ROWS}, (_, r) =>
+                  Array.from({length: COLS}, (_, c) => {
+                    const i = (r * COLS + c) * 4;
+                    return [d[i], d[i+1], d[i+2]];
+                  })
+          );
+        } catch(e) { return null; }
+      }
+
+      function drawStudColored(cx, cy, r, color, alpha, dy) {
+        ctx.save(); ctx.globalAlpha = alpha; ctx.translate(0, dy || 0);
+        ctx.fillStyle = `rgb(${Math.max(0,color[0]-20)},${Math.max(0,color[1]-20)},${Math.max(0,color[2]-20)})`;
+        ctx.fillRect(cx - BW/2, cy - BH/2, BW, BH);
+        ctx.beginPath(); ctx.arc(cx+0.8, cy+1.5, r, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.fill();
+        const g = ctx.createRadialGradient(cx-r*.3, cy-r*.3, r*.02, cx, cy, r*1.05);
+        g.addColorStop(0, `rgb(${Math.min(255,color[0]+100)},${Math.min(255,color[1]+100)},${Math.min(255,color[2]+100)})`);
+        g.addColorStop(0.5, `rgb(${color[0]},${color[1]},${color[2]})`);
+        g.addColorStop(1, `rgb(${Math.max(0,color[0]-80)},${Math.max(0,color[1]-80)},${Math.max(0,color[2]-80)})`);
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.fillStyle = g; ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,0.22)'; ctx.lineWidth = 1; ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, cy, r*.66, Math.PI*1.08, Math.PI*1.7);
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = r*.25; ctx.lineCap = 'round'; ctx.stroke();
+        ctx.restore();
+      }
+
+      function drawStudOverlay(cx, cy, r, alpha, dy) {
+        ctx.save(); ctx.globalAlpha = alpha; ctx.translate(0, dy || 0);
+        ctx.fillStyle = 'rgba(255,255,255,0.06)';
+        ctx.fillRect(cx - BW/2, cy - BH/2, BW, BH);
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(255,255,255,0.12)'; ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.lineWidth = 1; ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, cy, r*.66, Math.PI*1.08, Math.PI*1.7);
+        ctx.strokeStyle = 'rgba(255,255,255,0.7)'; ctx.lineWidth = r*.28; ctx.lineCap = 'round'; ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, cy, r*.66, Math.PI*0.1, Math.PI*0.72);
+        ctx.strokeStyle = 'rgba(0,0,0,0.25)'; ctx.lineWidth = r*.2; ctx.lineCap = 'round'; ctx.stroke();
+        ctx.restore();
+      }
+
+      function redrawAll(colors) {
+        ctx.clearRect(0, 0, W, H);
+        if (!colors) ctx.drawImage(img, 0, 0, W, H);
+        const r = Math.min(BW, BH) * 0.40;
+        for (let row = 0; row < ROWS; row++)
+          for (let col = 0; col < COLS; col++) {
+            const cell = grid[row][col];
+            if (cell.alpha < 0.01) continue;
+            const cx = col*BW+BW/2, cy = row*BH+BH/2;
+            if (colors) drawStudColored(cx, cy, r, cell.color, cell.alpha, cell.dy||0);
+            else drawStudOverlay(cx, cy, r, cell.alpha, cell.dy||0);
+          }
+      }
+
+      let _colors = null;
+
+      function tick() {
+        let active = false;
+        for (let row = 0; row < ROWS; row++)
+          for (let col = 0; col < COLS; col++) {
+            const cell = grid[row][col];
+            if (!cell.alive && cell.alpha > 0) {
+              cell.vy = (cell.vy||0) - 0.16; cell.dy = (cell.dy||0) + cell.vy;
+              cell.alpha = Math.max(0, cell.alpha - 0.055); active = true;
+            }
+          }
+        redrawAll(_colors);
+        if (active) rafId = requestAnimationFrame(tick);
+        else isAnimating = false;
+      }
+
+      function vanishAt(mx, my) {
+        let hit = false;
+        for (let row = 0; row < ROWS; row++)
+          for (let col = 0; col < COLS; col++) {
+            if (!grid[row][col].alive) continue;
+            const cx = col*BW+BW/2, cy = row*BH+BH/2;
+            if (Math.hypot(mx-cx, my-cy) < RADIUS) {
+              grid[row][col].alive = false; grid[row][col].vy = -(0.5+Math.random()*0.4); hit = true;
+            }
+          }
+        if (hit && !isAnimating) { isAnimating = true; rafId = requestAnimationFrame(tick); }
+      }
+
+      function buildWithAnim(colors) {
+        _colors = colors;
+        grid = Array.from({length: ROWS}, (_, row) =>
+                Array.from({length: COLS}, (_, col) => ({
+                  alive: true, alpha: 0, vy: 0, dy: 0, color: colors ? colors[row][col] : null
+                }))
+        );
+        const order = [];
+        for (let row = 0; row < ROWS; row++)
+          for (let col = 0; col < COLS; col++) order.push([row, col]);
+        const cr = ROWS/2, cc = COLS/2;
+        order.sort((a,b) => Math.hypot(a[0]-cr,a[1]-cc) - Math.hypot(b[0]-cr,b[1]-cc));
+        let i = 0;
+        badge && badge.classList.remove('done');
+        function drop() {
+          const end = Math.min(i+10, order.length);
+          for (; i < end; i++) { const [r,c] = order[i]; grid[r][c].alpha = 1; }
+          redrawAll(_colors);
+          if (i < order.length) setTimeout(drop, 8);
+          else badge && badge.classList.add('done');
+        }
+        setTimeout(drop, 300);
+      }
+
+      function start() {
+        if (!setup()) { requestAnimationFrame(start); return; }
+        buildWithAnim(sampleColors());
+      }
+
+      let aimX=0, aimY=0, curX=0, curY=0;
+      (function moveCursor() {
+        curX += (aimX-curX)*.18; curY += (aimY-curY)*.18;
+        if (cursor) { cursor.style.left=curX+'px'; cursor.style.top=curY+'px'; }
+        requestAnimationFrame(moveCursor);
+      })();
+
+      wrap.addEventListener('mousemove', e => {
+        const rect = wrap.getBoundingClientRect();
+        aimX = e.clientX-rect.left; aimY = e.clientY-rect.top;
+        if (cursor) cursor.style.display = 'block';
+        vanishAt(aimX, aimY);
+      });
+      wrap.addEventListener('mouseleave', () => { if (cursor) cursor.style.display = 'none'; });
+
+      function tryStart() {
+        if (img.complete && img.naturalWidth > 0) requestAnimationFrame(start);
+        else img.addEventListener('load', () => requestAnimationFrame(start), {once:true});
+      }
+      if (document.readyState === 'complete') tryStart();
+      else window.addEventListener('load', tryStart, {once:true});
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { cancelAnimationFrame(rafId); isAnimating = false; start(); }, 220);
+      });
+    }
+    if (document.readyState !== 'loading') init();
+    else document.addEventListener('DOMContentLoaded', init, {once:true});
+  })();
+</script>
+
+<script>
+  (function() {
+    const colors = [
+      { hex: '#FADD00', text: 'rgba(0,0,0,0.65)' },
+      { hex: '#4A76CB', text: 'rgba(255,255,255,0.9)' },
+      { hex: '#86888E', text: 'rgba(255,255,255,0.9)' },
+      { hex: '#3AB326', text: 'rgba(255,255,255,0.9)' },
+      { hex: '#B42626', text: 'rgba(255,255,255,0.9)' },
+    ];
+    function hexToRgb(hex) {
+      return [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)];
+    }
+    function lighten([r,g,b], a) { return `rgb(${Math.min(255,r+~~(255*a))},${Math.min(255,g+~~(255*a))},${Math.min(255,b+~~(255*a))})`; }
+    function darken([r,g,b], a)  { return `rgb(${Math.max(0,r-~~(255*a))},${Math.max(0,g-~~(255*a))},${Math.max(0,b-~~(255*a))})`; }
+    function drawBrick(canvas, hex) {
+      const rgb = hexToRgb(hex);
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width, H = canvas.height;
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle = hex; ctx.fillRect(0,0,W,H);
+      ctx.fillStyle = 'rgba(255,255,255,0.12)'; ctx.fillRect(0,0,W,2); ctx.fillRect(0,0,2,H);
+      ctx.fillStyle = 'rgba(0,0,0,0.18)'; ctx.fillRect(0,H-2,W,2); ctx.fillRect(W-2,0,2,H);
+      const cx = W/2, cy = H/2, r = Math.min(W,H)*0.40;
+      ctx.save(); ctx.shadowColor='rgba(0,0,0,0.45)'; ctx.shadowBlur=r*0.35; ctx.shadowOffsetX=r*0.18; ctx.shadowOffsetY=r*0.18;
+      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=hex; ctx.fill(); ctx.restore();
+      ctx.save(); ctx.shadowColor='rgba(255,255,255,0.22)'; ctx.shadowBlur=r*0.3; ctx.shadowOffsetX=-r*0.14; ctx.shadowOffsetY=-r*0.14;
+      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=hex; ctx.fill(); ctx.restore();
+      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=hex; ctx.fill();
+      const rg = ctx.createRadialGradient(cx-r*0.3,cy-r*0.3,0,cx,cy,r*1.1);
+      rg.addColorStop(0,'rgba(255,255,255,0.28)'); rg.addColorStop(0.45,'rgba(255,255,255,0)');
+      rg.addColorStop(0.7,'rgba(0,0,0,0)'); rg.addColorStop(1,'rgba(0,0,0,0.22)');
+      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=rg; ctx.fill();
+      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.strokeStyle='rgba(0,0,0,0.15)'; ctx.lineWidth=1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx,cy,r*0.74,Math.PI*1.1,Math.PI*1.72);
+      ctx.strokeStyle='rgba(255,255,255,0.5)'; ctx.lineWidth=r*0.13; ctx.lineCap='round'; ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx-r*0.28,cy-r*0.28,r*0.12,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.fill();
+    }
+    const grid = document.getElementById('lbColorGrid');
+    colors.forEach(({ hex, text }) => {
+      const brick = document.createElement('div');
+      brick.className = 'lb-brick'; brick.style.background = hex;
+      const canvas = document.createElement('canvas');
+      brick.appendChild(canvas);
+      const hexEl = document.createElement('div');
+      hexEl.className = 'lb-brick-hex'; hexEl.textContent = hex; hexEl.style.color = text;
+      brick.appendChild(hexEl);
+      grid.appendChild(brick);
+      const ro = new ResizeObserver(() => {
+        const size = brick.offsetWidth; if (!size) return;
+        canvas.width = size; canvas.height = size; drawBrick(canvas, hex);
+      });
+      ro.observe(brick);
+    });
+  })();
+</script>
+
+</body>
+</html>
