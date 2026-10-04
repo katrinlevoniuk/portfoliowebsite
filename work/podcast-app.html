@@ -81,7 +81,9 @@
     }
     .hero-bg {
       position: absolute; inset: 0;
-      background: linear-gradient(160deg, #0B1736 0%, #0a0a0a 55%);
+      background:
+        radial-gradient(ellipse 45% 55% at 78% 60%, rgba(255,58,70,.22) 0%, transparent 70%),
+        linear-gradient(160deg, #0B1736 0%, #0a0a0a 60%);
     }
     .hero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: .18; }
     .hero-noise { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E"); }
@@ -99,8 +101,10 @@
     .hero-meta-item { background: transparent; padding: 20px 0; }
     .hero-meta-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
     .hero-meta-val { font-size: 14px; font-weight: 500; }
-    .hero-mockup { position: absolute; right: 48px; bottom: 0; width: 42%; max-width: 600px; z-index: 3; transform: translateY(20px) rotate(3deg); transition: transform .6s var(--ease); }
-    .hero-mockup:hover { transform: translateY(8px) rotate(1deg); }
+    .hero-mockup { position: absolute; right: 6%; bottom: -40px; width: auto; height: min(84vh, 820px); z-index: 1; transform: rotate(4deg); transition: transform .6s var(--ease); }
+    .hero-mockup:hover { transform: translateY(-12px) rotate(2deg); }
+    .hero-title, .hero-sub, .hero-pills { max-width: 56%; }
+    .hero-meta { margin-right: 42%; grid-template-columns: repeat(2, 1fr); background: transparent; }
 
     /* ── CONTAINER ── */
     .w { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
@@ -241,7 +245,8 @@
       nav { padding: 0 24px; }
       .hero { padding: 80px 24px 60px; }
       .hero-mockup { display: none; }
-      .hero-meta { grid-template-columns: repeat(2,1fr); }
+      .hero-title, .hero-sub, .hero-pills { max-width: none; }
+      .hero-meta { margin-right: 0; grid-template-columns: repeat(2,1fr); }
       .two-col, .two-col--wide { grid-template-columns: 1fr; gap: 40px; }
       .feedback-grid { grid-template-columns: 1fr; }
       .stat-strip { grid-template-columns: 1fr; }
@@ -281,9 +286,7 @@
        HERO
   ════════════════════════════════════════ -->
   <section class="hero">
-    <div class="hero-bg">
-      <img src="../assets/images/Slice_2.jpg" alt="" aria-hidden="true" />
-    </div>
+    <div class="hero-bg"></div>
     <div class="hero-noise"></div>
 
     <div class="hero-inner">
