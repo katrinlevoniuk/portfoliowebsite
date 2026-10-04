@@ -3,14 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Eduopos — Education Platform — UX/UI Case Study by Kateryna Levoniuk" />
-  <title>Eduopos Education Platform — Kateryna Levoniuk</title>
+  <meta name="description" content="EduOpos — Product/UX Case Study by Kateryna Levoniuk" />
+  <title>EduOpos — Kateryna Levoniuk</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
 
   <style>
+    :root { --eo: #7C3AED; }
+
+    /* CHAPTER */
     .cs-chapter { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
     .cs-chapter-num {
       font-family:var(--font-d); font-size:11px; font-weight:700;
@@ -18,12 +21,120 @@
     }
     .cs-chapter-line { flex:1; height:1px; background:var(--line); }
 
+    /* PULL QUOTE */
     .cs-pull { border-left:2px solid var(--accent); padding:4px 0 4px 24px; margin:32px 0; }
     .cs-pull p {
       font-family:var(--font-d); font-size:clamp(16px,1.9vw,22px);
       font-weight:600; line-height:1.45; letter-spacing:-0.01em; color:var(--text); margin:0;
     }
 
+    /* NUMBERS */
+    .eo-nums {
+      display:flex; border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin:48px 0;
+    }
+    .eo-num-item { flex:1; padding:26px 0; text-align:center; border-right:1px solid var(--line); }
+    .eo-num-item:last-child { border-right:none; }
+    .eo-num-n {
+      display:block; font-family:var(--font-d); font-size:36px; font-weight:800;
+      color:var(--accent); letter-spacing:-0.03em; line-height:1; margin-bottom:6px;
+    }
+    .eo-num-l { font-size:11px; color:var(--text-3); letter-spacing:0.06em; text-transform:uppercase; }
+
+    /* FACT GRID */
+    .eo-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:1px;
+      background:var(--line); border:1px solid var(--line);
+      border-radius:10px; overflow:hidden; margin-top:28px;
+    }
+    .eo-grid--3 { grid-template-columns:repeat(3,1fr); }
+    .eo-cell { background:var(--bg-1); padding:22px 24px; }
+    .eo-cell-label {
+      font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--accent); margin-bottom:10px; display:block;
+    }
+    .eo-cell-title { font-size:14px; font-weight:600; color:var(--text); margin-bottom:6px; }
+    .eo-cell-text { font-size:13px; color:var(--text-2); line-height:1.65; }
+
+    /* HIERARCHY */
+    .eo-tree {
+      margin-top:16px; font-size:13px; color:var(--text-2); line-height:1.9;
+      font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .eo-tree span { color:var(--text-3); }
+    .eo-status { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+    .eo-status em {
+      font-style:normal; font-size:11px; font-weight:600; padding:4px 10px; border-radius:100px;
+      background:var(--accent-dim); color:var(--accent); border:1px solid var(--accent-mid);
+    }
+
+    /* NUMBERED LIST */
+    .eo-steps { display:flex; flex-direction:column; margin-top:24px; }
+    .eo-step {
+      display:grid; grid-template-columns:48px 1fr; gap:20px;
+      padding:20px 0; border-bottom:1px solid var(--line); align-items:start;
+    }
+    .eo-step:first-child { border-top:1px solid var(--line); }
+    .eo-step-num {
+      font-family:var(--font-d); font-size:11px; font-weight:700;
+      color:var(--accent); letter-spacing:0.08em; padding-top:2px;
+    }
+    .eo-step-title { font-size:14px; font-weight:600; color:var(--text); margin-bottom:4px; }
+    .eo-step-text { font-size:13px; color:var(--text-2); line-height:1.65; }
+
+    /* CHAPTER BADGE + FLOW */
+    .eo-badge {
+      display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+      padding:4px 10px; border-radius:100px; margin-left:10px; vertical-align:middle;
+      border:1px solid var(--line-md); color:var(--text-3);
+    }
+    .eo-badge--new { border-color:var(--accent-mid); color:var(--accent); }
+    .cs-col-content .eo-refs { font-size:12px; color:var(--text-3); letter-spacing:0.04em; margin-top:-4px; }
+    .eo-flow {
+      margin-top:24px; padding:14px 18px; border-radius:8px;
+      background:var(--bg-2); border:1px solid var(--line);
+      font-size:11px; font-weight:600; letter-spacing:0.1em; color:var(--accent);
+    }
+
+    /* BEFORE / AFTER */
+    .eo-ba { display:flex; flex-direction:column; gap:10px; margin-top:24px; }
+    .eo-ba-row {
+      display:grid; grid-template-columns:120px 1fr 1fr; gap:1px;
+      background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;
+    }
+    .eo-ba-row > div { background:var(--bg-1); padding:16px 18px; font-size:13px; line-height:1.6; color:var(--text-2); }
+    .eo-ba-row .eo-ba-name { font-weight:600; color:var(--text); }
+    .eo-ba-row .eo-ba-after { background:var(--accent-dim); color:var(--text); }
+    .eo-ba-label { display:block; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-3); margin-bottom:6px; }
+    .eo-ba-after .eo-ba-label { color:var(--accent); }
+
+    /* COLORS */
+    .eo-swatches { display:flex; gap:16px; flex-wrap:wrap; margin-top:20px; }
+    .eo-swatch { display:flex; align-items:center; gap:12px; }
+    .eo-swatch-dot { width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.08); }
+    .eo-swatch-label { font-size:13px; color:var(--text); font-weight:600; }
+    .eo-swatch-hex { font-size:11px; color:var(--text-3); font-family:monospace; }
+
+    /* CLOSING */
+    .eo-closing {
+      background:var(--bg-1); border:1px solid var(--line);
+      border-radius:12px; padding:52px 48px; text-align:center;
+    }
+    .eo-closing-q {
+      font-family:var(--font-d); font-size:clamp(22px,3.2vw,40px);
+      font-weight:800; letter-spacing:-0.03em; line-height:1.1;
+      color:var(--text); margin-bottom:16px;
+    }
+    .eo-closing-q em { font-style:normal; color:var(--accent); }
+    .eo-closing p { font-size:15px; color:var(--text-2); line-height:1.7; max-width:560px; margin:0 auto; }
+    .eo-closing .eo-grid { text-align:left; margin-top:32px; }
+
+    @media (max-width:760px) {
+      .eo-grid, .eo-grid--3 { grid-template-columns:1fr; }
+      .eo-nums { flex-wrap:wrap; }
+      .eo-num-item { flex:1 1 50%; border-right:none; border-bottom:1px solid var(--line); }
+      .eo-ba-row { grid-template-columns:1fr; }
+      .eo-closing { padding:32px 20px; }
+    }
   </style>
 </head>
 <body>
@@ -51,28 +162,30 @@
       <a href="../index.html#work" class="cs-back reveal-up">← Back to work</a>
       <div class="cs-tags reveal-up">
         <span class="tag">EdTech</span>
-        <span class="tag">Web App</span>
-        <span class="tag">UX/UI</span>
+        <span class="tag">Mobile App</span>
+        <span class="tag">Product/UX</span>
+        <span class="tag">Live on the App Store</span>
       </div>
-      <h1 class="cs-title reveal-up">Eduopos — Education Platform</h1>
-      <p class="cs-subtitle reveal-up">End-to-end UX/UI for an online education platform — structuring courses and learning flows so students always know where they are and what to do next.</p>
+      <h1 class="cs-title reveal-up">EduOpos</h1>
+      <p class="cs-subtitle reveal-up">A mobile learning app for teachers in Spain preparing for oposiciones: temario, practice cases, flashcards and an AI worksheet generator.</p>
+      <p class="cs-subtitle reveal-up" style="margin-top:0;">Product/UX, working directly with the founder. Redesign of the app, plus a new Temario module built from scratch.</p>
 
       <div class="cs-meta reveal-up">
         <div class="cs-meta-item">
           <span class="cs-meta-label">Role</span>
-          <span class="cs-meta-value">UX/UI Designer</span>
-        </div>
-        <div class="cs-meta-item">
-          <span class="cs-meta-label">Type</span>
-          <span class="cs-meta-value">Freelance · Upwork</span>
+          <span class="cs-meta-value">Product/UX</span>
         </div>
         <div class="cs-meta-item">
           <span class="cs-meta-label">Platform</span>
-          <span class="cs-meta-value">Web</span>
+          <span class="cs-meta-value">Mobile · App Store</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Year</span>
+          <span class="cs-meta-value">2025–26</span>
         </div>
         <div class="cs-meta-item">
           <span class="cs-meta-label">Tools</span>
-          <span class="cs-meta-value">Figma · FigJam</span>
+          <span class="cs-meta-value">Figma</span>
         </div>
       </div>
     </div>
@@ -81,92 +194,432 @@
   <!-- HERO -->
   <div class="cs-hero-img">
     <div class="container">
-      <!-- swap in once the Figma cover is exported:
-      <img src="../assets/images/eduopos-cover.png" alt="Eduopos — main screen" style="border-radius:8px;border:1px solid var(--line);" /> -->
+      <!-- swap in once exported from Figma (frame "hero"):
+      <img src="../assets/images/eduopos/hero.png" alt="EduOpos — key screens" style="border-radius:8px;border:1px solid var(--line);" /> -->
       <div class="cs-img-placeholder cs-img-placeholder--wide">
-        <p class="cs-img-note">Main screen — assets/images/eduopos-cover.png</p>
+        <p class="cs-img-note">Hero — assets/images/eduopos/hero.png</p>
       </div>
     </div>
   </div>
 
-  <!-- 01 OVERVIEW -->
+  <!-- NUMBERS -->
+  <div class="container">
+    <div class="eo-nums reveal-up">
+      <div class="eo-num-item"><span class="eo-num-n">69</span><span class="eo-num-l">Screens designed</span></div>
+      <div class="eo-num-item"><span class="eo-num-n">8</span><span class="eo-num-l">User flows</span></div>
+      <div class="eo-num-item"><span class="eo-num-n">46h</span><span class="eo-num-l">UX/UI work</span></div>
+      <div class="eo-num-item"><span class="eo-num-n">7+</span><span class="eo-num-l">AI worksheet types</span></div>
+    </div>
+  </div>
+
+  <!-- 01 CONTEXT -->
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
         <div class="cs-chapter"><span class="cs-chapter-num">01</span><span class="cs-chapter-line"></span></div>
-        <p class="section-label">Overview</p>
+        <p class="section-label">Context</p>
       </div>
       <div class="cs-col-content reveal-up">
-        <h2>The challenge</h2>
-        <p>Eduopos is an online education platform. Learning products easily become cluttered — courses, lessons, progress and settings all compete for attention. The goal was an interface that keeps the focus on learning and makes the next step obvious.</p>
+        <h2>A learning app to redesign, and a content-heavy Temario to build from scratch.</h2>
+        <p>From syllabus anxiety to everyday confidence: a connected experience spanning worksheets, practice cases, memorization tools and long-range planning.</p>
 
-        <div class="cs-pull">
-          <p>"Students should always know where they are and what to do next."</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="cs-img-row">
-    <div class="container">
-      <div class="cs-img-grid cs-img-grid--2">
-        <div class="cs-img-placeholder"><p class="cs-img-note">Dashboard</p></div>
-        <div class="cs-img-placeholder"><p class="cs-img-note">Course page</p></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 02 PROCESS -->
-  <section class="cs-section">
-    <div class="container cs-two-col">
-      <div class="cs-col-label">
-        <div class="cs-chapter"><span class="cs-chapter-num">02</span><span class="cs-chapter-line"></span></div>
-        <p class="section-label">Process</p>
-      </div>
-      <div class="cs-col-content reveal-up">
-        <h2>Structure &amp; flows</h2>
-        <p>I mapped the core journeys — finding a course, moving through lessons, and tracking progress — and organised the information architecture around them, so each screen supports one clear task.</p>
-        <h2>UI design</h2>
-        <p>A calm, consistent visual system with clear hierarchy: content first, navigation predictable, and progress always visible.</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="cs-img-full">
-    <div class="cs-img-placeholder cs-img-placeholder--wide">
-      <p class="cs-img-note">Key screens — assets/images/eduopos-full.png</p>
-    </div>
-  </div>
-
-  <!-- 03 OUTCOME -->
-  <section class="cs-section">
-    <div class="container cs-two-col">
-      <div class="cs-col-label">
-        <div class="cs-chapter"><span class="cs-chapter-num">03</span><span class="cs-chapter-line"></span></div>
-        <p class="section-label">Outcome</p>
-      </div>
-      <div class="cs-col-content reveal-up">
-        <h2>What was delivered</h2>
-        <p>High-fidelity screens and a developer-ready Figma file for the platform's core flows.</p>
-        <div class="cs-outcome-stats">
-          <div class="cs-stat">
-            <span class="cs-stat-n">46h</span>
-            <span class="cs-stat-l">Design engagement</span>
+        <div class="eo-grid eo-grid--3">
+          <div class="eo-cell">
+            <span class="eo-cell-label">Product</span>
+            <div class="eo-cell-text">Mobile app for teachers in Spain preparing for oposiciones: temario, practice cases, flashcards and a worksheet generator.</div>
+          </div>
+          <div class="eo-cell">
+            <span class="eo-cell-label">Starting point</span>
+            <div class="eo-cell-text">An existing app with onboarding, worksheets and practice cases, but no Temario module yet.</div>
+          </div>
+          <div class="eo-cell">
+            <span class="eo-cell-label">My part</span>
+            <div class="eo-cell-text">Product/UX, working directly with the founder: redesign of the app, plus the Temario module from zero.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="cs-img-row">
-    <div class="container">
-      <div class="cs-img-grid cs-img-grid--3">
-        <div class="cs-img-placeholder"><p class="cs-img-note">Lesson view</p></div>
-        <div class="cs-img-placeholder"><p class="cs-img-note">Progress</p></div>
-        <div class="cs-img-placeholder"><p class="cs-img-note">Profile</p></div>
+  <!-- 02 CHALLENGE -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">02</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Challenge</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Dense content. Nested cases. One small screen.</h2>
+        <p>Each topic holds dozens to hundreds of fragments; practice cases nest phases, sections and references. The challenge was making that content scannable, navigable and personal on mobile.</p>
+
+        <div class="eo-grid">
+          <div class="eo-cell">
+            <span class="eo-cell-label">Temario · New module</span>
+            <div class="eo-cell-title">Dozens to hundreds of fragments per topic.</div>
+            <div class="eo-cell-text">The order of the material matters. Users need to see where they are without opening every fragment.</div>
+            <div class="eo-tree">
+              Temario <span>· oposición + especialidad</span><br>
+              └ Tema <span>· topic</span><br>
+              &nbsp;&nbsp;└ Section / Subgroup <span>· keeps original order</span><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;└ Fragment <span>· dozens to hundreds</span>
+            </div>
+            <div class="eo-status"><em>Memorizado</em><em>Necesita práctica</em><em>Sin estudiar</em></div>
+          </div>
+          <div class="eo-cell">
+            <span class="eo-cell-label">Supuestos prácticos · Redesign</span>
+            <div class="eo-cell-title">Nested cases, too deep for tabs.</div>
+            <div class="eo-cell-text">A case can run 20+ pages, with phases, sections and references inside. Navigation had to handle that depth.</div>
+            <div class="eo-tree">
+              Explicación<br>
+              Índice <span>· replaces tabs</span><br>
+              Resultado <span>· core content</span><br>
+              &nbsp;&nbsp;└ Fase Inicial · Procesual · Final<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;└ Sections → References<br>
+              Estudio <span>· practice</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
+
+  <!-- 03 USERS -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">03</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Users &amp; problems</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Two audiences, one dense learning system.</h2>
+
+        <div class="eo-grid eo-grid--3">
+          <div class="eo-cell">
+            <span class="eo-cell-label">01 · Opositores</span>
+            <div class="eo-cell-text">Study hundreds of fragments and nested practice cases.</div>
+          </div>
+          <div class="eo-cell">
+            <span class="eo-cell-label">02 · Teachers</span>
+            <div class="eo-cell-text">Need ready classroom materials for tomorrow.</div>
+          </div>
+          <div class="eo-cell">
+            <span class="eo-cell-label">03 · Both</span>
+            <div class="eo-cell-text">Need region + specialty to match their curriculum.</div>
+          </div>
+        </div>
+
+        <h2>Lots of content. No structure for a phone yet.</h2>
+        <p>Before designing screens, I mapped how temario, topics, sections and fragments relate, and how practice cases nest phases and sections.</p>
+        <div class="eo-steps">
+          <div class="eo-step"><div class="eo-step-num">!</div><div class="eo-step-title">Nested cases need more than tabs</div></div>
+          <div class="eo-step"><div class="eo-step-num">!</div><div class="eo-step-title">Progress must not repeat across screens</div></div>
+          <div class="eo-step"><div class="eo-step-num">!</div><div class="eo-step-title">Fragments shouldn’t be opened one by one</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 DESIGN DECISIONS -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">04</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Design decisions</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Redesign where it existed. Structure from scratch where it didn’t.</h2>
+        <p>Eight decisions that shaped the product. Each one started from structure and flow, not from visuals.</p>
+
+        <div class="eo-steps">
+          <div class="eo-step">
+            <div class="eo-step-num">01</div>
+            <div>
+              <div class="eo-step-title">Temario → Tema → Section → Fragment as one readable hierarchy.</div>
+              <div class="eo-step-text">Topics hold dozens or hundreds of fragments that must keep their original order. I mapped the structure first, then designed lists that show where you are inside it.</div>
+            </div>
+          </div>
+          <div class="eo-step">
+            <div class="eo-step-num">02</div>
+            <div>
+              <div class="eo-step-title">Open where reading flows, collapsible where it doesn’t.</div>
+              <div class="eo-step-text">I defined when content stays open and when it collapses, so users can scan a topic without opening every single fragment.</div>
+            </div>
+          </div>
+          <div class="eo-step">
+            <div class="eo-step-num">03</div>
+            <div>
+              <div class="eo-step-title">One clear progress signal instead of several.</div>
+              <div class="eo-step-text">I weighed progress bars, fragment counts, completed states and Memorizado / Necesita práctica, and cut anything that repeated.</div>
+            </div>
+          </div>
+          <div class="eo-step">
+            <div class="eo-step-num">04</div>
+            <div>
+              <div class="eo-step-title">An índice instead of tabs, with Resultado as the core.</div>
+              <div class="eo-step-text">Tabs broke on Explicación → Índice → Resultado → Estudio with nested Fase Inicial / Procesual / Final. An índice handles the nesting; Resultado is the main content of a case.</div>
+            </div>
+          </div>
+          <div class="eo-step">
+            <div class="eo-step-num">05</div>
+            <div>
+              <div class="eo-step-title">Personalisation through Especialidad and Comunidad Autónoma.</div>
+              <div class="eo-step-text">Both choices define the user’s temario. I refined selected states, specialty descriptions, card sizes, spacing, alignment and the CTA.</div>
+            </div>
+          </div>
+          <div class="eo-step">
+            <div class="eo-step-num">06</div>
+            <div>
+              <div class="eo-step-title">Asked whether Upload and Scan were needed at all.</div>
+              <div class="eo-step-text">AI already generates worksheets. Their distinct value is importing and digitising materials teachers already own, so they got a separate path, not two more buttons.</div>
+            </div>
+          </div>
+          <div class="eo-step">
+            <div class="eo-step-num">07</div>
+            <div>
+              <div class="eo-step-title">One icon set for specialties and regions.</div>
+              <div class="eo-step-text">Specialty and region icons read as different sets. I aligned stroke, visual weight and level of detail into a single style.</div>
+            </div>
+          </div>
+          <div class="eo-step">
+            <div class="eo-step-num">08</div>
+            <div>
+              <div class="eo-step-title">The first screen explains the value.</div>
+              <div class="eo-step-text">Splash, logo and Get Started screen: composition, typography and brand purple set up “Estudia con método” before sign-in.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 DEEP DIVE — ONBOARDING -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">05.1</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Product deep dive</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Onboarding &amp; personalisation <span class="eo-badge">Redesign</span></h2>
+        <p>María and Carlos move through the same onboarding, but the system adapts intent, region and specialty into personalized materials.</p>
+        <p><strong>The problem.</strong> Each autonomous community and specialty has its own temario. Onboarding had to capture both clearly before the user sees any content.</p>
+        <p class="eo-refs">→ Design decisions 05, 07, 08</p>
+
+        <div class="eo-steps">
+          <div class="eo-step"><div class="eo-step-num">01</div><div><div class="eo-step-title">A first screen that explains the value.</div><div class="eo-step-text">Splash, logo and Get Started set up “Estudia con método” before sign-in.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">02</div><div><div class="eo-step-title">Intent first.</div><div class="eo-step-text">Users choose why they are here (temario, flashcards, supuestos or planning), so the experience starts from their goal.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">03</div><div><div class="eo-step-title">Especialidad and Comunidad Autónoma.</div><div class="eo-step-text">Selected states, descriptions, card sizes, spacing and CTA refined so the choice is easy to make and to check.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">04</div><div><div class="eo-step-title">One icon style.</div><div class="eo-step-text">Specialty and region icons aligned in stroke, visual weight and detail into a single set.</div></div></div>
+        </div>
+        <div class="eo-flow">SIGN UP → VERIFY → INTENT → REGION → SPECIALTY</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-img-full">
+    <div class="cs-img-placeholder cs-img-placeholder--wide">
+      <p class="cs-img-note">Onboarding flow — assets/images/eduopos/onboarding.png</p>
+    </div>
   </div>
+
+  <!-- 05 DEEP DIVE — WORKSHEETS -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">05.2</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Product deep dive</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Fichas / worksheet generator <span class="eo-badge">Redesign</span></h2>
+        <p>An AI worksheet generator for teachers. I audited the existing flow and explored how to extend it beyond AI generation.</p>
+        <p><strong>The problem.</strong> Teachers need ready materials fast: Matemáticas, Lectura, Crucigrama, Sopa de letras. Materials they already had stayed outside the app.</p>
+        <p class="eo-refs">→ Design decision 06</p>
+
+        <div class="eo-steps">
+          <div class="eo-step"><div class="eo-step-num">01</div><div><div class="eo-step-title">Audit of the existing flow.</div><div class="eo-step-text">Catalog, activity type, filters, parameters and result reviewed step by step.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">02</div><div><div class="eo-step-title">Parameters before generation.</div><div class="eo-step-text">Teachers set type, level and layout before generating, with credits always visible.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">03</div><div><div class="eo-step-title">Upload existing document.</div><div class="eo-step-text">Importing materials teachers already own: a different value from AI generation.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">04</div><div><div class="eo-step-title">Scan document.</div><div class="eo-step-text">Digitising paper materials, explored as a separate path, not just another button.</div></div></div>
+        </div>
+        <div class="eo-flow">CATALOG → TYPE → FILTERS → CONFIGURE → GENERATE</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-img-full">
+    <div class="cs-img-placeholder cs-img-placeholder--wide">
+      <p class="cs-img-note">Worksheet flow — assets/images/eduopos/worksheets.png</p>
+    </div>
+  </div>
+
+  <!-- 05 DEEP DIVE — SUPUESTOS -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">05.3</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Product deep dive</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Supuestos prácticos <span class="eo-badge">Redesign</span></h2>
+        <p>Practice cases with nested phases, sections and references, restructured to be read and studied on a phone.</p>
+        <p><strong>The problem.</strong> A case goes Explicación → Índice → Resultado → Estudio, with Fase Inicial / Procesual / Final nested inside. Tab navigation couldn’t hold that depth.</p>
+        <p class="eo-refs">→ Design decision 04</p>
+
+        <div class="eo-steps">
+          <div class="eo-step"><div class="eo-step-num">01</div><div><div class="eo-step-title">Índice instead of tabs.</div><div class="eo-step-text">A table of contents handles nested phases and sections; users jump straight to the part they need.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">02</div><div><div class="eo-step-title">Resultado as the core.</div><div class="eo-step-text">Resultado is the main content of a case; Explicación and Estudio support it.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">03</div><div><div class="eo-step-title">Scannable long text.</div><div class="eo-step-text">Clear hierarchy for phases, sections and references, so long cases don’t lose the reader.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">04</div><div><div class="eo-step-title">Create or import.</div><div class="eo-step-text">Cases can be written step by step or imported from an existing PDF.</div></div></div>
+        </div>
+
+        <h2>What changed</h2>
+        <div class="eo-ba">
+          <div class="eo-ba-row">
+            <div class="eo-ba-name">Case library</div>
+            <div><span class="eo-ba-label">Before</span>Centered grey text and star ratings; cases were hard to tell apart.</div>
+            <div class="eo-ba-after"><span class="eo-ba-label">After</span>Cards with code, subject and AI tag; create and generate as clear actions.</div>
+          </div>
+          <div class="eo-ba-row">
+            <div class="eo-ba-name">Índice</div>
+            <div><span class="eo-ba-label">Before</span>A flat list of 20+ items inside a tab; phases differed only by bold text.</div>
+            <div class="eo-ba-after"><span class="eo-ba-label">After</span>The índice becomes the main navigation, with phases and the current position visible.</div>
+          </div>
+          <div class="eo-ba-row">
+            <div class="eo-ba-name">Resultado</div>
+            <div><span class="eo-ba-label">Before</span>A wall of text. “Practicar tipo test” sat at the very bottom, and a whole “Empezar” tab held one button.</div>
+            <div class="eo-ba-after"><span class="eo-ba-label">After</span>Readable sections, phase progress on top and a clear next step.</div>
+          </div>
+        </div>
+        <div class="eo-flow">LIBRARY → CREATE / IMPORT → REVIEW → PRACTICE → RESULT</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-img-full">
+    <div class="cs-img-placeholder cs-img-placeholder--wide">
+      <p class="cs-img-note">Supuestos flow — assets/images/eduopos/supuestos.png</p>
+    </div>
+  </div>
+
+  <!-- 05 DEEP DIVE — TEMARIO -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">05.4</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Product deep dive</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Temario &amp; study loop <span class="eo-badge eo-badge--new">New module</span></h2>
+        <p>Temario, fragments, statuses, notes and progress: the daily study loop for opositores.</p>
+        <p><strong>The problem.</strong> Topics hold dozens or hundreds of fragments in a fixed order. Opening each one separately would make studying slow, and progress could easily repeat across screens.</p>
+        <p class="eo-refs">→ Design decisions 01, 02, 03</p>
+
+        <div class="eo-steps">
+          <div class="eo-step"><div class="eo-step-num">01</div><div><div class="eo-step-title">Temario → Tema → Section → Fragment.</div><div class="eo-step-text">One hierarchy that keeps the original order and shows where you are.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">02</div><div><div class="eo-step-title">Open or collapsible.</div><div class="eo-step-text">Content stays open where reading flows and collapses where it doesn’t, so fragments aren’t opened one by one.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">03</div><div><div class="eo-step-title">Memorizado / Necesita práctica.</div><div class="eo-step-text">Status lives on the fragment itself, so progress isn’t repeated elsewhere.</div></div></div>
+          <div class="eo-step"><div class="eo-step-num">04</div><div><div class="eo-step-title">Notes and practice.</div><div class="eo-step-text">Highlights become notes; flashcards and the progress map close the loop.</div></div></div>
+        </div>
+        <div class="eo-flow">FLASHCARDS → TEMARIO → NOTES → FAVORITES → PROGRESS</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-img-full">
+    <div class="cs-img-placeholder cs-img-placeholder--wide">
+      <p class="cs-img-note">Temario &amp; study tools — assets/images/eduopos/temario.png</p>
+    </div>
+  </div>
+
+  <!-- 06 VISUAL LANGUAGE -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">06</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Visual language</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>A visual language built for teaching, not browsing.</h2>
+        <p>Purple signals action, lavender provides calm context, and real classroom photography keeps the UI grounded in everyday teaching life.</p>
+
+        <div class="eo-grid eo-grid--3">
+          <div class="eo-cell">
+            <span class="eo-cell-label">01</span>
+            <div class="eo-cell-title">Purple hierarchy</div>
+            <div class="eo-cell-text">Violet and lavender guide attention — primary actions are always clear at a glance.</div>
+          </div>
+          <div class="eo-cell">
+            <span class="eo-cell-label">02</span>
+            <div class="eo-cell-title">Classroom warmth</div>
+            <div class="eo-cell-text">Classroom photography anchors every feature in everyday learning contexts.</div>
+          </div>
+          <div class="eo-cell">
+            <span class="eo-cell-label">03</span>
+            <div class="eo-cell-title">Paper clarity</div>
+            <div class="eo-cell-text">Workbook textures and open white space make dense educational content feel approachable on mobile.</div>
+          </div>
+        </div>
+
+        <div class="eo-swatches">
+          <div class="eo-swatch"><div class="eo-swatch-dot" style="background:#7C3AED;"></div><div><div class="eo-swatch-label">Purple · Primary</div><div class="eo-swatch-hex">#7C3AED</div></div></div>
+          <div class="eo-swatch"><div class="eo-swatch-dot" style="background:#F5F3FF;"></div><div><div class="eo-swatch-label">Lavender · Surface</div><div class="eo-swatch-hex">#F5F3FF</div></div></div>
+        </div>
+
+        <h2>Typography</h2>
+        <p>Geist keeps dense syllabus content legible at small sizes. Bricolage Grotesque brings editorial warmth to headings — making learning feel less intimidating.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 OUTCOMES -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter"><span class="cs-chapter-num">07</span><span class="cs-chapter-line"></span></div>
+        <p class="section-label">Outcomes</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>69 screens. 46 hours. 8 user flows. Shipped to the App Store.</h2>
+        <p>Complex educational content (temario, practice cases, worksheets and memorisation tools) structured into clear mobile journeys.</p>
+
+        <div class="eo-grid eo-grid--3">
+          <div class="eo-cell">
+            <span class="eo-cell-label">69 screens</span>
+            <div class="eo-cell-text">Onboarding · Worksheets · Supuestos · Study tools</div>
+          </div>
+          <div class="eo-cell">
+            <span class="eo-cell-label">46h of UX/UI</span>
+            <div class="eo-cell-text">IA · Core flows · UI design · Design system</div>
+          </div>
+          <div class="eo-cell">
+            <span class="eo-cell-label">7+ worksheet types</span>
+            <div class="eo-cell-text">Coloring · Math · Crossword · Word search · Puzzle · Reading · Word cloud</div>
+          </div>
+        </div>
+
+        <p style="margin-top:24px;font-size:14px;color:var(--text-3);">My contribution focused on selected user flows, UI improvements, feature design and design system work within the existing product — including an audit and redesign of the Fichas (worksheets) flow and its tablet adaptation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="cs-section">
+    <div class="container">
+      <div class="eo-closing reveal-up">
+        <p class="eo-closing-q">Have a complex product<br><em>that feels hard to use?</em></p>
+        <p>This case shows the kind of work I do best: turning dense, structured content into mobile experiences people can actually use.</p>
+        <div class="eo-grid">
+          <div class="eo-cell"><span class="eo-cell-label">01</span><div class="eo-cell-title">IA for content-heavy apps</div><div class="eo-cell-text">Structuring syllabi, catalogs and nested content so users can scan and navigate it on mobile.</div></div>
+          <div class="eo-cell"><span class="eo-cell-label">02</span><div class="eo-cell-title">Learning &amp; EdTech flows</div><div class="eo-cell-text">Study loops, progress, statuses and practice: flows that help people learn, not just browse.</div></div>
+          <div class="eo-cell"><span class="eo-cell-label">03</span><div class="eo-cell-title">Redesign &amp; new features</div><div class="eo-cell-text">Improving what exists and designing new, content-heavy modules that fit into it.</div></div>
+          <div class="eo-cell"><span class="eo-cell-label">04</span><div class="eo-cell-title">Onboarding &amp; personalisation</div><div class="eo-cell-text">Setup flows that capture what matters and shape the rest of the experience.</div></div>
+        </div>
+        <div class="hero-cta" style="justify-content:center;margin-top:36px;">
+          <a href="../index.html#contact" class="btn-primary">Let’s talk ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- NAV BETWEEN PROJECTS -->
   <div class="cs-nav-projects">
