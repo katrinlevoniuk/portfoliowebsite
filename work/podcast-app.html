@@ -7,7 +7,7 @@
   <title>Podreads — Podcast App · Kateryna Levoniuk</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -53,7 +53,7 @@
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--line);
     }
-    .nav-logo { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: .1em; }
+    .nav-logo { font-family: 'Bricolage Grotesque', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: .1em; }
     .nav-back { font-size: 13px; color: var(--text2); transition: color .2s; }
     .nav-back:hover { color: var(--accent); }
     .nav-right { display: flex; align-items: center; gap: 32px; }
@@ -91,9 +91,9 @@
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text3); border: 1px solid rgba(255,255,255,.1); padding: 7px 16px; border-radius: 100px; margin-bottom: 36px; }
     .hero-dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; animation: blink 1.8s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:1}50%{opacity:.3} }
-    .hero-title { font-family: 'Syne', sans-serif; font-size: clamp(52px, 9vw, 128px); font-weight: 800; line-height: .92; letter-spacing: -.04em; margin-bottom: 32px; }
+    .hero-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(52px, 9vw, 128px); font-weight: 800; line-height: .92; letter-spacing: -0.025em; margin-bottom: 32px; }
     .hero-title span { color: var(--red); }
-    .hero-lede { font-family: 'Syne', sans-serif; font-size: clamp(22px, 2.6vw, 34px); font-weight: 700; line-height: 1.2; letter-spacing: -.02em; color: var(--text); margin-bottom: 20px; }
+    .hero-lede { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(22px, 2.6vw, 34px); font-weight: 700; line-height: 1.2; letter-spacing: -.02em; color: var(--text); margin-bottom: 20px; }
     .hero-sub { font-size: 17px; color: var(--text2); line-height: 1.7; max-width: 560px; margin-bottom: 48px; }
     .hero-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 60px; }
     .pill { font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; padding: 7px 16px; border-radius: 100px; border: 1px solid rgba(255,255,255,.12); color: var(--text2); }
@@ -115,15 +115,15 @@
 
     /* ── CHAPTER INTRO ── */
     .chapter { padding: 120px 0 80px; }
-    .chapter-num { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; display: block; }
-    .chapter-title { font-family: 'Syne', sans-serif; font-size: clamp(36px, 5vw, 64px); font-weight: 800; letter-spacing: -.03em; line-height: 1.02; margin-bottom: 0; }
+    .chapter-num { font-family: 'Bricolage Grotesque', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; display: block; }
+    .chapter-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(36px, 5vw, 64px); font-weight: 800; letter-spacing: -0.018em; line-height: 1.02; margin-bottom: 0; }
     .chapter-title em { font-style: normal; color: var(--accent); }
     .chapter-body { font-size: 17px; color: var(--text2); line-height: 1.8; max-width: 600px; }
 
     /* ── TWO COL ── */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .two-col--wide { grid-template-columns: 1.2fr 1fr; }
-    .two-col-text h2 { font-family: 'Syne', sans-serif; font-size: clamp(24px, 3vw, 36px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; margin-bottom: 16px; }
+    .two-col-text h2 { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(24px, 3vw, 36px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; margin-bottom: 16px; }
     .two-col-text p { font-size: 16px; color: var(--text2); line-height: 1.8; margin-bottom: 16px; }
     .two-col-text p:last-child { margin-bottom: 0; }
 
@@ -146,21 +146,21 @@
     /* ── STAT STRIP ── */
     .stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 60px 0; }
     .stat-item { background: var(--surface); padding: 40px 36px; }
-    .stat-n { font-family: 'Syne', sans-serif; font-size: 52px; font-weight: 800; color: var(--accent); letter-spacing: -.04em; line-height: 1; display: block; margin-bottom: 8px; }
+    .stat-n { font-family: 'Bricolage Grotesque', sans-serif; font-size: 52px; font-weight: 800; color: var(--accent); letter-spacing: -0.025em; line-height: 1; display: block; margin-bottom: 8px; }
     .stat-l { font-size: 14px; color: var(--text2); }
     .stat-n.counting { color: var(--red); }
 
     /* ── FEEDBACK CARDS ── */
     .feedback-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .feedback-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 28px 32px; font-size: 15px; color: var(--text2); line-height: 1.7; font-style: italic; position: relative; }
-    .feedback-card::before { content: '"'; font-family: 'Syne', sans-serif; font-size: 64px; color: var(--red); opacity: .2; position: absolute; top: 8px; left: 24px; line-height: 1; }
+    .feedback-card::before { content: '"'; font-family: 'Bricolage Grotesque', sans-serif; font-size: 64px; color: var(--red); opacity: .2; position: absolute; top: 8px; left: 24px; line-height: 1; }
     .feedback-card p { padding-top: 24px; }
 
     /* ── PROBLEM SECTION ── */
     .problem-section { padding: 100px 0; border-top: 1px solid var(--line); }
     .problem-tag { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,58,70,.08); border: 1px solid rgba(255,58,70,.2); color: var(--red); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 7px 16px; border-radius: 100px; margin-bottom: 24px; }
     .problem-num { background: var(--red); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
-    .problem-title { font-family: 'Syne', sans-serif; font-size: clamp(32px, 4.5vw, 56px); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; margin-bottom: 16px; }
+    .problem-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(32px, 4.5vw, 56px); font-weight: 800; letter-spacing: -0.018em; line-height: 1.05; margin-bottom: 16px; }
     .problem-desc { font-size: 16px; color: var(--text2); line-height: 1.75; max-width: 520px; }
     .problem-insight { font-size: 14px; color: var(--text2); line-height: 1.7; padding: 24px; background: var(--surface); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; margin-top: 24px; }
 
@@ -170,12 +170,12 @@
     .process-step::before { content: ''; width: 10px; height: 10px; background: var(--red); border-radius: 50%; position: absolute; left: -45px; top: 38px; border: 2px solid var(--bg); }
     .process-step:last-child { border-bottom: none; }
     .process-step-num { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: block; }
-    .process-step h3 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .process-step h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; }
     .process-step p { font-size: 15px; color: var(--text2); line-height: 1.7; }
 
     /* ── GOAL CARD ── */
     .goal-card { background: var(--yellow); color: #111; border-radius: 16px; padding: 48px; margin: 60px 0; }
-    .goal-card h2 { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 20px; }
+    .goal-card h2 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 20px; }
     .goal-card p { font-size: 16px; line-height: 1.75; margin-bottom: 12px; opacity: .75; }
     .goal-card .goal-highlight { background: rgba(0,0,0,.08); border-radius: 8px; padding: 20px 24px; margin-top: 16px; font-size: 15px; font-weight: 500; line-height: 1.7; }
     .goal-card .goal-highlight span { color: var(--red); font-weight: 700; }
@@ -199,7 +199,7 @@
 
     /* ── QUOTE BLOCK ── */
     .big-quote { padding: 100px 48px; text-align: center; }
-    .big-quote blockquote { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; letter-spacing: -.03em; max-width: 900px; margin: 0 auto 24px; }
+    .big-quote blockquote { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; letter-spacing: -0.018em; max-width: 900px; margin: 0 auto 24px; }
     .big-quote blockquote em { font-style: normal; color: var(--accent); }
     .big-quote cite { font-size: 13px; color: var(--text3); letter-spacing: .08em; text-transform: uppercase; }
 
@@ -218,11 +218,11 @@
 
     /* ── OUTRO ── */
     .outro { padding: 140px 48px; text-align: center; background: radial-gradient(ellipse at 50% 100%, rgba(203,215,246,.06) 0%, transparent 70%); }
-    .outro h2 { font-family: 'Syne', sans-serif; font-size: clamp(40px, 6vw, 80px); font-weight: 800; letter-spacing: -.04em; line-height: 1; margin-bottom: 24px; }
+    .outro h2 { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(40px, 6vw, 80px); font-weight: 800; letter-spacing: -0.025em; line-height: 1; margin-bottom: 24px; }
     .outro h2 em { font-style: normal; color: var(--red); }
     .outro p { font-size: 18px; color: var(--text2); margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; }
     .outro-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .btn-red { background: var(--red); color: white; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; padding: 14px 28px; border-radius: 100px; transition: background .2s, transform .15s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-red { background: var(--red); color: white; font-family: 'Bricolage Grotesque', sans-serif; font-size: 14px; font-weight: 700; padding: 14px 28px; border-radius: 100px; transition: background .2s, transform .15s; display: inline-flex; align-items: center; gap: 8px; }
     .btn-red:hover { background: #e02030; transform: translateY(-1px); }
     .btn-outline { border: 1px solid var(--line); color: var(--text2); font-size: 14px; padding: 13px 28px; border-radius: 100px; transition: border-color .2s, color .2s; display: inline-flex; align-items: center; }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
@@ -434,7 +434,7 @@
       @media (max-width: 640px) { .sv-bars { grid-template-columns: 1fr; } }
       .sv-track { height: 4px; background: rgba(255,255,255,.1); border-radius: 2px; margin-bottom: 14px; overflow: hidden; }
       .sv-fill { height: 100%; border-radius: 2px; background: var(--red); width: 0; transition: width 1.2s cubic-bezier(.16,1,.3,1); }
-      .sv-pct { font-size: 36px; font-weight: 800; font-family: 'Syne', sans-serif; color: var(--text); letter-spacing: -.03em; margin-bottom: 6px; }
+      .sv-pct { font-size: 36px; font-weight: 800; font-family: 'Bricolage Grotesque', sans-serif; color: var(--text); letter-spacing: -0.018em; margin-bottom: 6px; }
       .sv-lbl { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
       .sv-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
       .sv-divider { height: 1px; background: var(--line); margin: 48px 0; }
@@ -642,7 +642,7 @@
   <section style="padding: 60px 0;">
     <div class="w" style="margin-bottom: 40px;">
       <div style="background: var(--yellow); border-radius: 12px; padding: 32px 40px;" class="reveal-scale">
-        <h3 style="font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:#111; margin-bottom:12px;">Hi-Fi Wireframes</h3>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif; font-size:22px; font-weight:800; color:#111; margin-bottom:12px;">Hi-Fi Wireframes</h3>
         <p style="font-size:15px; color:rgba(0,0,0,.65); line-height:1.7;">Using all the information I collected, I began making Hi-Fi Wireframes. These are detailed sketches showing how each screen of the app will look — ensuring the app looks good and works well for people who want to listen to podcasts.</p>
 
       </div>
@@ -1081,7 +1081,7 @@
   <!-- Onboarding -->
   <section style="padding: 60px 0 0;">
     <div class="w" style="margin-bottom: 40px;">
-      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Onboarding</span>
+      <span style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Onboarding</span>
       <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Your journey begins here — explore, discover, and dive into the world of podcasts.</p>
     </div>
     <div style="padding: 0 48px; margin-bottom: 40px;">
@@ -1094,7 +1094,7 @@
   <!-- Login -->
   <section style="padding: 60px 0 0;">
     <div class="w" style="margin-bottom: 40px;">
-      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Login</span>
+      <span style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Login</span>
       <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Unlock limitless podcast enjoyment with a simple login.</p>
     </div>
     <div class="contained-img reveal-scale">
@@ -1105,7 +1105,7 @@
   <!-- Create Account -->
   <section style="padding: 60px 0 0;">
     <div class="w" style="margin-bottom: 40px;">
-      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Create an Account</span>
+      <span style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Create an Account</span>
       <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Unlock exclusive content and join the conversation.</p>
     </div>
     <div class="contained-img reveal-scale">
@@ -1117,7 +1117,7 @@
   <!-- Home -->
   <section style="padding: 60px 0 0;">
     <div class="w" style="margin-bottom: 40px;">
-      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Home</span>
+      <span style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Home</span>
       <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Your hub to explore any podcast topic you desire, fuelling endless curiosity.</p>
     </div>
     <div class="contained-img reveal-scale">
@@ -1128,7 +1128,7 @@
   <!-- Discover - horizontal scroll -->
   <section style="padding: 60px 0 0;">
     <div class="w" style="margin-bottom: 40px;">
-      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Discover</span>
+      <span style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Discover</span>
       <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Choose from the following options or explore our suggested podcasts.</p>
     </div>
     <div class="full-img reveal-scale">
@@ -1139,7 +1139,7 @@
   <!-- Library -->
   <section style="padding: 60px 0 60px 0;">
     <div class="w" style="margin-bottom: 40px;">
-      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Library</span>
+      <span style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Library</span>
       <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Access your saved podcasts, notes, playlists, and downloads all in one place.</p>
     </div>
 
@@ -1158,7 +1158,7 @@
   <!-- Podcasts full screen grid -->
   <section style="padding: 60px 0 0;">
     <div class="w" style="margin-bottom: 40px;">
-      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Podcasts</span>
+      <span style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Podcasts</span>
       <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Explore a world of captivating conversations, stories, and insights.</p>
     </div>
     <div class="contained-img reveal-scale">
@@ -1169,7 +1169,7 @@
   <!-- Live Podcasts -->
   <section style="padding: 60px 0 0;">
     <div class="w" style="margin-bottom: 40px;">
-      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Live Podcasts</span>
+      <span style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Live Podcasts</span>
       <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Tune into live discussions and events with our dynamic selection.</p>
     </div>
     <div">
@@ -1185,7 +1185,7 @@
   <!-- Profile -->
   <section style="padding: 60px 0 0;">
     <div class="w" style="margin-bottom: 40px;">
-      <span style="font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Profile</span>
+      <span style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Profile</span>
       <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">Personalise your profile to tailor your podcast experience to your preferences.</p>
     </div>
     <div class="contained-img reveal-scale">
