@@ -1510,3 +1510,79 @@ blockquote {
   .cs-hero-meta { grid-template-columns: repeat(2, 1fr); }
   .cs-section { padding: 80px 0 56px; }
 }
+
+/* =============================================
+   SKILLS + EXPERIENCE — cards and timeline
+   ============================================= */
+.block-head { margin-bottom: 56px; }
+.block-head .section-label { margin-bottom: 16px; }
+.block-head--sub { margin: 96px 0 28px; }
+.block-title {
+  font-family: var(--font-d); font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800; letter-spacing: -0.018em; line-height: 1.02;
+}
+.block-title em { font-style: normal; color: var(--accent); }
+
+.skill-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.skill-card {
+  display: flex; flex-direction: column;
+  background: var(--bg-1); border: 1px solid var(--line);
+  border-radius: 16px; padding: 32px 28px 28px;
+  transition: border-color .3s, background .3s, transform .3s var(--ease);
+}
+.skill-card:hover { border-color: var(--accent-mid); background: var(--bg-2); transform: translateY(-4px); }
+.skill-card-num { font-family: var(--font-d); font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .1em; margin-bottom: 40px; }
+.skill-card h3 { font-family: var(--font-d); font-size: 24px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 14px; }
+.skill-card p { font-size: 14px; color: var(--text-2); line-height: 1.7; margin-bottom: 24px; }
+.skill-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.skill-card-tags span {
+  font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text-2); border: 1px solid var(--line-md);
+  padding: 5px 10px; border-radius: 100px;
+}
+.skill-card:hover .skill-card-tags span { color: var(--accent); border-color: var(--accent-mid); }
+.skill-card--tools .skill-card-tags { margin-top: 0; }
+.skill-card-tags--tools span { text-transform: none; letter-spacing: 0; font-size: 13px; padding: 6px 12px; }
+
+/* timeline */
+.xp { position: relative; padding-left: 40px; }
+.xp::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: var(--line-md); }
+.xp-item { position: relative; padding: 0 0 56px; }
+.xp-item:last-child { padding-bottom: 0; }
+.xp-item::before {
+  content: ''; position: absolute; left: -40px; top: 4px;
+  width: 13px; height: 13px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--accent);
+}
+.xp-item:first-child::before { background: var(--accent); box-shadow: 0 0 0 6px var(--accent-dim); }
+.xp-period {
+  display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-2); border: 1px solid var(--line-md); border-radius: 100px; padding: 5px 12px; margin-bottom: 16px;
+}
+.xp-item h3 { font-family: var(--font-d); font-size: clamp(24px, 2.6vw, 34px); font-weight: 800; letter-spacing: -0.018em; line-height: 1.1; margin-bottom: 6px; }
+.xp-company { font-size: 14px; color: var(--accent); margin-bottom: 14px; }
+.xp-desc { font-size: 15px; color: var(--text-2); line-height: 1.75; max-width: 680px; }
+.xp-highlights { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.xp-highlights li {
+  font-size: 13px; color: var(--text-2);
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px;
+}
+.xp-highlights b { font-family: var(--font-d); font-size: 18px; font-weight: 800; color: var(--text); margin-right: 4px; }
+
+.edu-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.edu-card { background: var(--bg-1); border: 1px solid var(--line); border-radius: 16px; padding: 28px; }
+.edu-card h3 { font-family: var(--font-d); font-size: 20px; font-weight: 700; line-height: 1.25; margin-bottom: 8px; }
+.edu-card p { font-size: 13px; color: var(--text-3); }
+
+@media (max-width: 960px) {
+  .skill-cards { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .skill-cards, .edu-cards { grid-template-columns: 1fr; }
+  .block-head { margin-bottom: 36px; }
+  .block-head--sub { margin-top: 72px; }
+  .skill-card-num { margin-bottom: 24px; }
+  .xp { padding-left: 28px; }
+  .xp-item::before { left: -28px; }
+  .xp::before { left: 6px; }
+}
