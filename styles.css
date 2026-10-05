@@ -57,23 +57,22 @@ strong { font-weight: 500; color: var(--text); }
 }
 
 /* =============================================
-   CURSOR — white dot; ring with a label over cards
+   CURSOR — accent dot; ring with a label over cards
    ============================================= */
 .cursor {
   width: 14px; height: 14px;
-  background: #fff;
+  background: var(--accent);
   border-radius: 50%;
   position: fixed; top: 0; left: 0;
   pointer-events: none; z-index: 9999;
   transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
   transition: width 0.25s var(--ease), height 0.25s var(--ease), opacity 0.2s;
   will-change: left, top;
 }
 
 .cursor-follower {
   width: 112px; height: 112px;
-  border: 1.5px solid #7B6CF6;
+  border: 1.5px solid var(--accent);
   background: rgba(10,10,10,.28);
   backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   border-radius: 50%;

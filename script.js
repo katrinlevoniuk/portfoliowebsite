@@ -3,7 +3,7 @@
    ============================================= */
 
 // ─── CURSOR ──────────────────────────────────
-// White dot everywhere; over project cards and draggable areas it turns
+// Accent dot everywhere; over project cards and draggable areas it turns
 // into a ring with a label ("View" / "Drag", or data-cursor="...").
 const cursor   = document.getElementById('cursor');
 const follower = document.getElementById('cursorFollower');
