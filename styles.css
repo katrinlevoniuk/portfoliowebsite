@@ -92,6 +92,7 @@ strong { font-weight: 500; color: var(--text); }
 body.cursor-link .cursor   { width: 40px; height: 40px; }
 body.cursor-hover .cursor  { opacity: 0; }
 body.cursor-hover .cursor-follower { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+body.cursor-dragging .cursor-follower { transform: translate(-50%, -50%) scale(.85); }
 
 @media (hover: none), (pointer: coarse) {
   .cursor, .cursor-follower { display: none; }
@@ -936,6 +937,7 @@ blockquote {
 
 .slider {
   display: flex;
+  user-select: none; -webkit-user-select: none; touch-action: pan-y;
   transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }

@@ -36,7 +36,7 @@ if (cursor && follower && window.matchMedia('(hover: hover) and (pointer: fine)'
   const labelled = [
     ['[data-cursor]', null],
     ['.project', 'View'],
-    ['.slider-wrap, .eo-scroll', 'Drag'],
+    ['.slider-wrap', 'Drag'],
   ];
   labelled.forEach(([selector, text]) => {
     document.querySelectorAll(selector).forEach(el => {
@@ -173,6 +173,34 @@ if (slider && sliderPrev && sliderNext) {
     const diff = touchX - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
   });
+
+  // Mouse drag (touch is handled above)
+  let dragX = null, dragDX = 0;
+  slider.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    dragX = e.clientX; dragDX = 0;
+    slider.style.transition = 'none';
+    slider.setPointerCapture(e.pointerId);
+    clearInterval(autoTimer);
+    document.body.classList.add('cursor-dragging');
+  });
+  slider.addEventListener('pointermove', e => {
+    if (dragX === null) return;
+    dragDX = e.clientX - dragX;
+    slider.style.transform = `translateX(calc(-${current * 100}% + ${dragDX}px))`;
+  });
+  const endDrag = () => {
+    if (dragX === null) return;
+    slider.style.transition = '';
+    document.body.classList.remove('cursor-dragging');
+    const threshold = slider.offsetWidth * 0.15;
+    if (dragDX < -threshold) goTo(current + 1);
+    else if (dragDX > threshold) goTo(current - 1);
+    else goTo(current);
+    dragX = null; dragDX = 0;
+  };
+  slider.addEventListener('pointerup', endDrag);
+  slider.addEventListener('pointercancel', endDrag);
 
   // Keyboard
   document.addEventListener('keydown', e => {
