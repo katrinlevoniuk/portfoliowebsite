@@ -74,13 +74,13 @@
     }
     .persona::before {
       content: ''; position: absolute; inset: 0 0 auto 0; height: 190px;
-      background: radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--p) 40%, transparent), transparent 70%);
+      background: radial-gradient(ellipse 60% 70% at 50% 100%, color-mix(in srgb, var(--p) 18%, transparent), transparent 75%);
     }
     .persona > * { position: relative; }
     .persona:hover { border-color: color-mix(in srgb, var(--p) 60%, transparent); transform: translateY(-4px); }
-    .persona-fig { height: 150px; display: flex; justify-content: center; margin-bottom: 24px; }
-    .persona-fig .lego-fig { width: 112px; height: auto; transition: transform .4s var(--ease); }
-    .persona:hover .lego-fig { transform: translateY(-6px) rotate(-4deg); }
+    .persona-fig { height: 200px; align-items: flex-end; border-bottom: 1px solid var(--line); display: flex; justify-content: center; margin-bottom: 24px; }
+    .persona-fig .lego-fig { width: 184px; height: auto; transition: transform .4s var(--ease); }
+    .persona:hover .lego-fig { transform: translateY(-4px); }
     .persona-name { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: color-mix(in srgb, var(--p) 60%, #fff); margin-bottom: 10px; }
     .persona-q { font-family: var(--font-d); font-size: 24px; font-weight: 800; line-height: 1.15; letter-spacing: -.01em; color: var(--text); margin-bottom: 14px; }
     .persona-need { font-size: 14px; color: var(--text-2); line-height: 1.7; margin-bottom: 22px; }
@@ -98,8 +98,8 @@
       font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-2);
       border: 1px solid var(--line-md); border-radius: 100px; padding: 4px 16px 4px 4px; margin-bottom: 22px;
     }
-    .persona-tag-fig { width: 34px; height: 34px; border-radius: 50%; background: color-mix(in srgb, var(--p) 35%, var(--bg-2)); display: flex; align-items: flex-start; justify-content: center; overflow: hidden; }
-    .persona-tag-fig .lego-fig { width: 30px; height: auto; margin-top: 2px; }
+    .persona-tag-fig { width: 34px; height: 34px; border-radius: 50%; background: var(--bg-3); display: flex; align-items: flex-start; justify-content: center; overflow: hidden; }
+    .persona-tag-fig .lego-fig { width: 46px; height: auto; margin-top: 1px; }
     .persona-journey h3 { font-family: var(--font-d); font-size: clamp(26px, 3vw, 38px); font-weight: 800; letter-spacing: -.018em; line-height: 1.1; margin-bottom: 16px; }
     .persona-journey p { font-size: 16px; color: var(--text-2); line-height: 1.8; margin-bottom: 24px; }
     .persona-steps { list-style: none; counter-reset: st; display: flex; flex-direction: column; gap: 10px; }
@@ -297,15 +297,12 @@
     <div class="container">
       <div class="personas">
           <article class="persona reveal-up" style="--p:#4A76CB" data-delay="0">
-            <div class="persona-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
-      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
-      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
-      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
-      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
-      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <path d="M22 34 Q22 8 60 8 Q98 8 98 34 Z" fill="#B42626"/><rect x="60" y="28" width="46" height="8" rx="4" fill="#8f1d1d"/>
-      <path d="M30 88 H90 L104 140 H16 Z" fill="#4A76CB"/><circle cx="60" cy="112" r="9" fill="#FADD00"/><text x="60" y="117" text-anchor="middle" font-size="13" font-weight="800" fill="#1a1a1a" font-family="Inter,sans-serif">$</text>
-    </svg></div>
+            <div class="persona-fig"><svg class="lego-fig" viewBox="0 0 160 172" aria-hidden="true"><defs>
+      <linearGradient id="hd-casualc" x1="0" x2="1"><stop offset="0" stop-color="#C99F00"/><stop offset=".35" stop-color="#F7CF2A"/><stop offset=".6" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></linearGradient>
+      <linearGradient id="tr-casualc" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4A6A9A"/><stop offset="1" stop-color="#2C4468"/></linearGradient>
+      <linearGradient id="ar-casualc" x1="0" x2="1"><stop offset="0" stop-color="#2C4468"/><stop offset="1" stop-color="#4A6A9A"/></linearGradient>
+      <radialGradient id="hn-casualc" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></radialGradient>
+    </defs><path d="M56 84 Q80 98 104 84 L108 92 Q80 108 52 92 Z" fill="#2C4468"/><path d="M50 87 H110 L124 168 H36 Z" fill="url(#tr-casualc)"/><path d="M50 89 L36 94 L22 146 L36 150 L50 112 Z" fill="url(#ar-casualc)"/><path d="M110 89 L124 94 L138 146 L124 150 L110 112 Z" fill="url(#ar-casualc)"/><path d="M74 96 L72 122" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round"/><path d="M86 96 L88 122" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round"/><rect x="62" y="136" width="36" height="18" rx="3" fill="#000" opacity=".18"/><circle cx="29" cy="155" r="10" fill="url(#hn-casualc)"/><circle cx="29" cy="158" r="4.6" fill="#0e0e0e" opacity=".55"/><circle cx="131" cy="155" r="10" fill="url(#hn-casualc)"/><circle cx="131" cy="158" r="4.6" fill="#0e0e0e" opacity=".55"/><rect x="66" y="6" width="28" height="14" rx="3" fill="url(#hd-casualc)"/><ellipse cx="80" cy="7" rx="14" ry="2.5" fill="#FFE57A" opacity=".7"/><rect x="48" y="18" width="64" height="62" rx="17" fill="url(#hd-casualc)"/><rect x="63" y="78" width="34" height="9" rx="2" fill="#A98400"/><path d="M64 38 Q70 35.5 75 37.5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M85 37.5 Q90 35.5 96 38" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="70" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><ellipse cx="90" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><path d="M72 61 Q81 65.5 89 60" stroke="#1b1b1b" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></div>
             <p class="persona-name">The Casual Collector</p>
             <p class="persona-q">“Is this a good deal right now?”</p>
             <p class="persona-need">Browses for fun and buys when the price feels right. Has no patience for spreadsheets or ten open retailer tabs.</p>
@@ -313,15 +310,12 @@
             <ul class="persona-list"><li>Best Deals ranked by discount type</li><li>Price-change badges on every set</li><li>One tap to save a set for later</li></ul>
           </article>
           <article class="persona reveal-up" style="--p:#86888E" data-delay="80">
-            <div class="persona-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
-      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
-      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
-      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
-      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
-      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <circle cx="48" cy="46" r="11" fill="none" stroke="#1a1a1a" stroke-width="3.5"/><circle cx="72" cy="46" r="11" fill="none" stroke="#1a1a1a" stroke-width="3.5"/><path d="M59 46 H61" stroke="#1a1a1a" stroke-width="3.5"/><path d="M26 30 Q40 10 60 12 Q84 12 94 30 Q76 20 60 22 Q40 22 26 30 Z" fill="#5a3a1c"/>
-      <path d="M30 88 H90 L104 140 H16 Z" fill="#3a3c42"/><path d="M50 88 L60 100 L70 88 Z" fill="#fff"/><path d="M57 98 H63 L66 126 L60 134 L54 126 Z" fill="#B42626"/>
-    </svg></div>
+            <div class="persona-fig"><svg class="lego-fig" viewBox="0 0 160 172" aria-hidden="true"><defs>
+      <linearGradient id="hd-investorc" x1="0" x2="1"><stop offset="0" stop-color="#C99F00"/><stop offset=".35" stop-color="#F7CF2A"/><stop offset=".6" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></linearGradient>
+      <linearGradient id="tr-investorc" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3A3F48"/><stop offset="1" stop-color="#1E2228"/></linearGradient>
+      <linearGradient id="ar-investorc" x1="0" x2="1"><stop offset="0" stop-color="#1E2228"/><stop offset="1" stop-color="#3A3F48"/></linearGradient>
+      <radialGradient id="hn-investorc" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></radialGradient>
+    </defs><path d="M50 87 H110 L124 168 H36 Z" fill="url(#tr-investorc)"/><path d="M50 89 L36 94 L22 146 L36 150 L50 112 Z" fill="url(#ar-investorc)"/><path d="M110 89 L124 94 L138 146 L124 150 L110 112 Z" fill="url(#ar-investorc)"/><path d="M66 87 L80 104 L94 87 Z" fill="#EDEAE3"/><path d="M77 99 H83 L85 132 L80 138 L75 132 Z" fill="#7A2230"/><path d="M58 87 L80 128 L66 87 Z" fill="#000" opacity=".22"/><path d="M102 87 L80 128 L94 87 Z" fill="#000" opacity=".22"/><circle cx="29" cy="155" r="10" fill="url(#hn-investorc)"/><circle cx="29" cy="158" r="4.6" fill="#0e0e0e" opacity=".55"/><circle cx="131" cy="155" r="10" fill="url(#hn-investorc)"/><circle cx="131" cy="158" r="4.6" fill="#0e0e0e" opacity=".55"/><rect x="66" y="6" width="28" height="14" rx="3" fill="url(#hd-investorc)"/><ellipse cx="80" cy="7" rx="14" ry="2.5" fill="#FFE57A" opacity=".7"/><rect x="48" y="18" width="64" height="62" rx="17" fill="url(#hd-investorc)"/><rect x="63" y="78" width="34" height="9" rx="2" fill="#A98400"/><path d="M63 35 H75" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/><path d="M85 35 H97" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/><ellipse cx="70" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><ellipse cx="90" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><rect x="61" y="40" width="17" height="12" rx="3" fill="none" stroke="#1b1b1b" stroke-width="1.8"/><rect x="82" y="40" width="17" height="12" rx="3" fill="none" stroke="#1b1b1b" stroke-width="1.8"/><path d="M78 45 H82" stroke="#1b1b1b" stroke-width="1.8"/><path d="M74 62 Q81 64.5 88 61.5" stroke="#1b1b1b" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></div>
             <p class="persona-name">The Serious Investor</p>
             <p class="persona-q">“Where is this set’s price heading?”</p>
             <p class="persona-need">Treats LEGO as an asset. Tracks retired sets over months and buys or sells on price history, not on impulse.</p>
@@ -329,15 +323,12 @@
             <ul class="persona-list"><li>Price history chart on every Set Overview</li><li>Store-by-store comparison table</li><li>Recent Changes feed of price movements</li></ul>
           </article>
           <article class="persona reveal-up" style="--p:#3AB326" data-delay="160">
-            <div class="persona-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
-      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
-      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
-      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
-      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
-      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <path d="M60 -2 L80 18 H40 Z" fill="#4A76CB"/><circle cx="60" cy="-2" r="5" fill="#FADD00"/>
-      <path d="M30 88 H90 L104 140 H16 Z" fill="#3AB326"/><rect x="40" y="104" width="40" height="32" rx="3" fill="#B42626"/><rect x="57" y="104" width="6" height="32" fill="#FADD00"/><rect x="40" y="116" width="40" height="6" fill="#FADD00"/><path d="M60 104 Q50 92 46 100 Q48 106 60 104 Q72 106 74 100 Q70 92 60 104 Z" fill="#FADD00"/>
-    </svg></div>
+            <div class="persona-fig"><svg class="lego-fig" viewBox="0 0 160 172" aria-hidden="true"><defs>
+      <linearGradient id="hd-gifterc" x1="0" x2="1"><stop offset="0" stop-color="#C99F00"/><stop offset=".35" stop-color="#F7CF2A"/><stop offset=".6" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></linearGradient>
+      <linearGradient id="tr-gifterc" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3D6B4A"/><stop offset="1" stop-color="#22412C"/></linearGradient>
+      <linearGradient id="ar-gifterc" x1="0" x2="1"><stop offset="0" stop-color="#22412C"/><stop offset="1" stop-color="#3D6B4A"/></linearGradient>
+      <radialGradient id="hn-gifterc" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></radialGradient>
+    </defs><path d="M50 87 H110 L124 168 H36 Z" fill="url(#tr-gifterc)"/><path d="M50 89 L36 94 L22 146 L36 150 L50 112 Z" fill="url(#ar-gifterc)"/><path d="M110 89 L124 94 L138 146 L124 150 L110 112 Z" fill="url(#ar-gifterc)"/><path d="M58 86 Q80 98 102 86 L104 95 Q80 108 56 95 Z" fill="#8A2E3A"/><path d="M90 96 L96 132 L86 134 L83 100 Z" fill="#7A2532"/><g transform="rotate(-8 128 132)"><rect x="112" y="118" width="30" height="26" rx="2.5" fill="#1F1F22"/><rect x="125" y="118" width="4" height="26" fill="#D8B24A"/><rect x="112" y="129" width="30" height="4" fill="#D8B24A"/></g><circle cx="29" cy="155" r="10" fill="url(#hn-gifterc)"/><circle cx="29" cy="158" r="4.6" fill="#0e0e0e" opacity=".55"/><circle cx="131" cy="150" r="10" fill="url(#hn-gifterc)"/><circle cx="131" cy="153" r="4.6" fill="#0e0e0e" opacity=".55"/><rect x="66" y="6" width="28" height="14" rx="3" fill="url(#hd-gifterc)"/><ellipse cx="80" cy="7" rx="14" ry="2.5" fill="#FFE57A" opacity=".7"/><rect x="48" y="18" width="64" height="62" rx="17" fill="url(#hd-gifterc)"/><rect x="63" y="78" width="34" height="9" rx="2" fill="#A98400"/><path d="M64 38 Q70 35.5 75 37.5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M85 37.5 Q90 35.5 96 38" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="70" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><ellipse cx="90" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><path d="M72 61 Q81 65.5 89 60" stroke="#1b1b1b" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></div>
             <p class="persona-name">The Gifter</p>
             <p class="persona-q">“Which set should I buy — and where is it cheapest today?”</p>
             <p class="persona-need">Shopping for someone else, usually against a deadline. Knows the theme or the age, not the set number.</p>
@@ -354,15 +345,12 @@
         <img src="../assets/images/lego/Slice 12.png" alt="Deal cards showing current price and change versus retail" loading="lazy" />
       </div>
       <div class="persona-journey-text reveal-up">
-        <div class="persona-tag"><span class="persona-tag-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
-      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
-      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
-      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
-      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
-      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <path d="M22 34 Q22 8 60 8 Q98 8 98 34 Z" fill="#B42626"/><rect x="60" y="28" width="46" height="8" rx="4" fill="#8f1d1d"/>
-      <path d="M30 88 H90 L104 140 H16 Z" fill="#4A76CB"/><circle cx="60" cy="112" r="9" fill="#FADD00"/><text x="60" y="117" text-anchor="middle" font-size="13" font-weight="800" fill="#1a1a1a" font-family="Inter,sans-serif">$</text>
-    </svg></span>The Casual Collector</div>
+        <div class="persona-tag"><span class="persona-tag-fig"><svg class="lego-fig" viewBox="0 0 160 172" aria-hidden="true"><defs>
+      <linearGradient id="hd-casualt" x1="0" x2="1"><stop offset="0" stop-color="#C99F00"/><stop offset=".35" stop-color="#F7CF2A"/><stop offset=".6" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></linearGradient>
+      <linearGradient id="tr-casualt" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4A6A9A"/><stop offset="1" stop-color="#2C4468"/></linearGradient>
+      <linearGradient id="ar-casualt" x1="0" x2="1"><stop offset="0" stop-color="#2C4468"/><stop offset="1" stop-color="#4A6A9A"/></linearGradient>
+      <radialGradient id="hn-casualt" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></radialGradient>
+    </defs><path d="M56 84 Q80 98 104 84 L108 92 Q80 108 52 92 Z" fill="#2C4468"/><path d="M50 87 H110 L124 168 H36 Z" fill="url(#tr-casualt)"/><path d="M50 89 L36 94 L22 146 L36 150 L50 112 Z" fill="url(#ar-casualt)"/><path d="M110 89 L124 94 L138 146 L124 150 L110 112 Z" fill="url(#ar-casualt)"/><path d="M74 96 L72 122" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round"/><path d="M86 96 L88 122" stroke="#E9E4D8" stroke-width="2" stroke-linecap="round"/><rect x="62" y="136" width="36" height="18" rx="3" fill="#000" opacity=".18"/><circle cx="29" cy="155" r="10" fill="url(#hn-casualt)"/><circle cx="29" cy="158" r="4.6" fill="#0e0e0e" opacity=".55"/><circle cx="131" cy="155" r="10" fill="url(#hn-casualt)"/><circle cx="131" cy="158" r="4.6" fill="#0e0e0e" opacity=".55"/><rect x="66" y="6" width="28" height="14" rx="3" fill="url(#hd-casualt)"/><ellipse cx="80" cy="7" rx="14" ry="2.5" fill="#FFE57A" opacity=".7"/><rect x="48" y="18" width="64" height="62" rx="17" fill="url(#hd-casualt)"/><rect x="63" y="78" width="34" height="9" rx="2" fill="#A98400"/><path d="M64 38 Q70 35.5 75 37.5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M85 37.5 Q90 35.5 96 38" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="70" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><ellipse cx="90" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><path d="M72 61 Q81 65.5 89 60" stroke="#1b1b1b" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></span>The Casual Collector</div>
         <h3>“Is this a good deal right now?”</h3>
         <p>They open LEGO Block on the sofa, scroll Best Deals and see at a glance which sets dropped today and by how much. The green price-change badge does the maths for them — if it looks good, they save it and move on.</p>
         <ol class="persona-steps"><li>Open Best Deals</li><li>Scan the price-change badges</li><li>Save the set they like</li></ol>
@@ -375,15 +363,12 @@
         <img src="../assets/images/lego/Slice 13.png" alt="Set Overview with price history chart and store comparison" loading="lazy" />
       </div>
       <div class="persona-journey-text reveal-up">
-        <div class="persona-tag"><span class="persona-tag-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
-      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
-      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
-      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
-      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
-      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <circle cx="48" cy="46" r="11" fill="none" stroke="#1a1a1a" stroke-width="3.5"/><circle cx="72" cy="46" r="11" fill="none" stroke="#1a1a1a" stroke-width="3.5"/><path d="M59 46 H61" stroke="#1a1a1a" stroke-width="3.5"/><path d="M26 30 Q40 10 60 12 Q84 12 94 30 Q76 20 60 22 Q40 22 26 30 Z" fill="#5a3a1c"/>
-      <path d="M30 88 H90 L104 140 H16 Z" fill="#3a3c42"/><path d="M50 88 L60 100 L70 88 Z" fill="#fff"/><path d="M57 98 H63 L66 126 L60 134 L54 126 Z" fill="#B42626"/>
-    </svg></span>The Serious Investor</div>
+        <div class="persona-tag"><span class="persona-tag-fig"><svg class="lego-fig" viewBox="0 0 160 172" aria-hidden="true"><defs>
+      <linearGradient id="hd-investort" x1="0" x2="1"><stop offset="0" stop-color="#C99F00"/><stop offset=".35" stop-color="#F7CF2A"/><stop offset=".6" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></linearGradient>
+      <linearGradient id="tr-investort" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3A3F48"/><stop offset="1" stop-color="#1E2228"/></linearGradient>
+      <linearGradient id="ar-investort" x1="0" x2="1"><stop offset="0" stop-color="#1E2228"/><stop offset="1" stop-color="#3A3F48"/></linearGradient>
+      <radialGradient id="hn-investort" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></radialGradient>
+    </defs><path d="M50 87 H110 L124 168 H36 Z" fill="url(#tr-investort)"/><path d="M50 89 L36 94 L22 146 L36 150 L50 112 Z" fill="url(#ar-investort)"/><path d="M110 89 L124 94 L138 146 L124 150 L110 112 Z" fill="url(#ar-investort)"/><path d="M66 87 L80 104 L94 87 Z" fill="#EDEAE3"/><path d="M77 99 H83 L85 132 L80 138 L75 132 Z" fill="#7A2230"/><path d="M58 87 L80 128 L66 87 Z" fill="#000" opacity=".22"/><path d="M102 87 L80 128 L94 87 Z" fill="#000" opacity=".22"/><circle cx="29" cy="155" r="10" fill="url(#hn-investort)"/><circle cx="29" cy="158" r="4.6" fill="#0e0e0e" opacity=".55"/><circle cx="131" cy="155" r="10" fill="url(#hn-investort)"/><circle cx="131" cy="158" r="4.6" fill="#0e0e0e" opacity=".55"/><rect x="66" y="6" width="28" height="14" rx="3" fill="url(#hd-investort)"/><ellipse cx="80" cy="7" rx="14" ry="2.5" fill="#FFE57A" opacity=".7"/><rect x="48" y="18" width="64" height="62" rx="17" fill="url(#hd-investort)"/><rect x="63" y="78" width="34" height="9" rx="2" fill="#A98400"/><path d="M63 35 H75" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/><path d="M85 35 H97" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/><ellipse cx="70" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><ellipse cx="90" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><rect x="61" y="40" width="17" height="12" rx="3" fill="none" stroke="#1b1b1b" stroke-width="1.8"/><rect x="82" y="40" width="17" height="12" rx="3" fill="none" stroke="#1b1b1b" stroke-width="1.8"/><path d="M78 45 H82" stroke="#1b1b1b" stroke-width="1.8"/><path d="M74 62 Q81 64.5 88 61.5" stroke="#1b1b1b" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></span>The Serious Investor</div>
         <h3>“Where is this set’s price heading?”</h3>
         <p>They go straight to a set’s overview: the price history chart shows the trend since release, the store table shows who sells it cheapest today, and Recent Changes flags anything that moved overnight.</p>
         <ol class="persona-steps"><li>Search a specific set</li><li>Read the price history</li><li>Compare stores before buying</li></ol>
@@ -396,15 +381,12 @@
         <img src="../assets/images/lego/Slice 17.png" alt="Cart comparing the total cost of saved sets across retailers" loading="lazy" />
       </div>
       <div class="persona-journey-text reveal-up">
-        <div class="persona-tag"><span class="persona-tag-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
-      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
-      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
-      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
-      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
-      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <path d="M60 -2 L80 18 H40 Z" fill="#4A76CB"/><circle cx="60" cy="-2" r="5" fill="#FADD00"/>
-      <path d="M30 88 H90 L104 140 H16 Z" fill="#3AB326"/><rect x="40" y="104" width="40" height="32" rx="3" fill="#B42626"/><rect x="57" y="104" width="6" height="32" fill="#FADD00"/><rect x="40" y="116" width="40" height="6" fill="#FADD00"/><path d="M60 104 Q50 92 46 100 Q48 106 60 104 Q72 106 74 100 Q70 92 60 104 Z" fill="#FADD00"/>
-    </svg></span>The Gifter</div>
+        <div class="persona-tag"><span class="persona-tag-fig"><svg class="lego-fig" viewBox="0 0 160 172" aria-hidden="true"><defs>
+      <linearGradient id="hd-giftert" x1="0" x2="1"><stop offset="0" stop-color="#C99F00"/><stop offset=".35" stop-color="#F7CF2A"/><stop offset=".6" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></linearGradient>
+      <linearGradient id="tr-giftert" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3D6B4A"/><stop offset="1" stop-color="#22412C"/></linearGradient>
+      <linearGradient id="ar-giftert" x1="0" x2="1"><stop offset="0" stop-color="#22412C"/><stop offset="1" stop-color="#3D6B4A"/></linearGradient>
+      <radialGradient id="hn-giftert" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#FFD940"/><stop offset="1" stop-color="#B88F00"/></radialGradient>
+    </defs><path d="M50 87 H110 L124 168 H36 Z" fill="url(#tr-giftert)"/><path d="M50 89 L36 94 L22 146 L36 150 L50 112 Z" fill="url(#ar-giftert)"/><path d="M110 89 L124 94 L138 146 L124 150 L110 112 Z" fill="url(#ar-giftert)"/><path d="M58 86 Q80 98 102 86 L104 95 Q80 108 56 95 Z" fill="#8A2E3A"/><path d="M90 96 L96 132 L86 134 L83 100 Z" fill="#7A2532"/><g transform="rotate(-8 128 132)"><rect x="112" y="118" width="30" height="26" rx="2.5" fill="#1F1F22"/><rect x="125" y="118" width="4" height="26" fill="#D8B24A"/><rect x="112" y="129" width="30" height="4" fill="#D8B24A"/></g><circle cx="29" cy="155" r="10" fill="url(#hn-giftert)"/><circle cx="29" cy="158" r="4.6" fill="#0e0e0e" opacity=".55"/><circle cx="131" cy="150" r="10" fill="url(#hn-giftert)"/><circle cx="131" cy="153" r="4.6" fill="#0e0e0e" opacity=".55"/><rect x="66" y="6" width="28" height="14" rx="3" fill="url(#hd-giftert)"/><ellipse cx="80" cy="7" rx="14" ry="2.5" fill="#FFE57A" opacity=".7"/><rect x="48" y="18" width="64" height="62" rx="17" fill="url(#hd-giftert)"/><rect x="63" y="78" width="34" height="9" rx="2" fill="#A98400"/><path d="M64 38 Q70 35.5 75 37.5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M85 37.5 Q90 35.5 96 38" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="70" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><ellipse cx="90" cy="46" rx="2.8" ry="3.6" fill="#1b1b1b"/><path d="M72 61 Q81 65.5 89 60" stroke="#1b1b1b" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></span>The Gifter</div>
         <h3>“Which set should I buy — and where is it cheapest today?”</h3>
         <p>They start from a theme on the home page, pick something from Popular right now, and add it to the cart — which shows where to buy it and what the total will be, so the gift is sorted in minutes.</p>
         <ol class="persona-steps"><li>Pick a theme or category</li><li>Choose from Popular right now</li><li>Buy where it’s cheapest</li></ol>
