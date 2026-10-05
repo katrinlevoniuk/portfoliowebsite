@@ -64,6 +64,64 @@
 
     .case-study { --cs-accent: #f5c514; --cs-hero-bg: #2a2205; }
 
+    /* ── PERSONAS ── */
+    .personas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
+    .persona {
+      position: relative; overflow: hidden;
+      background: var(--bg-1); border: 1px solid var(--line); border-radius: 20px;
+      padding: 28px 28px 32px;
+      transition: border-color .3s, transform .3s var(--ease);
+    }
+    .persona::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 190px;
+      background: radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--p) 40%, transparent), transparent 70%);
+    }
+    .persona > * { position: relative; }
+    .persona:hover { border-color: color-mix(in srgb, var(--p) 60%, transparent); transform: translateY(-4px); }
+    .persona-fig { height: 150px; display: flex; justify-content: center; margin-bottom: 24px; }
+    .persona-fig .lego-fig { width: 112px; height: auto; transition: transform .4s var(--ease); }
+    .persona:hover .lego-fig { transform: translateY(-6px) rotate(-4deg); }
+    .persona-name { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: color-mix(in srgb, var(--p) 60%, #fff); margin-bottom: 10px; }
+    .persona-q { font-family: var(--font-d); font-size: 24px; font-weight: 800; line-height: 1.15; letter-spacing: -.01em; color: var(--text); margin-bottom: 14px; }
+    .persona-need { font-size: 14px; color: var(--text-2); line-height: 1.7; margin-bottom: 22px; }
+    .persona-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #f5c514; margin-bottom: 10px; }
+    .persona-list { display: flex; flex-direction: column; gap: 8px; }
+    .persona-list li { font-size: 13px; color: var(--text-2); padding-left: 20px; position: relative; line-height: 1.5; }
+    .persona-list li::before { content: ''; position: absolute; left: 0; top: 4px; width: 10px; height: 10px; border-radius: 2px; background: #f5c514; box-shadow: inset 0 -2px 0 rgba(0,0,0,.25); }
+
+    .persona-journey { padding: 72px 0; border-top: 1px solid var(--line); }
+    .persona-journey-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 64px; align-items: center; }
+    .persona-journey--flip .persona-journey-img { order: 2; }
+    .persona-journey-img img { width: 100%; height: auto; border-radius: 16px; border: 1px solid var(--line); }
+    .persona-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-2);
+      border: 1px solid var(--line-md); border-radius: 100px; padding: 4px 16px 4px 4px; margin-bottom: 22px;
+    }
+    .persona-tag-fig { width: 34px; height: 34px; border-radius: 50%; background: color-mix(in srgb, var(--p) 35%, var(--bg-2)); display: flex; align-items: flex-start; justify-content: center; overflow: hidden; }
+    .persona-tag-fig .lego-fig { width: 30px; height: auto; margin-top: 2px; }
+    .persona-journey h3 { font-family: var(--font-d); font-size: clamp(26px, 3vw, 38px); font-weight: 800; letter-spacing: -.018em; line-height: 1.1; margin-bottom: 16px; }
+    .persona-journey p { font-size: 16px; color: var(--text-2); line-height: 1.8; margin-bottom: 24px; }
+    .persona-steps { list-style: none; counter-reset: st; display: flex; flex-direction: column; gap: 10px; }
+    .persona-steps li { counter-increment: st; display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text); }
+    .persona-steps li::before {
+      content: counter(st); flex: none; width: 26px; height: 26px; border-radius: 6px;
+      background: #f5c514; color: #0a0a0a; font-family: var(--font-d); font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -3px 0 rgba(0,0,0,.18);
+    }
+    .for-chip {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text); background: color-mix(in srgb, var(--p) 40%, transparent);
+      border-radius: 100px; padding: 3px 10px; margin-right: 8px; vertical-align: 1px;
+    }
+
+    @media (max-width: 900px) {
+      .personas { grid-template-columns: 1fr; }
+      .persona-journey-grid { grid-template-columns: 1fr; gap: 28px; }
+      .persona-journey--flip .persona-journey-img { order: 0; }
+      .persona-journey { padding: 56px 0; }
+    }
+
     /* step annotation */
     .cs-step {
       display: flex; gap: 16px; align-items: flex-start; margin-bottom: 20px;
@@ -212,12 +270,145 @@
     </div>
   </div>
 
-  <!-- ② BRAND -->
+  <!-- ② WHO IT'S FOR — personas -->
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
         <div class="cs-chapter">
           <span class="cs-chapter-num">02</span>
+          <span class="cs-chapter-line"></span>
+        </div>
+        <p class="section-label">Who it's for</p>
+      </div>
+      <div class="cs-col-content reveal-up">
+        <h2>Three collectors. Three different questions.</h2>
+        <p>Research surfaced three core user types with very different mental models and jobs-to-be-done. Rather than design for one generic “LEGO fan”, every page answers the question one of them walks in with.</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="personas">
+          <article class="persona reveal-up" style="--p:#4A76CB" data-delay="0">
+            <div class="persona-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
+      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
+      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
+      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
+      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
+      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M22 34 Q22 8 60 8 Q98 8 98 34 Z" fill="#B42626"/><rect x="60" y="28" width="46" height="8" rx="4" fill="#8f1d1d"/>
+      <path d="M30 88 H90 L104 140 H16 Z" fill="#4A76CB"/><circle cx="60" cy="112" r="9" fill="#FADD00"/><text x="60" y="117" text-anchor="middle" font-size="13" font-weight="800" fill="#1a1a1a" font-family="Inter,sans-serif">$</text>
+    </svg></div>
+            <p class="persona-name">The Casual Collector</p>
+            <p class="persona-q">“Is this a good deal right now?”</p>
+            <p class="persona-need">Browses for fun and buys when the price feels right. Has no patience for spreadsheets or ten open retailer tabs.</p>
+            <p class="persona-label">LEGO Block answers with</p>
+            <ul class="persona-list"><li>Best Deals ranked by discount type</li><li>Price-change badges on every set</li><li>One tap to save a set for later</li></ul>
+          </article>
+          <article class="persona reveal-up" style="--p:#86888E" data-delay="80">
+            <div class="persona-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
+      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
+      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
+      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
+      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
+      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <circle cx="48" cy="46" r="11" fill="none" stroke="#1a1a1a" stroke-width="3.5"/><circle cx="72" cy="46" r="11" fill="none" stroke="#1a1a1a" stroke-width="3.5"/><path d="M59 46 H61" stroke="#1a1a1a" stroke-width="3.5"/><path d="M26 30 Q40 10 60 12 Q84 12 94 30 Q76 20 60 22 Q40 22 26 30 Z" fill="#5a3a1c"/>
+      <path d="M30 88 H90 L104 140 H16 Z" fill="#3a3c42"/><path d="M50 88 L60 100 L70 88 Z" fill="#fff"/><path d="M57 98 H63 L66 126 L60 134 L54 126 Z" fill="#B42626"/>
+    </svg></div>
+            <p class="persona-name">The Serious Investor</p>
+            <p class="persona-q">“Where is this set’s price heading?”</p>
+            <p class="persona-need">Treats LEGO as an asset. Tracks retired sets over months and buys or sells on price history, not on impulse.</p>
+            <p class="persona-label">LEGO Block answers with</p>
+            <ul class="persona-list"><li>Price history chart on every Set Overview</li><li>Store-by-store comparison table</li><li>Recent Changes feed of price movements</li></ul>
+          </article>
+          <article class="persona reveal-up" style="--p:#3AB326" data-delay="160">
+            <div class="persona-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
+      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
+      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
+      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
+      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
+      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M60 -2 L80 18 H40 Z" fill="#4A76CB"/><circle cx="60" cy="-2" r="5" fill="#FADD00"/>
+      <path d="M30 88 H90 L104 140 H16 Z" fill="#3AB326"/><rect x="40" y="104" width="40" height="32" rx="3" fill="#B42626"/><rect x="57" y="104" width="6" height="32" fill="#FADD00"/><rect x="40" y="116" width="40" height="6" fill="#FADD00"/><path d="M60 104 Q50 92 46 100 Q48 106 60 104 Q72 106 74 100 Q70 92 60 104 Z" fill="#FADD00"/>
+    </svg></div>
+            <p class="persona-name">The Gifter</p>
+            <p class="persona-q">“Which set should I buy — and where is it cheapest today?”</p>
+            <p class="persona-need">Shopping for someone else, usually against a deadline. Knows the theme or the age, not the set number.</p>
+            <p class="persona-label">LEGO Block answers with</p>
+            <ul class="persona-list"><li>Categories and themes on the home page</li><li>Popular-right-now picks</li><li>Cart that compares total cost across retailers</li></ul>
+          </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="persona-journey" style="--p:#4A76CB">
+    <div class="container persona-journey-grid">
+      <div class="persona-journey-img reveal-up">
+        <img src="../assets/images/lego/Slice 12.png" alt="Deal cards showing current price and change versus retail" loading="lazy" />
+      </div>
+      <div class="persona-journey-text reveal-up">
+        <div class="persona-tag"><span class="persona-tag-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
+      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
+      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
+      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
+      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
+      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M22 34 Q22 8 60 8 Q98 8 98 34 Z" fill="#B42626"/><rect x="60" y="28" width="46" height="8" rx="4" fill="#8f1d1d"/>
+      <path d="M30 88 H90 L104 140 H16 Z" fill="#4A76CB"/><circle cx="60" cy="112" r="9" fill="#FADD00"/><text x="60" y="117" text-anchor="middle" font-size="13" font-weight="800" fill="#1a1a1a" font-family="Inter,sans-serif">$</text>
+    </svg></span>The Casual Collector</div>
+        <h3>“Is this a good deal right now?”</h3>
+        <p>They open LEGO Block on the sofa, scroll Best Deals and see at a glance which sets dropped today and by how much. The green price-change badge does the maths for them — if it looks good, they save it and move on.</p>
+        <ol class="persona-steps"><li>Open Best Deals</li><li>Scan the price-change badges</li><li>Save the set they like</li></ol>
+      </div>
+    </div>
+  </div>
+  <div class="persona-journey persona-journey--flip" style="--p:#86888E">
+    <div class="container persona-journey-grid">
+      <div class="persona-journey-img reveal-up">
+        <img src="../assets/images/lego/Slice 13.png" alt="Set Overview with price history chart and store comparison" loading="lazy" />
+      </div>
+      <div class="persona-journey-text reveal-up">
+        <div class="persona-tag"><span class="persona-tag-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
+      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
+      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
+      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
+      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
+      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <circle cx="48" cy="46" r="11" fill="none" stroke="#1a1a1a" stroke-width="3.5"/><circle cx="72" cy="46" r="11" fill="none" stroke="#1a1a1a" stroke-width="3.5"/><path d="M59 46 H61" stroke="#1a1a1a" stroke-width="3.5"/><path d="M26 30 Q40 10 60 12 Q84 12 94 30 Q76 20 60 22 Q40 22 26 30 Z" fill="#5a3a1c"/>
+      <path d="M30 88 H90 L104 140 H16 Z" fill="#3a3c42"/><path d="M50 88 L60 100 L70 88 Z" fill="#fff"/><path d="M57 98 H63 L66 126 L60 134 L54 126 Z" fill="#B42626"/>
+    </svg></span>The Serious Investor</div>
+        <h3>“Where is this set’s price heading?”</h3>
+        <p>They go straight to a set’s overview: the price history chart shows the trend since release, the store table shows who sells it cheapest today, and Recent Changes flags anything that moved overnight.</p>
+        <ol class="persona-steps"><li>Search a specific set</li><li>Read the price history</li><li>Compare stores before buying</li></ol>
+      </div>
+    </div>
+  </div>
+  <div class="persona-journey" style="--p:#3AB326">
+    <div class="container persona-journey-grid">
+      <div class="persona-journey-img reveal-up">
+        <img src="../assets/images/lego/Slice 17.png" alt="Cart comparing the total cost of saved sets across retailers" loading="lazy" />
+      </div>
+      <div class="persona-journey-text reveal-up">
+        <div class="persona-tag"><span class="persona-tag-fig"><svg class="lego-fig" viewBox="0 -8 120 150" aria-hidden="true">
+      <rect x="46" y="4" width="28" height="12" rx="3" fill="#E5C800"/>
+      <rect x="24" y="14" width="72" height="66" rx="22" fill="#FADD00"/>
+      <rect x="42" y="78" width="36" height="10" rx="2" fill="#E5C800"/>
+      <circle cx="48" cy="46" r="4.5" fill="#1a1a1a"/><circle cx="72" cy="46" r="4.5" fill="#1a1a1a"/>
+      <path d="M46 60 Q60 72 74 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M60 -2 L80 18 H40 Z" fill="#4A76CB"/><circle cx="60" cy="-2" r="5" fill="#FADD00"/>
+      <path d="M30 88 H90 L104 140 H16 Z" fill="#3AB326"/><rect x="40" y="104" width="40" height="32" rx="3" fill="#B42626"/><rect x="57" y="104" width="6" height="32" fill="#FADD00"/><rect x="40" y="116" width="40" height="6" fill="#FADD00"/><path d="M60 104 Q50 92 46 100 Q48 106 60 104 Q72 106 74 100 Q70 92 60 104 Z" fill="#FADD00"/>
+    </svg></span>The Gifter</div>
+        <h3>“Which set should I buy — and where is it cheapest today?”</h3>
+        <p>They start from a theme on the home page, pick something from Popular right now, and add it to the cart — which shows where to buy it and what the total will be, so the gift is sorted in minutes.</p>
+        <ol class="persona-steps"><li>Pick a theme or category</li><li>Choose from Popular right now</li><li>Buy where it’s cheapest</li></ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ BRAND -->
+  <section class="cs-section">
+    <div class="container cs-two-col">
+      <div class="cs-col-label">
+        <div class="cs-chapter">
+          <span class="cs-chapter-num">03</span>
           <span class="cs-chapter-line"></span>
         </div>
         <p class="section-label">Brand</p>
@@ -239,12 +430,12 @@
     <video src="../assets/images/lego/bricks.mp4" autoplay muted loop playsinline></video>
   </div>
 
-  <!-- ③ HOME PAGE -->
+  <!-- ④ HOME PAGE -->
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
         <div class="cs-chapter">
-          <span class="cs-chapter-num">03</span>
+          <span class="cs-chapter-num">04</span>
           <span class="cs-chapter-line"></span>
         </div>
         <p class="section-label">Home Page</p>
@@ -280,38 +471,30 @@
   <div class="cs-img-row">
     <div class="container">
       <img src="../assets/images/lego/Slice 5.png" alt="Home page UI" class="cs-slice-full reveal-up" />
-      <p class="cs-caption">Home page — hero, trending sidebar, categories, and popular sets.</p>
+      <p class="cs-caption"><span class="for-chip" style="--p:#3AB326">For: the gifter</span> Home page — hero, trending sidebar, categories, and popular sets.</p>
     </div>
   </div>
 
   <div class="cs-img-row">
     <div class="container">
-      <div class="cs-img-grid cs-img-grid--2">
-        <div>
-          <img src="../assets/images/lego/Slice 12.png" alt="New sets" class="cs-slice reveal-up" />
-          <p class="cs-caption">New Sets — sortable table with price per brick and RRP comparison.</p>
-        </div>
-        <div>
-          <img src="../assets/images/lego/Slice 14.png" alt="Best deals" class="cs-slice reveal-up" />
-          <p class="cs-caption">Best Deals — colour-coded badges rank deals by discount type.</p>
-        </div>
-      </div>
+      <img src="../assets/images/lego/Slice 10.png" alt="Price change cards over minifigure heads" class="cs-slice-full reveal-up" />
+      <p class="cs-caption"><span class="for-chip" style="--p:#4A76CB">For: the casual collector</span> Price changes — every set shows its current price and how far it moved, so a good deal is obvious at a glance.</p>
     </div>
   </div>
 
-  <!-- ④ PROCESS -->
+  <!-- ⑤ PROCESS -->
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
         <div class="cs-chapter">
-          <span class="cs-chapter-num">04</span>
+          <span class="cs-chapter-num">05</span>
           <span class="cs-chapter-line"></span>
         </div>
         <p class="section-label">Process</p>
       </div>
       <div class="cs-col-content reveal-up">
         <h2>Research &amp; discovery</h2>
-        <p>I mapped three core user types — the casual collector who wants a quick deal, the serious investor tracking price history, and the gifter trying to find something specific fast. Each had very different mental models and jobs-to-be-done.</p>
+        <p>I mapped three core user types — the casual collector who wants a quick deal, the serious investor tracking price history, and the gifter trying to find something specific fast. Every page in the architecture is tied back to one of their questions.</p>
 
         <h2>Architecture &amp; flows</h2>
         <p>The key decision was separating <em>browsing</em> from <em>tracking</em>. Browsing lives in Recent Changes, New Sets, and Best Deals — passive discovery. Tracking is personal: the wishlist and likes pages are yours alone. This split made navigation intuitive without any onboarding.</p>
@@ -323,8 +506,8 @@
 
     <div class="cs-img-row">
       <div class="container">
-        <img src="../assets/images/lego/Slice 7.png" alt="Colour palette" class="cs-slice-full reveal-up" />
-        <p class="cs-caption" style="padding-left:0;">Colour system — yellow as the primary action colour, supported by red and green for price signals.</p>
+        <img src="../assets/images/lego/Slice 7.png" alt="Recent price changes grid" class="cs-slice-full reveal-up" />
+        <p class="cs-caption" style="padding-left:0;"><span class="for-chip" style="--p:#86888E">For: the investor</span> Recent Changes — the latest price movements. Yellow is the only action colour; red and green carry price signals.</p>
       </div>
     </div>
 
@@ -334,8 +517,8 @@
 
     <div class="cs-img-row">
       <div class="container">
-        <img src="../assets/images/lego/Slice 16.png" alt="Likes page" class="cs-slice-full reveal-up" />
-        <p class="cs-caption" style="padding-left:0;">Likes &amp; Cart — personal space to bookmark sets and compare total cost across retailers.</p>
+        <img src="../assets/images/lego/Slice 16.png" alt="New sets table" class="cs-slice-full reveal-up" />
+        <p class="cs-caption" style="padding-left:0;"><span class="for-chip" style="--p:#86888E">For: the investor</span> New Sets — sortable table with price per brick and RRP comparison.</p>
       </div>
     </div>
 
@@ -344,12 +527,12 @@
     </div>
   </section>
 
-  <!-- ⑤ SCREENS -->
+  <!-- ⑥ SCREENS -->
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
         <div class="cs-chapter">
-          <span class="cs-chapter-num">05</span>
+          <span class="cs-chapter-num">06</span>
           <span class="cs-chapter-line"></span>
         </div>
         <p class="section-label">Key Screens</p>
@@ -367,8 +550,8 @@
 
   <div class="cs-img-row">
     <div class="container">
-      <img src="../assets/images/lego/Slice 11.png" alt="New sets mockup" class="cs-slice-full reveal-up" />
-      <p class="cs-caption">New Sets page — live in context. The data table is clean, scannable, and sortable.</p>
+      <img src="../assets/images/lego/Slice 11.png" alt="Best deals grid with discount badges" class="cs-slice-full reveal-up" />
+      <p class="cs-caption"><span class="for-chip" style="--p:#4A76CB">For: the casual collector</span> Best Deals — colour-coded badges rank deals by discount type.</p>
     </div>
   </div>
 
@@ -376,12 +559,12 @@
     <div class="container">
       <div class="cs-img-grid cs-img-grid--2">
         <div>
-          <img src="../assets/images/lego/Slice 10.png" alt="Recent changes" class="cs-slice reveal-up" />
-          <p class="cs-caption">Recent Changes — grid view of the 16 latest price movements.</p>
+          <img src="../assets/images/lego/Slice 14.png" alt="LEGO store facade" class="cs-slice reveal-up" />
+          <p class="cs-caption">The brand in the wild — LEGO's own red, yellow and white.</p>
         </div>
         <div>
-          <img src="../assets/images/lego/Slice 4.png" alt="Typeface" class="cs-slice reveal-up" />
-          <p class="cs-caption">Typeface — Inter at every weight, from data labels to hero text.</p>
+          <img src="../assets/images/lego/Slice 4.png" alt="Illuminated LEGO sign" class="cs-slice reveal-up" />
+          <p class="cs-caption">The palette borrows straight from LEGO's signage.</p>
         </div>
       </div>
     </div>
@@ -391,19 +574,9 @@
     <video src="../assets/images/lego/walle.mp4" autoplay muted loop playsinline></video>
   </div>
 
-  <div class="cs-img-row">
-    <div class="container">
-      <img src="../assets/images/lego/Slice 17.png" alt="Set overview" class="cs-slice-full reveal-up" />
-      <p class="cs-caption">Set Overview — price history chart, store comparison table, and similar sets. The deepest view in the platform.</p>
-    </div>
-  </div>
 
-  <div class="cs-img-row">
-    <div class="container">
-      <img src="../assets/images/lego/Slice 13.png" alt="Best deals stormtrooper" class="cs-slice-full reveal-up" />
-      <p class="cs-caption">Best Deals — editorial photography meets data. The Stormtrooper knows a good deal when he sees one.</p>
-    </div>
-  </div>
+
+
 
   <div class="w video-crop">
     <video src="../assets/images/lego/person.mp4" autoplay muted loop playsinline></video>
@@ -411,17 +584,17 @@
 
   <div class="cs-img-row">
     <div class="container">
-      <img src="../assets/images/lego/Slice 20.png" alt="Forgot password" class="cs-slice-full reveal-up" />
+      <img src="../assets/images/lego/Slice 20.png" alt="Register modal next to a stormtrooper minifigure" class="cs-slice-full reveal-up" />
       <p class="cs-caption">Even the edge cases get the full treatment — login, register, and forgot password all live inside the product's visual world.</p>
     </div>
   </div>
 
-  <!-- ⑥ OUTCOME -->
+  <!-- ⑦ OUTCOME -->
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
         <div class="cs-chapter">
-          <span class="cs-chapter-num">06</span>
+          <span class="cs-chapter-num">07</span>
           <span class="cs-chapter-line"></span>
         </div>
         <p class="section-label">Outcome</p>
@@ -452,9 +625,9 @@
   <div class="cs-img-row">
     <div class="container">
       <div class="cs-img-grid cs-img-grid--3">
-        <img src="../assets/images/lego/Slice 6.png" alt="LEGO pixel visual" class="cs-slice reveal-up" />
-        <img src="../assets/images/lego/Slice 19.png" alt="Register modal" class="cs-slice reveal-up" />
-        <img src="../assets/images/lego/Slice 21.png" alt="Final screen" class="cs-slice reveal-up" />
+        <img src="../assets/images/lego/Slice 6.png" alt="Home page on a LEGO baseplate" class="cs-slice reveal-up" />
+        <img src="../assets/images/lego/Slice 19.png" alt="Laptop with LEGO Block on a pile of minifigure heads" class="cs-slice reveal-up" />
+        <img src="../assets/images/lego/Slice 21.png" alt="Yellow LEGO sculpture holding a phone" class="cs-slice reveal-up" />
       </div>
     </div>
   </div>
