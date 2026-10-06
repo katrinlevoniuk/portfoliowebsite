@@ -64,6 +64,40 @@
 
     .case-study { --cs-accent: #f5c514; --cs-hero-bg: #2a2205; }
 
+
+    /* ── TRACKING EXPLAINER ── */
+    .track-steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 28px 0 8px; }
+    .track-steps li { background: var(--bg-1); border: 1px solid var(--line); border-radius: 16px; padding: 24px; position: relative; }
+    .track-steps li:not(:last-child)::after {
+      content: '→'; position: absolute; right: -12px; top: 30px; z-index: 1;
+      width: 24px; height: 24px; border-radius: 50%; background: var(--bg); color: #f5c514;
+      display: flex; align-items: center; justify-content: center; font-size: 13px;
+    }
+    .track-step-n {
+      display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 7px;
+      background: #f5c514; color: #0a0a0a; font-family: var(--font-d); font-weight: 800; font-size: 13px;
+      box-shadow: inset 0 -3px 0 rgba(0,0,0,.18); margin-bottom: 18px;
+    }
+    .track-steps h3 { font-family: var(--font-d); font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .track-steps p { font-size: 14px; color: var(--text-2); line-height: 1.7; }
+
+    .track-glossary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin: 24px 0 8px; }
+    .track-glossary > div { background: var(--bg-1); padding: 20px; }
+    .track-glossary dt { font-family: var(--font-d); font-size: 16px; font-weight: 800; color: #f5c514; margin-bottom: 8px; }
+    .track-glossary dd { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+    .track-why { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0 40px; }
+    .track-why-item { border-left: 3px solid color-mix(in srgb, var(--p) 70%, #fff); padding: 4px 0 4px 18px; }
+    .track-why-item span { display: block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: color-mix(in srgb, var(--p) 55%, #fff); margin-bottom: 8px; }
+    .track-why-item p { font-size: 15px; color: var(--text); line-height: 1.6; }
+
+    @media (max-width: 900px) {
+      .track-steps, .track-why { grid-template-columns: 1fr; }
+      .track-steps li:not(:last-child)::after { content: '↓'; right: auto; left: 24px; top: auto; bottom: -12px; }
+      .track-glossary { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) { .track-glossary { grid-template-columns: 1fr; } }
+
     /* ── PERSONAS ── */
     .personas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
     .persona {
@@ -190,7 +224,7 @@
       <div class="cs-hero-eyebrow reveal-up"><span class="cs-hero-dot"></span>UX/UI Case Study · Web Platform</div>
       <h1 class="cs-hero-title reveal-up">LEGO <span>Block</span></h1>
       <p class="cs-hero-lede reveal-up">Helping LEGO collectors find the right set at the right price.</p>
-      <p class="cs-hero-sub reveal-up">End-to-end UX/UI design for a complex data tracking and analytics platform — making dense, multi-layered information immediately readable and actionable.</p>
+      <p class="cs-hero-sub reveal-up">A price-tracking platform that watches 5,893+ LEGO sets across retailers, so collectors can see whether today’s price is genuinely good — and where to buy. End-to-end UX/UI design.</p>
       <div class="cs-hero-pills reveal-up">
         <span class="tag">Web Platform</span>
         <span class="tag">Dashboard Design</span>
@@ -247,13 +281,50 @@
       </div>
       <div class="cs-col-content reveal-up">
         <h2>The challenge</h2>
-        <p>LEGO BLOCK is a dynamic platform for LEGO enthusiasts seeking the best deals across 5,893+ sets sourced from multiple retail sites. The goal was to turn scattered pricing data into something immediately readable and actionable.</p>
+        <p>The same LEGO set can cost very different amounts depending on the shop and the week. LEGO BLOCK follows the prices of 5,893+ sets across multiple retailers, so enthusiasts don’t have to. My job was to turn that pile of scattered price data into answers a collector can act on in seconds.</p>
 
         <div class="cs-pull">
           <p>"Users were drowning in tabs and spreadsheets just to find the best price for one set."</p>
         </div>
 
         <p>The existing solution was a manual process — open multiple retailer sites, compare prices, track changes over time. The goal was to design a platform that does all of that automatically and surfaces the right information at the right moment.</p>
+
+        <h2>What “tracking a set” actually means</h2>
+        <p>Tracking isn’t a single feature — it’s what happens to every set, every day, behind the scenes. Three steps turn raw prices into something a collector can trust.</p>
+
+        <ol class="track-steps">
+          <li>
+            <span class="track-step-n">1</span>
+            <h3>Collect</h3>
+            <p>Current prices for each set are gathered from multiple retailers and lined up next to its recommended retail price (RRP).</p>
+          </li>
+          <li>
+            <span class="track-step-n">2</span>
+            <h3>Remember</h3>
+            <p>Every price change is saved, building a price history for each set — so “cheap” can be judged against the set’s own past, not a guess.</p>
+          </li>
+          <li>
+            <span class="track-step-n">3</span>
+            <h3>Surface</h3>
+            <p>Changes come back as signals: green or red change badges, the Recent Changes feed, Best Deals rankings and the price chart on each set.</p>
+          </li>
+        </ol>
+
+        <h2>Reading a set at a glance</h2>
+        <p>Every card and table in the platform uses the same four numbers, so once you learn them on one screen, you can read them everywhere.</p>
+        <dl class="track-glossary">
+          <div><dt>Now</dt><dd>The lowest price you can buy it for today.</dd></div>
+          <div><dt>Change</dt><dd>How far the price moved, in $ and % — green when it’s cheaper, red when it went up.</dd></div>
+          <div><dt>RRP</dt><dd>The official retail price, the baseline every deal is measured against.</dd></div>
+          <div><dt>Price per brick</dt><dd>Price divided by piece count, to compare value across sets of different sizes.</dd></div>
+        </dl>
+
+        <h2>Why a collector cares</h2>
+        <div class="track-why">
+          <div class="track-why-item" style="--p:#4A76CB"><span>The casual collector</span><p>Knows in one glance whether a “sale” is actually a deal — without opening ten retailer tabs.</p></div>
+          <div class="track-why-item" style="--p:#86888E"><span>The serious investor</span><p>Sees the full price history of a set before buying or selling, instead of relying on memory or spreadsheets.</p></div>
+          <div class="track-why-item" style="--p:#3AB326"><span>The gifter</span><p>Finds where a set is cheapest today and what the total will be, so the gift is sorted in minutes.</p></div>
+        </div>
 
         <div class="cs-inline-stats">
           <div>
