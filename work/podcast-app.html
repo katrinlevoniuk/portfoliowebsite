@@ -180,6 +180,11 @@
     .heard-quote blockquote { font-size: 15px; color: var(--text2); line-height: 1.6; }
     .heard-quote figcaption { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,237,232,.35); margin-top: 6px; }
     @media (max-width: 640px) { .user-moment { flex-direction: column; gap: 8px; } }
+    .research-takeaway { margin: 0 0 100px; padding: 40px 48px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--red); }
+    .rt-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+    .research-takeaway p { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(22px, 2.6vw, 32px); font-weight: 700; line-height: 1.3; letter-spacing: -.015em; color: var(--text); max-width: 900px; }
+    .research-takeaway em { font-style: normal; color: var(--accent); }
+    @media (max-width: 640px) { .research-takeaway { padding: 28px 24px; margin-bottom: 60px; } }
     .problem-insight { font-size: 14px; color: var(--text2); line-height: 1.7; padding: 24px; background: var(--surface); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; margin-top: 24px; }
 
     /* ── PROCESS STEPS ── */
@@ -582,6 +587,14 @@
       </div>
     </div>
   </section>
+
+  <!-- Research takeaway -->
+  <div class="w">
+    <div class="research-takeaway reveal-scale">
+      <span class="rt-label">What the survey told me</span>
+      <p>Podcasts are often background listening — so the app shouldn't demand attention, but should make it easy to <em>catch up on what you missed</em>.</p>
+    </div>
+  </div>
 
 
   
