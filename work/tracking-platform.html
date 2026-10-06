@@ -131,7 +131,7 @@
     .ps-who-figs .persona-tag-fig { border: 2px solid var(--bg); box-sizing: content-box; }
     .ps-who-figs .persona-tag-fig + .persona-tag-fig { margin-left: -12px; }
     .ps-who-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .ps-who-name { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--p); }
+    .ps-who-name { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: color-mix(in srgb, var(--p) 60%, #fff); }
     .ps-who-q { font-family: var(--font-d); font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.25; }
     .persona-solves { margin-top: auto; margin-bottom: 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--text-3); letter-spacing: .02em; }
     .persona .persona-list { margin-bottom: 20px; }
@@ -1026,9 +1026,9 @@
   (function() {
     const colors = [
       { hex: '#FADD00', text: 'rgba(0,0,0,0.65)' },
-      { hex: '#4A76CB', text: 'rgba(255,255,255,0.9)' },
-      { hex: '#86888E', text: 'rgba(255,255,255,0.9)' },
-      { hex: '#3AB326', text: 'rgba(255,255,255,0.9)' },
+      { hex: '#4A76CB', text: '#ffffff' },
+      { hex: '#86888E', text: 'rgba(0,0,0,0.85)' },
+      { hex: '#3AB326', text: 'rgba(0,0,0,0.85)' },
       { hex: '#B42626', text: 'rgba(255,255,255,0.9)' },
     ];
     function hexToRgb(hex) {
