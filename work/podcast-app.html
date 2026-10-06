@@ -160,6 +160,10 @@
     .feedback-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 28px 32px; font-size: 15px; color: var(--text2); line-height: 1.7; font-style: italic; position: relative; }
     .feedback-card::before { content: '"'; font-family: 'Bricolage Grotesque', sans-serif; font-size: 64px; color: var(--red); opacity: .2; position: absolute; top: 8px; left: 24px; line-height: 1; }
     .feedback-card p { padding-top: 24px; }
+    .feedback-card:has(.feedback-avatar) { display: flex; gap: 18px; align-items: flex-start; }
+    .feedback-card:has(.feedback-avatar)::before { display: none; }
+    .feedback-card:has(.feedback-avatar) p { padding-top: 0; }
+    .feedback-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; }
 
     /* ── PROBLEM SECTION ── */
     .problem-section { padding: 100px 0; border-top: 1px solid var(--line); }
@@ -551,12 +555,15 @@
         </div>
         <div class="reveal d2" style="display: flex; flex-direction: column; gap: 16px; padding-top: 48px;">
           <div class="feedback-card">
+            <img class="feedback-avatar" src="../assets/images/podreads/avatar-1.jpg" alt="Survey participant" />
             <p>"I personally haven't found any good podcast apps, so I just listen to them on Telegram or watch on YouTube."</p>
           </div>
           <div class="feedback-card">
+            <img class="feedback-avatar" src="../assets/images/podreads/avatar-2.jpg" alt="Survey participant" />
             <p>"Sometimes it's hard to understand what the speaker is saying, so having the option to read while listening would be helpful."</p>
           </div>
           <div class="feedback-card">
+            <img class="feedback-avatar" src="../assets/images/podreads/avatar-3.jpg" alt="Survey participant" />
             <p>"Being able to save specific parts of the audio would be great for future reference."</p>
           </div>
         </div>
@@ -564,9 +571,6 @@
     </div>
   </section>
 
-  <div class="contained-img reveal-scale">
-    <img src="../assets/images/Slice_5.jpg" alt="Survey feedback quotes" />
-  </div>
 
   
 
