@@ -163,6 +163,7 @@
     .feedback-card:has(.feedback-avatar) { display: flex; gap: 18px; align-items: flex-start; }
     .feedback-card:has(.feedback-avatar)::before { display: none; }
     .feedback-card:has(.feedback-avatar) p { padding-top: 0; }
+    @media (min-width: 901px) { .survey-intro { position: sticky; top: 120px; } }
     .feedback-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; }
 
     /* ── PROBLEM SECTION ── */
@@ -549,22 +550,30 @@
     <div class="w">
       <span class="label reveal">03 — UX Research</span>
       <div class="two-col" style="align-items: start;">
-        <div>
+        <div class="survey-intro">
           <h2 class="chapter-title reveal d1">Survey:<br /><em>8 participants,</em><br />real answers</h2>
           <p class="reveal d2" style="font-size:16px; color:var(--text2); line-height:1.8; margin-top:24px;">I aimed to gather insights into user habits, preferences, and pain points related to podcast listening — asking what people actually use today and what they're missing.</p>
         </div>
         <div class="reveal d2" style="display: flex; flex-direction: column; gap: 16px; padding-top: 48px;">
           <div class="feedback-card">
             <img class="feedback-avatar" src="../assets/images/podreads/avatar-1.jpg" alt="Survey participant" />
-            <p>"I personally haven't found any good podcast apps, so I just listen to them on Telegram or watch on YouTube."</p>
+            <p>“It seems like having live podcasts would be a great feature, but also having the ability to save and replay them would be even better. Maybe even allowing listeners to ask questions during the live session would make the experience more interactive.”</p>
           </div>
           <div class="feedback-card">
             <img class="feedback-avatar" src="../assets/images/podreads/avatar-2.jpg" alt="Survey participant" />
-            <p>"Sometimes it's hard to understand what the speaker is saying, so having the option to read while listening would be helpful."</p>
+            <p>“I personally haven't found any good podcast apps, so I just listen to them on Telegram or watch them on YouTube if I have premium. To me, podcasts are just like short audiobooks.”</p>
           </div>
           <div class="feedback-card">
             <img class="feedback-avatar" src="../assets/images/podreads/avatar-3.jpg" alt="Survey participant" />
-            <p>"Being able to save specific parts of the audio would be great for future reference."</p>
+            <p>“Other podcast apps I've tried are okay, but they all seem to have limited topics. I usually just create a “podcasts” folder in Telegram and add channels that cover topics I'm interested in, like history, space, and motivation. It's all there, and it's free.”</p>
+          </div>
+          <div class="feedback-card">
+            <img class="feedback-avatar" src="../assets/images/podreads/avatar-4.jpg" alt="Survey participant" />
+            <p>“Sometimes, it's hard to understand what the speaker is saying, so having the option to read the text while listening would be helpful.”</p>
+          </div>
+          <div class="feedback-card">
+            <img class="feedback-avatar" src="../assets/images/podreads/avatar-5.jpg" alt="Survey participant" />
+            <p>“Being able to save specific parts of the audio or video would be great for future reference.”</p>
           </div>
         </div>
       </div>
