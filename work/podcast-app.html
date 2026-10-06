@@ -286,7 +286,9 @@
     @media (max-width: 640px) {
       /* inline-styled two-column blocks stack on phones */
       .photo-text-block { grid-template-columns: 1fr !important; gap: 28px !important; padding: 56px 24px !important; }
-      .photo-text-block .ptb-img-wrap { order: -1; }
+      .photo-text-block .ptb-img-wrap { order: 1; }
+      .photo-text-block .ptb-m1 { order: 1; } .photo-text-block .ptb-m2 { order: 2; } .photo-text-block .ptb-m3 { order: 3; } .photo-text-block .ptb-m4 { order: 4; }
+      .ptb-arrow { font-size: 0; } .ptb-arrow::after { content: '↓'; font-size: 13px; }
       .photo-text-block .ptb-img-wrap img { width: 100% !important; }
       .overview-img { padding: 32px 16px !important; }
       .w[style*="padding: 56px 48px"] { padding: 40px 24px !important; }
@@ -722,7 +724,7 @@
 
     <div style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc reveal d2">The episode menu puts <strong>Add to playlist</strong> one tap away from the player.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Alex → </span>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Alex <span class="ptb-arrow">→</span></span>
     </div>
 
     <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
@@ -747,7 +749,7 @@
 
     <div style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc reveal d2">Pick an existing playlist or create a new one without leaving the episode.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Alex ← </span>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Alex <span class="ptb-arrow">←</span></span>
     </div>
 
   </div>
@@ -778,7 +780,7 @@
 
   <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding:100px 0; border-top:1px solid var(--line);">
 
-    <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+    <div class="ptb-img-wrap ptb-m2" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
       <img
               src="../assets/images/Slice_4.jpg"
               alt="Library screen"
@@ -786,16 +788,16 @@
       />
     </div>
 
-    <div style="display:flex; flex-direction:column; gap:24px;">
+    <div class="ptb-m1" style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc reveal d2">One toggle switches the player between listening and reading.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Emily ← </span>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Emily <span class="ptb-arrow">←</span></span>
     </div>
 
 
 
-    <div style="display:flex; flex-direction:column; gap:24px;">
+    <div class="ptb-m3" style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc  d2">The transcript shows timestamps and a language picker, and highlights the words being spoken.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Emily ↓ </span>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Emily <span class="ptb-arrow">↓</span></span>
     </div>
 
   </div>
@@ -827,23 +829,19 @@
   </section>
 
 
-  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding-top:100px; border-top:1px solid var(--line);">
+  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; column-gap:80px; row-gap:60px; align-items:center; padding:100px 0; border-top:1px solid var(--line);">
 
-    <div style="display:flex; flex-direction:column; gap:24px;">
+    <div class="ptb-m1" style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc reveal d2">The All / Following switch separates discovery from shows you already follow.</p>
     </div>
 
-    <div style="display:flex; flex-direction:column; gap:24px;">
+    <div class="ptb-m3" style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc reveal d2">Following is sorted alphabetically, with an A–Z index for quick jumps.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Sarah ↓ </span>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Sarah <span class="ptb-arrow">↓</span></span>
     </div>
 
-  </div>
 
-
-  <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:100px 0;">
-
-    <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+    <div class="ptb-img-wrap ptb-m2" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
       <img
               src="../assets/images/Slice_8.jpg"
               alt="Library screen"
@@ -851,7 +849,7 @@
       />
     </div>
 
-   <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
+   <div class="ptb-img-wrap ptb-m4" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
     <img
             src="../assets/images/Slice_9.jpg"
             alt="Library screen"
@@ -895,7 +893,7 @@
 
     <div style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc reveal d2">Saved episodes live in playlists, with a filter for quick retrieval.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Ed ← </span>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Ed <span class="ptb-arrow">←</span></span>
     </div>
 
   </div>
@@ -908,7 +906,7 @@
 
     <div style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc reveal d2">Copied passages become notes that keep the segment’s timestamp, with simple text formatting.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Ed → </span>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Ed <span class="ptb-arrow">→</span></span>
     </div>
 
     <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
@@ -959,7 +957,7 @@
 
     <div style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc reveal d2">Home opens with Live podcasts, then Playlists for you and Trending podcasts.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Michael ↓ </span>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Michael <span class="ptb-arrow">↓</span></span>
     </div>
 
 
@@ -1003,7 +1001,7 @@
 
     <div style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc reveal d2">Before a live session: event details, speakers and a <strong>Join</strong> button.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Maria ← </span>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Maria <span class="ptb-arrow">←</span></span>
     </div>
 
   </div>
@@ -1018,7 +1016,7 @@
 
     <div style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc reveal d2">During the session, the Comments tab becomes a live chat with hosts and listeners.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Maria → </span>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Maria <span class="ptb-arrow">→</span></span>
     </div>
 
     <div class="ptb-img-wrap" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
