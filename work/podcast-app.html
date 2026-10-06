@@ -172,6 +172,14 @@
     .problem-num { background: var(--red); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
     .problem-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(32px, 4.5vw, 56px); font-weight: 800; letter-spacing: -0.018em; line-height: 1.05; margin-bottom: 16px; }
     .problem-desc { font-size: 16px; color: var(--text2); line-height: 1.75; max-width: 520px; }
+    .user-moment { margin-top: 28px; display: flex; gap: 14px; align-items: baseline; max-width: 720px; }
+    .um-label { flex: none; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--red); border: 1px solid rgba(255,58,70,.35); border-radius: 100px; padding: 4px 10px; }
+    .user-moment p { font-size: 16px; color: var(--text); line-height: 1.6; font-style: italic; }
+    .heard-quote { margin: 20px 0 0; display: flex; gap: 14px; align-items: flex-start; max-width: 720px; }
+    .heard-quote img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex: none; }
+    .heard-quote blockquote { font-size: 15px; color: var(--text2); line-height: 1.6; }
+    .heard-quote figcaption { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,237,232,.35); margin-top: 6px; }
+    @media (max-width: 640px) { .user-moment { flex-direction: column; gap: 8px; } }
     .problem-insight { font-size: 14px; color: var(--text2); line-height: 1.7; padding: 24px; background: var(--surface); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; margin-top: 24px; }
 
     /* ── PROCESS STEPS ── */
@@ -712,6 +720,7 @@
       </div>
       <h2 class="problem-title reveal d1">Busy users need<br />to find content fast.</h2>
       <p class="problem-desc reveal d2">Alex is a busy marketing specialist who needs a podcast app that offers efficient content organisation because of limited time.</p>
+      <div class="user-moment reveal d2"><span class="um-label">User moment</span><p>On the metro to work, finds a great episode and needs to file it for later in seconds.</p></div>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> Intuitive episode management — add episodes to playlists directly from the player view. Users can create collections or choose existing ones on the spot.
       </div>
@@ -769,6 +778,8 @@
       </div>
       <h2 class="problem-title reveal d1">Understanding spoken<br />content across languages.</h2>
       <p class="problem-desc reveal d2">Emily is a student who needs a podcast app with subtitles because the language barrier sometimes makes it difficult to understand spoken content.</p>
+      <div class="user-moment reveal d2"><span class="um-label">User moment</span><p>Listening to an English podcast, misses a sentence and wants to read it instead of rewinding.</p></div>
+      <figure class="heard-quote reveal d2"><img src="../assets/images/podreads/avatar-4.jpg" alt="Survey participant" /><div><blockquote>“Sometimes, it&#39;s hard to understand what the speaker is saying, so having the option to read the text while listening would be helpful.”</blockquote><figcaption>Heard in the survey</figcaption></div></figure>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> A convenient toggle switch lets users enable or disable subtitles. A word-highlighting feature visually links spoken words to their written counterparts in real time.
       </div>
@@ -818,6 +829,7 @@
       </div>
       <h2 class="problem-title reveal d1">Following content<br />that actually matters.</h2>
       <p class="problem-desc reveal d2">Sarah is a self-development person who needs a podcast app that makes it easy to manage subscriptions because it helps her find content faster.</p>
+      <div class="user-moment reveal d2"><span class="um-label">User moment</span><p>Opens the app with ten minutes to spare and wants only the shows she follows.</p></div>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> A switcher between "All Podcasts" and "Following" lets users segment content by preference. The "Following" section organises topics alphabetically for effortless navigation.
       </div>
@@ -873,6 +885,8 @@
       </div>
       <h2 class="problem-title reveal d1">Save the moments<br />that matter most.</h2>
       <p class="problem-desc reveal d2">Ed is a writer who needs a podcast app with easy-to-save segments because he wants to capture important information he often misses while listening.</p>
+      <div class="user-moment reveal d2"><span class="um-label">User moment</span><p>Hears a line worth quoting while walking, but can't stop to write it down.</p></div>
+      <figure class="heard-quote reveal d2"><img src="../assets/images/podreads/avatar-5.jpg" alt="Survey participant" /><div><blockquote>“Being able to save specific parts of the audio or video would be great for future reference.”</blockquote><figcaption>Heard in the survey</figcaption></div></figure>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> Users can save specific segments, add written notes with custom font styling, and filter saved content for easy retrieval — without ever pausing the podcast.
       </div>
@@ -941,6 +955,8 @@
       </div>
       <h2 class="problem-title reveal d1">Content tailored<br />to your interests.</h2>
       <p class="problem-desc reveal d2">Michael is a back-end developer who needs a podcast app with personalised recommendations because of a lack of content diversity in existing apps.</p>
+      <div class="user-moment reveal d2"><span class="um-label">User moment</span><p>Has heard everything his usual shows put out and wants something new that still fits his interests.</p></div>
+      <figure class="heard-quote reveal d2"><img src="../assets/images/podreads/avatar-3.jpg" alt="Survey participant" /><div><blockquote>“Other podcast apps I&#39;ve tried are okay, but they all seem to have limited topics.”</blockquote><figcaption>Heard in the survey</figcaption></div></figure>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> "Trending Podcasts" and "Top Podcasts" sections personalised by user preferences. A dedicated section for live and real-time broadcasts.
       </div>
@@ -977,6 +993,8 @@
       </div>
       <h2 class="problem-title reveal d1">Engage live with<br />hosts and listeners.</h2>
       <p class="problem-desc reveal d2">Maria is a podcast enthusiast who needs real-time interaction during live podcast sessions because she wants to engage with hosts as the podcast unfolds.</p>
+      <div class="user-moment reveal d2"><span class="um-label">User moment</span><p>Her favourite host goes live tonight, and she has a question ready.</p></div>
+      <figure class="heard-quote reveal d2"><img src="../assets/images/podreads/avatar-1.jpg" alt="Survey participant" /><div><blockquote>“…allowing listeners to ask questions during the live session would make the experience more interactive.”</blockquote><figcaption>Heard in the survey</figcaption></div></figure>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> A live chat feature lets users ask questions, share opinions, and interact in real time. Users can also join before a live session to set reminders and prepare questions.
       </div>
