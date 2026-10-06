@@ -100,36 +100,26 @@
 
 
     /* ── PROBLEM → SOLUTION ── */
-    .ps-list { display: flex; flex-direction: column; gap: 0; margin-top: 16px; }
-    .ps-row { display: grid; grid-template-columns: 1fr 1.25fr; gap: 64px; align-items: center; padding: 56px 0; border-top: 1px solid var(--line); }
-    .ps-row--flip .ps-text { order: 2; }
+    .ps-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+    .ps-card { background: var(--bg-1); border: 1px solid var(--line); border-radius: 20px; padding: 28px 26px; display: flex; flex-direction: column; }
     .ps-num { display: block; font-family: var(--font-d); font-size: 13px; font-weight: 800; color: #f5c514; letter-spacing: .1em; margin-bottom: 20px; }
-    .ps-part { position: relative; padding-left: 22px; }
+    .ps-part { position: relative; padding-left: 18px; }
     .ps-part::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 2px; border-radius: 2px; }
     .ps-part--problem::before { background: #E5484D; }
     .ps-part--solution::before { background: #3AB326; }
-    .ps-part--problem { margin-bottom: 28px; }
+    .ps-part--problem { margin-bottom: 22px; }
     .ps-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; }
     .ps-part--problem .ps-label { color: #FF7A7F; }
     .ps-part--solution .ps-label { color: #6FD35E; }
-    .ps-part h3 { font-family: var(--font-d); font-size: clamp(20px, 2vw, 26px); font-weight: 800; line-height: 1.15; letter-spacing: -.01em; margin-bottom: 8px; }
+    .ps-part h3 { font-family: var(--font-d); font-size: 19px; font-weight: 800; line-height: 1.2; letter-spacing: -.01em; margin-bottom: 8px; }
     .ps-part--problem h3 { color: var(--text-2); }
-    .ps-part p { font-size: 15px; color: var(--text-2); line-height: 1.7; }
-    .ps-text .for-chip { margin-top: 24px; display: inline-block; }
-    .ps-img img { width: 100%; height: auto; border-radius: 16px; border: 1px solid var(--line); }
-    .ps-modes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .ps-mode { background: var(--bg-1); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
-    .ps-mode span { display: block; font-family: var(--font-d); font-size: 22px; font-weight: 800; margin-bottom: 16px; }
-    .ps-mode ul { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-    .ps-mode li { font-size: 13px; font-weight: 600; background: var(--bg-3); border-radius: 8px; padding: 8px 12px; }
-    .ps-mode--track { border-color: rgba(245,197,20,.35); }
-    .ps-mode--track span { color: #f5c514; }
-    .ps-mode--track li { background: rgba(245,197,20,.12); color: #f5c514; }
-    .ps-mode p { font-size: 13px; color: var(--text-3); line-height: 1.6; }
-    @media (max-width: 900px) {
-      .ps-row { grid-template-columns: 1fr; gap: 28px; padding: 44px 0; }
-      .ps-row--flip .ps-text { order: 0; }
-    }
+    .ps-part p { font-size: 14px; color: var(--text-2); line-height: 1.65; }
+    .ps-card .for-chip { margin-top: auto; padding-top: 0; align-self: flex-start; }
+    .ps-card .ps-part--solution { margin-bottom: 24px; }
+    @media (max-width: 1100px) { .ps-list { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .ps-list { grid-template-columns: 1fr; } }
+
+    .ps-ref { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #6FD35E; border: 1px solid rgba(111,211,94,.35); border-radius: 100px; padding: 3px 10px; margin-right: 6px; vertical-align: 1px; }
 
     /* ── PERSONAS ── */
     .personas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
@@ -510,66 +500,45 @@
       </div>
       <div class="cs-col-content reveal-up">
         <h2>Six problems the redesign had to solve.</h2>
-        <p>Each screen exists because of a specific frustration. Here is what was getting in the way, and the design decision that removed it.</p>
+        <p>Each screen exists because of a specific frustration. Here is what was getting in the way and the design decision that removed it — the screens further down show each solution in place.</p>
       </div>
     </div>
     <div class="container ps-list">
-      <article class="ps-row">
-        <div class="ps-text reveal-up">
-          <span class="ps-num">01</span>
-          <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>“Is this actually a good deal?”</h3><p>A price on its own means nothing. Without a reference point, collectors open retailer after retailer just to check whether a discount is real.</p></div>
-          <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>Every price carries its context</h3><p>The current price sits right next to how far it moved — in $ and % — green when it drops, red when it rises. No maths, no extra tabs.</p></div>
-          <span class="for-chip" style="--p:#4A76CB">For: the casual collector</span>
-        </div>
-        <div class="ps-img reveal-up"><img src="../assets/images/lego/Slice 10.png" alt="Set cards with current price and green price-change badges" loading="lazy" /></div>
+      <article class="ps-card reveal-up">
+        <span class="ps-num">01</span>
+        <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>“Is this actually a good deal?”</h3><p>A price on its own means nothing. Without a reference point, collectors open retailer after retailer just to check whether a discount is real.</p></div>
+        <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>Every price carries its context</h3><p>The current price sits right next to how far it moved — in $ and % — green when it drops, red when it rises. No maths, no extra tabs.</p></div>
+        <span class="for-chip" style="--p:#4A76CB">For: the casual collector</span>
       </article>
-      <article class="ps-row ps-row--flip">
-        <div class="ps-text reveal-up">
-          <span class="ps-num">02</span>
-          <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>Price changes slip past unnoticed</h3><p>Prices move between visits. Spotting what changed meant re-checking the same sets one by one.</p></div>
-          <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>One feed for every movement</h3><p>Recent Changes collects the latest price movements across sets in a single scannable grid, each with its change badge.</p></div>
-          <span class="for-chip" style="--p:#86888E">For: the investor</span>
-        </div>
-        <div class="ps-img reveal-up"><img src="../assets/images/lego/Slice 7.png" alt="Recent Changes grid of sets with price movements" loading="lazy" /></div>
+      <article class="ps-card reveal-up">
+        <span class="ps-num">02</span>
+        <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>Price changes slip past unnoticed</h3><p>Prices move between visits. Spotting what changed meant re-checking the same sets one by one.</p></div>
+        <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>One feed for every movement</h3><p>Recent Changes collects the latest price movements across sets in a single scannable grid, each with its change badge.</p></div>
+        <span class="for-chip" style="--p:#86888E">For: the investor</span>
       </article>
-      <article class="ps-row">
-        <div class="ps-text reveal-up">
-          <span class="ps-num">03</span>
-          <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>Sets of different sizes are hard to compare</h3><p>A small set and a 3,000-piece set can’t be judged on price alone — the cheaper one isn’t always the better buy.</p></div>
-          <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>Value, not just price</h3><p>The New Sets table puts price per brick and RRP side by side in sortable columns, so value is comparable across any set size.</p></div>
-          <span class="for-chip" style="--p:#86888E">For: the investor</span>
-        </div>
-        <div class="ps-img reveal-up"><img src="../assets/images/lego/Slice 16.png" alt="New Sets table with price per brick and RRP columns" loading="lazy" /></div>
+      <article class="ps-card reveal-up">
+        <span class="ps-num">03</span>
+        <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>Sets of different sizes are hard to compare</h3><p>A small set and a 3,000-piece set can’t be judged on price alone — the cheaper one isn’t always the better buy.</p></div>
+        <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>Value, not just price</h3><p>The New Sets table puts price per brick and RRP side by side in sortable columns, so value is comparable across any set size.</p></div>
+        <span class="for-chip" style="--p:#86888E">For: the investor</span>
       </article>
-      <article class="ps-row ps-row--flip">
-        <div class="ps-text reveal-up">
-          <span class="ps-num">04</span>
-          <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>Every deal looks the same</h3><p>A long list of discounted sets blurs together; the genuinely strong offers get lost in the noise.</p></div>
-          <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>Deals ranked at a glance</h3><p>Best Deals uses colour-coded badges by discount type, so the strongest offers stand out before you read a single number.</p></div>
-          <span class="for-chip" style="--p:#4A76CB">For: the casual collector</span>
-        </div>
-        <div class="ps-img reveal-up"><img src="../assets/images/lego/Slice 11.png" alt="Best Deals grid with colour-coded discount badges" loading="lazy" /></div>
+      <article class="ps-card reveal-up">
+        <span class="ps-num">04</span>
+        <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>Every deal looks the same</h3><p>A long list of discounted sets blurs together; the genuinely strong offers get lost in the noise.</p></div>
+        <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>Deals ranked at a glance</h3><p>Best Deals uses colour-coded badges by discount type, so the strongest offers stand out before you read a single number.</p></div>
+        <span class="for-chip" style="--p:#4A76CB">For: the casual collector</span>
       </article>
-      <article class="ps-row">
-        <div class="ps-text reveal-up">
-          <span class="ps-num">05</span>
-          <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>Browsing and personal tracking were tangled</h3><p>Discovery and “my sets” lived in the same places, so it was unclear where to go to explore versus where to check what you follow.</p></div>
-          <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>Two clear modes in the navigation</h3><p>Browsing lives in Recent Changes, New Sets and Best Deals. Tracking is personal — Likes and Cart are yours alone. The split makes navigation obvious without onboarding.</p></div>
-          <span class="for-chip" style="--p:#f5c514">For: all three</span>
-        </div>
-        <div class="ps-img ps-modes reveal-up">
-          <div class="ps-mode"><span>Browse</span><ul><li>Recent Changes</li><li>New Sets</li><li>Best Deals</li></ul><p>Passive discovery — what's moving in the market.</p></div>
-          <div class="ps-mode ps-mode--track"><span>Track</span><ul><li>Likes</li><li>Cart</li></ul><p>Personal — the sets you follow and plan to buy.</p></div>
-        </div>
+      <article class="ps-card reveal-up">
+        <span class="ps-num">05</span>
+        <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>Browsing and personal tracking were tangled</h3><p>Discovery and “my sets” lived in the same places, so it was unclear where to go to explore versus where to check what you follow.</p></div>
+        <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>Two clear modes in the navigation</h3><p>Browsing lives in Recent Changes, New Sets and Best Deals. Tracking is personal — Likes and Cart are yours alone. The split makes navigation obvious without onboarding.</p></div>
+        <span class="for-chip" style="--p:#f5c514">For: all three</span>
       </article>
-      <article class="ps-row ps-row--flip">
-        <div class="ps-text reveal-up">
-          <span class="ps-num">06</span>
-          <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>Dense data felt overwhelming</h3><p>Thousands of sets, prices and changes on one screen quickly turns into a wall of numbers.</p></div>
-          <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>A strict visual hierarchy</h3><p>White cards on a dark background, yellow as the only action colour, red and green reserved for price signals. You always know what matters most.</p></div>
-          <span class="for-chip" style="--p:#f5c514">For: all three</span>
-        </div>
-        <div class="ps-img reveal-up"><img src="../assets/images/lego/Slice 6.png" alt="LEGO Block home page on a yellow LEGO baseplate" loading="lazy" /></div>
+      <article class="ps-card reveal-up">
+        <span class="ps-num">06</span>
+        <div class="ps-part ps-part--problem"><span class="ps-label">Problem</span><h3>Dense data felt overwhelming</h3><p>Thousands of sets, prices and changes on one screen quickly turns into a wall of numbers.</p></div>
+        <div class="ps-part ps-part--solution"><span class="ps-label">Solution</span><h3>A strict visual hierarchy</h3><p>White cards on a dark background, yellow as the only action colour, red and green reserved for price signals. You always know what matters most.</p></div>
+        <span class="for-chip" style="--p:#f5c514">For: all three</span>
       </article>
     </div>
   </section>
@@ -646,7 +615,12 @@
     </div>
   </div>
 
-
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/lego/Slice 10.png" alt="Price change cards over minifigure heads" class="cs-slice-full reveal-up" />
+      <p class="cs-caption"><span class="ps-ref">Solves problem 01</span> <span class="for-chip" style="--p:#4A76CB">For: the casual collector</span> Price changes — every set shows its current price and how far it moved, so a good deal is obvious at a glance.</p>
+    </div>
+  </div>
 
   <!-- ⑥ PROCESS -->
   <section class="cs-section">
@@ -670,13 +644,23 @@
       </div>
     </div>
 
-  
+    <div class="cs-img-row">
+      <div class="container">
+        <img src="../assets/images/lego/Slice 7.png" alt="Recent price changes grid" class="cs-slice-full reveal-up" />
+        <p class="cs-caption" style="padding-left:0;"><span class="ps-ref">Solves problem 02</span> <span class="for-chip" style="--p:#86888E">For: the investor</span> Recent Changes — the latest price movements. Yellow is the only action colour; red and green carry price signals.</p>
+      </div>
+    </div>
 
     <div class="w video-crop">
       <video src="../assets/images/space.mp4" autoplay muted loop playsinline></video>
     </div>
 
-  
+    <div class="cs-img-row">
+      <div class="container">
+        <img src="../assets/images/lego/Slice 16.png" alt="New sets table" class="cs-slice-full reveal-up" />
+        <p class="cs-caption" style="padding-left:0;"><span class="ps-ref">Solves problem 03</span> <span class="for-chip" style="--p:#86888E">For: the investor</span> New Sets — sortable table with price per brick and RRP comparison.</p>
+      </div>
+    </div>
 
     <div class="w video-crop">
       <video src="../assets/images/paint.mp4" autoplay muted loop playsinline></video>
@@ -704,7 +688,12 @@
     </div>
   </section>
 
-
+  <div class="cs-img-row">
+    <div class="container">
+      <img src="../assets/images/lego/Slice 11.png" alt="Best deals grid with discount badges" class="cs-slice-full reveal-up" />
+      <p class="cs-caption"><span class="ps-ref">Solves problem 04</span> <span class="for-chip" style="--p:#4A76CB">For: the casual collector</span> Best Deals — colour-coded badges rank deals by discount type.</p>
+    </div>
+  </div>
 
   <div class="cs-img-row">
     <div class="container">
@@ -764,7 +753,8 @@
   <!-- MORE IMAGES -->
   <div class="cs-img-row">
     <div class="container">
-      <div class="cs-img-grid cs-img-grid--2">
+      <div class="cs-img-grid cs-img-grid--3">
+        <img src="../assets/images/lego/Slice 6.png" alt="Home page on a LEGO baseplate" class="cs-slice reveal-up" />
         <img src="../assets/images/lego/Slice 19.png" alt="Laptop with LEGO Block on a pile of minifigure heads" class="cs-slice reveal-up" />
         <img src="../assets/images/lego/Slice 21.png" alt="Yellow LEGO sculpture holding a phone" class="cs-slice reveal-up" />
       </div>
