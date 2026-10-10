@@ -212,6 +212,21 @@
     .research-takeaway em { font-style: normal; color: var(--accent); }
     @media (max-width: 640px) { .research-takeaway { padding: 28px 24px; margin-bottom: 60px; } }
     .goal-hl { color: var(--yellow); font-weight: 600; }
+    /* the moment a persona hits the problem — a short story beside the formal statement */
+    .problem-section .w { display: grid; grid-template-columns: minmax(0,1fr) 340px; column-gap: 64px; align-items: start; }
+    .problem-section .w > * { grid-column: 1; }
+    .problem-section .w > .problem-tag { justify-self: start; }
+    .problem-section .w > .scene { grid-column: 2; grid-row: 2 / span 3; align-self: center; }
+    .scene { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 26px 28px; position: relative; }
+    .scene::before { content: '“'; position: absolute; top: 6px; right: 22px; font-family: 'Bricolage Grotesque', sans-serif; font-size: 72px; line-height: 1; color: var(--red); opacity: .35; }
+    .scene-who { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text2); margin-bottom: 14px; }
+    .scene-av { width: 30px; height: 30px; border-radius: 50%; background: var(--red); color: #fff; display: grid; place-items: center; font-family: 'Bricolage Grotesque', sans-serif; font-size: 14px; letter-spacing: 0; }
+    .scene p { font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 600; line-height: 1.3; letter-spacing: -.01em; color: var(--text); }
+    @media (max-width: 900px) {
+      .problem-section .w { grid-template-columns: 1fr; }
+      .problem-section .w > .scene { grid-column: 1; grid-row: auto; margin: 8px 0 4px; }
+      .scene p { font-size: 19px; }
+    }
     .problem-insight { font-size: 14px; color: var(--text2); line-height: 1.7; padding: 24px; background: var(--surface); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; margin-top: 24px; }
 
     /* ── PROCESS STEPS ── */
@@ -743,6 +758,7 @@
       </div>
       <h2 class="problem-title reveal d1">Busy users need<br />to find content fast.</h2>
       <p class="problem-desc reveal d2">Alex is a busy marketing specialist who needs a podcast app that offers efficient content organisation because of limited time.</p>
+      <aside class="scene reveal d2"><span class="scene-who"><span class="scene-av">A</span>Alex’s moment</span><p>On the metro to work, finds a great episode and needs to file it for later in seconds.</p></aside>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> Intuitive episode management — add episodes to playlists directly from the player view. Users can create collections or choose existing ones on the spot.
       </div>
@@ -800,6 +816,7 @@
       </div>
       <h2 class="problem-title reveal d1">Understanding spoken<br />content across languages.</h2>
       <p class="problem-desc reveal d2">Emily is a student who needs a podcast app with subtitles because the language barrier sometimes makes it difficult to understand spoken content.</p>
+      <aside class="scene reveal d2"><span class="scene-who"><span class="scene-av">E</span>Emily’s moment</span><p>Listening to an English podcast, misses a sentence and wants to read it instead of rewinding.</p></aside>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> A convenient toggle switch lets users enable or disable subtitles. A word-highlighting feature visually links spoken words to their written counterparts in real time.
       </div>
@@ -849,6 +866,7 @@
       </div>
       <h2 class="problem-title reveal d1">Following content<br />that actually matters.</h2>
       <p class="problem-desc reveal d2">Sarah is a self-development person who needs a podcast app that makes it easy to manage subscriptions because it helps her find content faster.</p>
+      <aside class="scene reveal d2"><span class="scene-who"><span class="scene-av">S</span>Sarah’s moment</span><p>Opens the app with ten minutes to spare and wants only the shows she follows.</p></aside>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> A switcher between "All Podcasts" and "Following" lets users segment content by preference. The "Following" section organises topics alphabetically for effortless navigation.
       </div>
@@ -891,6 +909,7 @@
       </div>
       <h2 class="problem-title reveal d1">Save the moments<br />that matter most.</h2>
       <p class="problem-desc reveal d2">Ed is a writer who needs a podcast app with easy-to-save segments because he wants to capture important information he often misses while listening.</p>
+      <aside class="scene reveal d2"><span class="scene-who"><span class="scene-av">E</span>Ed’s moment</span><p>Hears a line worth quoting while walking, but can’t stop to write it down.</p></aside>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> Users can save specific segments, add written notes with custom font styling, and filter saved content for easy retrieval — without ever pausing the podcast.
       </div>
@@ -959,6 +978,7 @@
       </div>
       <h2 class="problem-title reveal d1">Content tailored<br />to your interests.</h2>
       <p class="problem-desc reveal d2">Michael is a back-end developer who needs a podcast app with personalised recommendations because of a lack of content diversity in existing apps.</p>
+      <aside class="scene reveal d2"><span class="scene-who"><span class="scene-av">M</span>Michael’s moment</span><p>Has heard everything his usual shows put out and wants something new that still fits his interests.</p></aside>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> "Trending Podcasts" and "Top Podcasts" sections personalised by user preferences. A dedicated section for live and real-time broadcasts.
       </div>
@@ -995,6 +1015,7 @@
       </div>
       <h2 class="problem-title reveal d1">Engage live with<br />hosts and listeners.</h2>
       <p class="problem-desc reveal d2">Maria is a podcast enthusiast who needs real-time interaction during live podcast sessions because she wants to engage with hosts as the podcast unfolds.</p>
+      <aside class="scene reveal d2"><span class="scene-who"><span class="scene-av">M</span>Maria’s moment</span><p>Her favourite host goes live tonight, and she has a question ready.</p></aside>
       <div class="problem-insight reveal d2">
         <strong style="color:var(--text);">Solution:</strong> A live chat feature lets users ask questions, share opinions, and interact in real time. Users can also join before a live session to set reminders and prepare questions.
       </div>
