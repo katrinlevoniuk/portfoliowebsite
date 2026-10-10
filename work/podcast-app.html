@@ -107,7 +107,14 @@
     .hero-meta-item { background: transparent; padding: 20px 0; }
     .hero-meta-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
     .hero-meta-val { font-size: 14px; font-weight: 500; }
-    .hero-mockup { position: absolute; right: 6%; bottom: -40px; width: auto; height: min(84vh, 820px); z-index: 1; transform: rotate(4deg); transition: transform .6s var(--ease); }
+    .hero-mockup { position: absolute; right: 6%; bottom: -40px; height: min(84vh, 820px); aspect-ratio: 785 / 1425; z-index: 1; transform: rotate(4deg); transition: transform .6s var(--ease); }
+    .hero-mockup img, .hero-mockup canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .hero-mockup canvas { pointer-events: none; }
+    .hero-mockup.is-building img { visibility: hidden; }
+    .hero-build-badge { position: absolute; left: 50%; bottom: 14%; transform: translateX(-50%) rotate(-4deg); white-space: nowrap; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 100px; background: rgba(10,10,10,.85); backdrop-filter: blur(8px); color: #f0ede8; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; transition: opacity .5s; z-index: 2; }
+    .hero-build-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 1.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+    .hero-build-badge.done { opacity: 0; }
     .hero-mockup:hover { transform: translateY(-12px) rotate(2deg); }
     .hero-title, .hero-lede, .hero-sub, .hero-pills { max-width: 56%; }
     .hero-meta { margin-right: 42%; grid-template-columns: repeat(2, 1fr); background: transparent; }
@@ -387,7 +394,11 @@
       </div>
     </div>
 
-    <img class="hero-mockup" src="../assets/images/Slice_2.jpg" alt="Podreads app screens" />
+    <div class="hero-mockup" id="heroMock">
+      <img src="../assets/images/Slice_2.jpg" alt="PodReads player with the episode menu open" id="heroMockImg" />
+      <canvas id="heroMockCanvas" aria-hidden="true"></canvas>
+      <div class="hero-build-badge" id="heroMockBadge" aria-hidden="true"><span id="heroMockStep">Building the player</span></div>
+    </div>
   </section>
 
   <!-- ═══════════════════════════════════════
@@ -1180,10 +1191,6 @@
       blocks.forEach(block => io.observe(block));
     })();
 
-    ctas.forEach(cta => {
-      cta.style.opacity = '1';
-      cta.style.transform = 'translateY(0)';
-    });
   </script>
 
 
@@ -1297,5 +1304,110 @@
     })();
   </script>
 
+<script>
+  /* Hero: the player screen assembles tile by tile, each part snapping into the real UI */
+  (function () {
+    const wrap = document.getElementById('heroMock');
+    const img = document.getElementById('heroMockImg');
+    const canvas = document.getElementById('heroMockCanvas');
+    const badge = document.getElementById('heroMockBadge');
+    const stepEl = document.getElementById('heroMockStep');
+    if (!wrap || !img || !canvas || getComputedStyle(wrap).display === 'none') return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { badge && badge.classList.add('done'); return; }
+    const ctx = canvas.getContext('2d');
+    // screen area and its parts, as fractions of the mockup image
+    const SCREEN = { x: .15, y: .025, w: .70, h: .865 };
+    const PARTS = [
+      { name: 'Header',            x: .15, y: .025, w: .70, h: .09 },
+      { name: 'Cover & menu',      x: .15, y: .10,  w: .70, h: .35 },
+      { name: 'Episode',           x: .15, y: .46,  w: .70, h: .13 },
+      { name: 'Progress',          x: .15, y: .60,  w: .70, h: .065 },
+      { name: 'Playback controls', x: .15, y: .665, w: .70, h: .095 },
+      { name: 'Listen / Read',     x: .15, y: .765, w: .70, h: .09 },
+    ];
+    const STEP = 420, DROP = 460, SNAP = 320;
+    let W, H, dpr, cell, parts, t0, frameImg;
+
+    function tile(c, x, y, s, rgb) {
+      const r = s * .22, g = 1.2;
+      c.fillStyle = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+      c.beginPath(); c.roundRect ? c.roundRect(x + g, y + g, s - 2 * g, s - 2 * g, r) : c.rect(x + g, y + g, s - 2 * g, s - 2 * g); c.fill();
+      c.fillStyle = 'rgba(255,255,255,.22)'; c.fillRect(x + g + r, y + g, s - 2 * g - 2 * r, 1);
+    }
+
+    function setup() {
+      W = wrap.clientWidth; H = wrap.clientHeight; if (!W || !H) return false;
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cell = Math.max(8, Math.round(W / 30));
+      const cols = Math.ceil(W / cell), rows = Math.ceil(H / cell);
+      const sm = document.createElement('canvas'); sm.width = cols; sm.height = rows;
+      const sc = sm.getContext('2d'); sc.drawImage(img, 0, 0, cols, rows);
+      let px = null; try { px = sc.getImageData(0, 0, cols, rows).data; } catch (e) {}
+      const at = (c, r) => px ? [px[(r * cols + c) * 4], px[(r * cols + c) * 4 + 1], px[(r * cols + c) * 4 + 2]] : [255, 58, 70];
+      // empty phone: real frame with a blank screen
+      frameImg = document.createElement('canvas'); frameImg.width = W * dpr; frameImg.height = H * dpr;
+      const fc = frameImg.getContext('2d'); fc.setTransform(dpr, 0, 0, dpr, 0, 0);
+      fc.drawImage(img, 0, 0, W, H);
+      fc.fillStyle = '#f4f4f6';
+      fc.beginPath(); const sx = SCREEN.x * W, sy = SCREEN.y * H, sw = SCREEN.w * W, sh = SCREEN.h * H;
+      fc.roundRect ? fc.roundRect(sx, sy, sw, sh, W * .09) : fc.rect(sx, sy, sw, sh); fc.fill();
+      parts = PARTS.map((P, i) => {
+        const c0 = Math.floor(P.x * W / cell), r0 = Math.floor(P.y * H / cell);
+        const c1 = Math.ceil((P.x + P.w) * W / cell), r1 = Math.ceil((P.y + P.h) * H / cell);
+        const cv = document.createElement('canvas'); cv.width = (c1 - c0) * cell * dpr; cv.height = (r1 - r0) * cell * dpr;
+        const cc = cv.getContext('2d'); cc.setTransform(dpr, 0, 0, dpr, 0, 0);
+        for (let r = r0; r < r1; r++) for (let c = c0; c < c1; c++) {
+          const col = at(c, r); if (col[0] > 238 && col[1] > 238 && col[2] > 238) continue; // keep white screen calm
+          tile(cc, (c - c0) * cell, (r - r0) * cell, cell, col);
+        }
+        return { ...P, cv, x0: c0 * cell, y0: r0 * cell, w0: (c1 - c0) * cell, rows: r1 - r0, start: 350 + i * STEP };
+      });
+      return true;
+    }
+
+    const clamp = v => Math.max(0, Math.min(1, v));
+    const back = t => { const k = 1.5; t -= 1; return t * t * ((k + 1) * t + k) + 1; };
+
+    function frame(now) {
+      const t = now - t0;
+      ctx.clearRect(0, 0, W, H);
+      ctx.drawImage(frameImg, 0, 0, W, H);
+      let label = null;
+      ctx.save();
+      ctx.beginPath(); const sx = SCREEN.x * W, sy = SCREEN.y * H, sw = SCREEN.w * W, sh = SCREEN.h * H;
+      ctx.roundRect ? ctx.roundRect(sx, sy, sw, sh, W * .09) : ctx.rect(sx, sy, sw, sh); ctx.clip();
+      for (const P of parts) {
+        const lt = t - P.start; if (lt < 0) continue;
+        if (lt < DROP + SNAP) label = P.name;
+        const q = clamp((lt - DROP) / SNAP);
+        if (q < 1) for (let r = 0; r < P.rows; r++) {
+          const p = clamp((lt - r * (DROP * .5 / P.rows)) / (DROP * .5)); if (p <= 0) continue;
+          ctx.globalAlpha = Math.min(1, p * 1.6) * (1 - q);
+          ctx.drawImage(P.cv, 0, r * cell * dpr, P.w0 * dpr, cell * dpr, P.x0, P.y0 + r * cell + (1 - back(p)) * -cell * 2.5, P.w0, cell);
+        }
+        if (q > 0) {
+          ctx.globalAlpha = q;
+          const nw = img.naturalWidth, nh = img.naturalHeight;
+          ctx.drawImage(img, P.x * nw, P.y * nh, P.w * nw, P.h * nh, P.x * W, P.y * H, P.w * W, P.h * H);
+        }
+        ctx.globalAlpha = 1;
+      }
+      ctx.restore();
+      if (stepEl && label) stepEl.textContent = 'Building · ' + label;
+      const last = parts[parts.length - 1];
+      if (t < last.start + DROP + SNAP + 150) requestAnimationFrame(frame);
+      else { wrap.classList.remove('is-building'); canvas.style.display = 'none'; badge && badge.classList.add('done'); }
+    }
+
+    function play() {
+      if (!setup()) { badge && badge.classList.add('done'); return; }
+      wrap.classList.add('is-building'); canvas.style.display = '';
+      t0 = performance.now(); requestAnimationFrame(frame);
+    }
+    wrap.classList.add('is-building');
+    if (img.complete && img.naturalWidth) play(); else img.addEventListener('load', play, { once: true });
+  })();
+</script>
 </body>
 </html>
