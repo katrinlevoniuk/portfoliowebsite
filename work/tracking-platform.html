@@ -232,6 +232,9 @@
     /* room between one photo+caption pair and the next */
     .cs-img-row { padding-bottom: 80px; }
     .cs-img-grid { gap: 24px; }
+    .cs-img-grid img { height: auto; }
+    .cs-img-grid--2 img { aspect-ratio: 4 / 3; object-fit: cover; }
+    .cs-col-content .cs-img-grid img { aspect-ratio: 1; object-fit: cover; }
     @media (max-width: 640px) {
       .cs-caption { margin-top: 14px; }
       .cs-img-row { padding-bottom: 56px; }
@@ -343,6 +346,16 @@
         </div>
 
         <p>The existing solution was a manual process — open multiple retailer sites, compare prices, track changes over time. The goal was to design a platform that does all of that automatically and surfaces the right information at the right moment.</p>
+        <div class="cs-img-grid cs-img-grid--2" style="margin:48px 0 88px;">
+          <div>
+            <img src="../assets/images/lego/Slice 14.png" alt="LEGO store facade" class="cs-slice reveal-up" />
+            <p class="cs-caption">The brand in the wild — LEGO's own red, yellow and white.</p>
+          </div>
+          <div>
+            <img src="../assets/images/lego/Slice 4.png" alt="Illuminated LEGO sign" class="cs-slice reveal-up" />
+            <p class="cs-caption">The palette borrows straight from LEGO's signage.</p>
+          </div>
+        </div>
 
         <h2>What “tracking a set” actually means</h2>
         <p>Tracking isn’t a single screen — it’s how every set is presented across the platform. Three layers turn raw prices into something a collector can trust.</p>
@@ -772,20 +785,6 @@
 
 
 
-  <div class="cs-img-row">
-    <div class="container">
-      <div class="cs-img-grid cs-img-grid--2">
-        <div>
-          <img src="../assets/images/lego/Slice 14.png" alt="LEGO store facade" class="cs-slice reveal-up" />
-          <p class="cs-caption">The brand in the wild — LEGO's own red, yellow and white.</p>
-        </div>
-        <div>
-          <img src="../assets/images/lego/Slice 4.png" alt="Illuminated LEGO sign" class="cs-slice reveal-up" />
-          <p class="cs-caption">The palette borrows straight from LEGO's signage.</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
