@@ -134,6 +134,16 @@
 
     /* ── FULL IMG ── */
     .full-img { margin: 0; overflow: hidden; }
+    /* keep every large image inside the page grid (same edges as the text) */
+    .overview-img, .contained-img, .full-img, .yellow-wrap { max-width: 1160px; margin-left: auto; margin-right: auto; padding-left: 48px !important; padding-right: 48px !important; box-sizing: border-box; }
+    .overview-img .reveal-scale, .full-img { border-radius: 12px; overflow: hidden; }
+    .overview-img img, .contained-img img { max-width: 100%; border-radius: 12px; }
+    .full-img { padding: 0 !important; max-width: 1064px; }
+    @media (max-width: 900px) {
+      .overview-img, .contained-img, .yellow-wrap { padding-left: 24px !important; padding-right: 24px !important; }
+      .full-img { margin-left: 24px; margin-right: 24px; }
+    }
+
     .full-img img { width: 100%; display: block; transform: scale(1.02); transition: transform 8s linear; }
     .full-img.in img { transform: scale(1); }
 
@@ -830,24 +840,13 @@
 
   <div class="photo-text-block w" style="display:grid; grid-template-columns:1fr 1fr; column-gap:80px; row-gap:60px; align-items:center; padding:100px 0; border-top:1px solid var(--line);">
 
-    <div class="ptb-m1" style="display:flex; flex-direction:column; gap:24px;">
-      <p class="problem-desc reveal d2">The All / Following switch separates discovery from shows you already follow.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Sarah <span class="ptb-arrow">↓</span></span>
-    </div>
 
     <div class="ptb-m3" style="display:flex; flex-direction:column; gap:24px;">
       <p class="problem-desc reveal d2">Following is sorted alphabetically, with an A–Z index for quick jumps.</p>
-      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Sarah <span class="ptb-arrow">↓</span></span>
+      <span class="ptb-cta" style="font-size:13px; color:var(--red); font-weight:500; letter-spacing:.02em;">Problem solved for Sarah <span class="ptb-arrow">→</span></span>
     </div>
 
 
-    <div class="ptb-img-wrap ptb-m2" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
-      <img
-              src="../assets/images/Slice_8.jpg"
-              alt="Library screen"
-              style="width:75%; display:block; transform:scale(1.12); transition:transform 1.4s cubic-bezier(.16,1,.3,1);"
-      />
-    </div>
 
    <div class="ptb-img-wrap ptb-m4" style="overflow:hidden; border-radius:14px; position:relative; clip-path:inset(0 100% 0 0); transition:clip-path 1s cubic-bezier(.16,1,.3,1);">
     <img
@@ -1075,7 +1074,7 @@
       <span style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; color:var(--red); letter-spacing:-.02em;" class="reveal">Onboarding</span>
       <p class="reveal d1" style="font-size:16px; color:var(--text2); margin-top:10px; line-height:1.7;">A splash screen and a single welcome screen with one clear action: Get Started.</p>
     </div>
-    <div style="padding: 0 48px; margin-bottom: 40px;">
+    <div class="yellow-wrap" style="margin-bottom: 40px;">
       <div class="yellow-bg reveal-scale" style="padding: 40px;">
         <img src="../assets/images/Slice_30.jpg" alt="Onboarding screens" style="border-radius:12px;" />
       </div>
