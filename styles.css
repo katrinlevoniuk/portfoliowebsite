@@ -983,13 +983,6 @@ blockquote {
 }
 
 .slide-foot { display: flex; align-items: center; gap: 16px; padding-top: 28px; border-top: 1px solid var(--line); }
-.slide-av {
-  width: 48px; height: 48px; flex: none;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%;
-  background: var(--accent-dim); border: 1px solid var(--accent-mid);
-  color: var(--accent); font-family: var(--font-d); font-weight: 700; font-size: 18px;
-}
 .slide-author { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
 .slide-src { font-size: 13px; color: var(--text-2); }
 .slide-src span { color: var(--accent); letter-spacing: 2px; margin-left: 4px; }
