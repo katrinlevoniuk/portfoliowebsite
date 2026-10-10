@@ -191,7 +191,9 @@
     .problem-desc { font-size: 16px; color: var(--text2); line-height: 1.75; max-width: 520px; }
     /* persona stories: tighter rhythm, readable captions, screens sized to sit with their text */
     .problem-section { padding: 80px 0 32px; }
-    .photo-text-block { padding: 40px 0 !important; column-gap: 56px !important; border-top: none !important; }
+    .photo-text-block { padding-top: 40px !important; padding-bottom: 40px !important; column-gap: 56px !important; border-top: none !important; }
+    .photo-text-block.w { padding-left: 48px !important; padding-right: 48px !important; }
+    @media (max-width: 900px) { .photo-text-block.w { padding-left: 24px !important; padding-right: 24px !important; } }
     .photo-text-block .ptb-img-wrap img { width: 64% !important; margin: 0 auto; }
     .photo-text-block .problem-desc { font-size: 19px; color: var(--text); line-height: 1.6; }
     .photo-text-block .ptb-cta { font-size: 14px !important; }
