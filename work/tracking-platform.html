@@ -12,32 +12,38 @@
 
   <style>
     .cs-lego-wrap {
-      position: relative; width: 100%; border-radius: 40px;
+      position: relative; width: 100%; border-radius: 28px;
       overflow: hidden; border: 1px solid var(--line);
-      background: var(--bg-2); aspect-ratio: unset; height: 750px; cursor: none;
+      background: #ececec; aspect-ratio: 2260 / 1632;
+      box-shadow: 0 40px 120px -40px rgba(245,197,20,.25);
     }
     .cs-lego-wrap img {
       position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; display: block;
+      object-fit: cover; display: block; opacity: 0;
     }
+    .cs-lego-wrap.is-built img { opacity: 1; }
     #brickCanvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-    #legoCursor {
-      position: absolute; width: 10px; height: 10px; border-radius: 50%;
-      background: #f5c514; box-shadow: 0 0 0 5px rgba(245,197,20,0.15);
-      pointer-events: none; transform: translate(-50%,-50%); display: none; z-index: 10;
-    }
+    .cs-lego-wrap.is-built #brickCanvas { display: none; }
     .cs-lego-badge {
-      position: absolute; bottom: 16px; right: 20px;
-      display: flex; align-items: center; gap: 8px; padding: 6px 14px;
-      background: rgba(10,10,10,0.72); border: 1px solid var(--line-md);
-      border-radius: 100px; font-size: 11px; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--text-3); transition: opacity 0.6s; z-index: 10;
+      position: absolute; bottom: 18px; right: 20px;
+      display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+      background: rgba(10,10,10,0.82); backdrop-filter: blur(8px);
+      border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #F2F0EC; transition: opacity 0.5s; z-index: 10;
     }
     .cs-lego-badge-dot {
-      width: 5px; height: 5px; border-radius: 50%; background: #f5c514;
-      animation: pulse 1.8s ease-in-out infinite;
+      width: 6px; height: 6px; border-radius: 50%; background: #f5c514;
+      animation: pulse 1.4s ease-in-out infinite;
     }
     .cs-lego-badge.done { opacity: 0; pointer-events: none; }
+    .cs-lego-replay {
+      position: absolute; bottom: 18px; right: 20px; z-index: 11;
+      padding: 8px 16px; border-radius: 100px; border: none; cursor: pointer;
+      background: #f5c514; color: #0a0a0a; font: 600 12px/1 inherit; letter-spacing: .02em;
+      box-shadow: inset 0 -3px 0 rgba(0,0,0,.18); opacity: 0; pointer-events: none; transition: opacity .4s, transform .2s;
+    }
+    .cs-lego-wrap.is-built .cs-lego-replay { opacity: 1; pointer-events: auto; }
+    .cs-lego-replay:hover { transform: translateY(-1px); }
     @media (prefers-reduced-motion: reduce) { .cs-lego-badge-dot { animation: none; } }
 
     .cs-slice { width: 100%; display: block; border-radius: 8px; border: 1px solid var(--line); }
@@ -56,7 +62,8 @@
       letter-spacing: 0.04em; text-align: center; pointer-events: none; margin-top: 52%;
     }
     @media (max-width: 640px) {
-      .cs-lego-wrap { height: auto; aspect-ratio: 2260 / 1632; border-radius: 16px; }
+      .cs-lego-wrap { border-radius: 16px; }
+      .cs-lego-badge, .cs-lego-replay { bottom: 10px; right: 10px; font-size: 10px; padding: 6px 12px; }
       .cs-slice-intro { width: 88% !important; padding-bottom: 40px !important; }
       .lb-grid { grid-template-columns: repeat(3, 1fr); }
       .lb-brick-hex { font-size: 9px; }
@@ -306,13 +313,13 @@
   <div class="cs-hero-img">
     <div class="container">
       <div class="cs-lego-wrap" id="legoWrap">
-        <img src="../assets/images/lego hero.png" alt="Tracking Platform overview" id="heroImg" />
-        <canvas id="brickCanvas"></canvas>
-        <div id="legoCursor" style="width:6px;height:6px;border-radius:20%;background:#fff;opacity:0.6;"></div>
-        <div class="cs-lego-badge" id="legoBadge">
+        <img src="../assets/images/lego hero.png" alt="LEGO Block home page: navigation, hero banner, trending sets, categories and popular sets" id="heroImg" />
+        <canvas id="brickCanvas" aria-hidden="true"></canvas>
+        <div class="cs-lego-badge" id="legoBadge" aria-live="polite">
           <span class="cs-lego-badge-dot"></span>
-          Building…
+          <span id="legoStep">Building the dashboard</span>
         </div>
+        <button type="button" class="cs-lego-replay" id="legoReplay">↻ Build again</button>
       </div>
     </div>
   </div>
@@ -847,178 +854,121 @@
 <script src="../script.js"></script>
 
 <script>
+  /* LEGO build: the dashboard assembles block by block, then each block snaps into the real UI */
   (function () {
-    function init() {
-      const wrap   = document.getElementById('legoWrap');
-      const img    = document.getElementById('heroImg');
-      const canvas = document.getElementById('brickCanvas');
-      const badge  = document.getElementById('legoBadge');
-      const cursor = document.getElementById('legoCursor');
-      if (!wrap || !img || !canvas) return;
-      const ctx = canvas.getContext('2d');
-      const CELL = 18, RADIUS = 80;
-      let W, H, COLS, ROWS, BW, BH;
-      let grid = [], rafId = null, isAnimating = false;
+    const wrap = document.getElementById('legoWrap');
+    const img = document.getElementById('heroImg');
+    const canvas = document.getElementById('brickCanvas');
+    const badge = document.getElementById('legoBadge');
+    const stepEl = document.getElementById('legoStep');
+    const replay = document.getElementById('legoReplay');
+    if (!wrap || !img || !canvas) return;
+    const ctx = canvas.getContext('2d');
 
-      function setup() {
-        W = wrap.offsetWidth; H = wrap.offsetHeight;
-        if (!W || !H) return false;
-        canvas.width = W; canvas.height = H;
-        COLS = Math.ceil(W / CELL); ROWS = Math.ceil(H / CELL);
-        BW = W / COLS; BH = H / ROWS;
-        return true;
-      }
+    // UI blocks of the home page, as fractions of the screenshot
+    const REGIONS = [
+      { name: 'Navigation',      x: 0,     y: 0,     w: 1,     h: .115 },
+      { name: 'Hero banner',     x: .085,  y: .12,   w: .62,   h: .36  },
+      { name: 'Trending',        x: .705,  y: .125,  w: .21,   h: .475 },
+      { name: 'Categories',      x: .085,  y: .49,   w: .62,   h: .115 },
+      { name: 'Popular sets',    x: .085,  y: .61,   w: .62,   h: .35  },
+      { name: 'Featured set',    x: .705,  y: .615,  w: .21,   h: .345 },
+    ];
+    const STEP = 520, DROP = 520, SNAP = 380, FINAL = 520;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      function sampleColors() {
-        try {
-          const off = document.createElement('canvas');
-          off.width = COLS; off.height = ROWS;
-          const offCtx = off.getContext('2d');
-          offCtx.drawImage(img, 0, 0, COLS, ROWS);
-          const d = offCtx.getImageData(0, 0, COLS, ROWS).data;
-          return Array.from({length: ROWS}, (_, r) =>
-                  Array.from({length: COLS}, (_, c) => {
-                    const i = (r * COLS + c) * 4;
-                    return [d[i], d[i+1], d[i+2]];
-                  })
-          );
-        } catch(e) { return null; }
-      }
+    let W, H, dpr, cell, plate, regions, t0, raf, running = false;
 
-      function drawStudColored(cx, cy, r, color, alpha, dy) {
-        ctx.save(); ctx.globalAlpha = alpha; ctx.translate(0, dy || 0);
-        ctx.fillStyle = `rgb(${Math.max(0,color[0]-20)},${Math.max(0,color[1]-20)},${Math.max(0,color[2]-20)})`;
-        ctx.fillRect(cx - BW/2, cy - BH/2, BW, BH);
-        ctx.beginPath(); ctx.arc(cx+0.8, cy+1.5, r, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.fill();
-        const g = ctx.createRadialGradient(cx-r*.3, cy-r*.3, r*.02, cx, cy, r*1.05);
-        g.addColorStop(0, `rgb(${Math.min(255,color[0]+100)},${Math.min(255,color[1]+100)},${Math.min(255,color[2]+100)})`);
-        g.addColorStop(0.5, `rgb(${color[0]},${color[1]},${color[2]})`);
-        g.addColorStop(1, `rgb(${Math.max(0,color[0]-80)},${Math.max(0,color[1]-80)},${Math.max(0,color[2]-80)})`);
-        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.fillStyle = g; ctx.fill();
-        ctx.strokeStyle = 'rgba(0,0,0,0.22)'; ctx.lineWidth = 1; ctx.stroke();
-        ctx.beginPath(); ctx.arc(cx, cy, r*.66, Math.PI*1.08, Math.PI*1.7);
-        ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = r*.25; ctx.lineCap = 'round'; ctx.stroke();
-        ctx.restore();
-      }
-
-      function drawStudOverlay(cx, cy, r, alpha, dy) {
-        ctx.save(); ctx.globalAlpha = alpha; ctx.translate(0, dy || 0);
-        ctx.fillStyle = 'rgba(255,255,255,0.06)';
-        ctx.fillRect(cx - BW/2, cy - BH/2, BW, BH);
-        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(255,255,255,0.12)'; ctx.fill();
-        ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.lineWidth = 1; ctx.stroke();
-        ctx.beginPath(); ctx.arc(cx, cy, r*.66, Math.PI*1.08, Math.PI*1.7);
-        ctx.strokeStyle = 'rgba(255,255,255,0.7)'; ctx.lineWidth = r*.28; ctx.lineCap = 'round'; ctx.stroke();
-        ctx.beginPath(); ctx.arc(cx, cy, r*.66, Math.PI*0.1, Math.PI*0.72);
-        ctx.strokeStyle = 'rgba(0,0,0,0.25)'; ctx.lineWidth = r*.2; ctx.lineCap = 'round'; ctx.stroke();
-        ctx.restore();
-      }
-
-      function redrawAll(colors) {
-        ctx.clearRect(0, 0, W, H);
-        if (!colors) ctx.drawImage(img, 0, 0, W, H);
-        const r = Math.min(BW, BH) * 0.40;
-        for (let row = 0; row < ROWS; row++)
-          for (let col = 0; col < COLS; col++) {
-            const cell = grid[row][col];
-            if (cell.alpha < 0.01) continue;
-            const cx = col*BW+BW/2, cy = row*BH+BH/2;
-            if (colors) drawStudColored(cx, cy, r, cell.color, cell.alpha, cell.dy||0);
-            else drawStudOverlay(cx, cy, r, cell.alpha, cell.dy||0);
-          }
-      }
-
-      let _colors = null;
-
-      function tick() {
-        let active = false;
-        for (let row = 0; row < ROWS; row++)
-          for (let col = 0; col < COLS; col++) {
-            const cell = grid[row][col];
-            if (!cell.alive && cell.alpha > 0) {
-              cell.vy = (cell.vy||0) - 0.16; cell.dy = (cell.dy||0) + cell.vy;
-              cell.alpha = Math.max(0, cell.alpha - 0.055); active = true;
-            }
-          }
-        redrawAll(_colors);
-        if (active) rafId = requestAnimationFrame(tick);
-        else isAnimating = false;
-      }
-
-      function vanishAt(mx, my) {
-        let hit = false;
-        for (let row = 0; row < ROWS; row++)
-          for (let col = 0; col < COLS; col++) {
-            if (!grid[row][col].alive) continue;
-            const cx = col*BW+BW/2, cy = row*BH+BH/2;
-            if (Math.hypot(mx-cx, my-cy) < RADIUS) {
-              grid[row][col].alive = false; grid[row][col].vy = -(0.5+Math.random()*0.4); hit = true;
-            }
-          }
-        if (hit && !isAnimating) { isAnimating = true; rafId = requestAnimationFrame(tick); }
-      }
-
-      function buildWithAnim(colors) {
-        _colors = colors;
-        grid = Array.from({length: ROWS}, (_, row) =>
-                Array.from({length: COLS}, (_, col) => ({
-                  alive: true, alpha: 0, vy: 0, dy: 0, color: colors ? colors[row][col] : null
-                }))
-        );
-        const order = [];
-        for (let row = 0; row < ROWS; row++)
-          for (let col = 0; col < COLS; col++) order.push([row, col]);
-        const cr = ROWS/2, cc = COLS/2;
-        order.sort((a,b) => Math.hypot(a[0]-cr,a[1]-cc) - Math.hypot(b[0]-cr,b[1]-cc));
-        let i = 0;
-        badge && badge.classList.remove('done');
-        function drop() {
-          const end = Math.min(i+10, order.length);
-          for (; i < end; i++) { const [r,c] = order[i]; grid[r][c].alpha = 1; }
-          redrawAll(_colors);
-          if (i < order.length) setTimeout(drop, 8);
-          else badge && badge.classList.add('done');
-        }
-        setTimeout(drop, 300);
-      }
-
-      function start() {
-        if (!setup()) { requestAnimationFrame(start); return; }
-        buildWithAnim(sampleColors());
-      }
-
-      let aimX=0, aimY=0, curX=0, curY=0;
-      (function moveCursor() {
-        curX += (aimX-curX)*.18; curY += (aimY-curY)*.18;
-        if (cursor) { cursor.style.left=curX+'px'; cursor.style.top=curY+'px'; }
-        requestAnimationFrame(moveCursor);
-      })();
-
-      wrap.addEventListener('mousemove', e => {
-        const rect = wrap.getBoundingClientRect();
-        aimX = e.clientX-rect.left; aimY = e.clientY-rect.top;
-        if (cursor) cursor.style.display = 'block';
-        vanishAt(aimX, aimY);
-      });
-      wrap.addEventListener('mouseleave', () => { if (cursor) cursor.style.display = 'none'; });
-
-      function tryStart() {
-        if (img.complete && img.naturalWidth > 0) requestAnimationFrame(start);
-        else img.addEventListener('load', () => requestAnimationFrame(start), {once:true});
-      }
-      if (document.readyState === 'complete') tryStart();
-      else window.addEventListener('load', tryStart, {once:true});
-
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => { cancelAnimationFrame(rafId); isAnimating = false; start(); }, 220);
-      });
+    function brick(c, x, y, s, rgb) {
+      const [r, g, b] = rgb, d = v => Math.max(0, v - 38), l = v => Math.min(255, v + 46);
+      c.fillStyle = `rgb(${r},${g},${b})`; c.fillRect(x, y, s, s);
+      c.fillStyle = `rgba(255,255,255,.18)`; c.fillRect(x, y, s, 1.2);
+      c.fillStyle = `rgba(0,0,0,.18)`; c.fillRect(x, y + s - 1.2, s, 1.2); c.fillRect(x + s - 1.2, y, 1.2, s);
+      const cx = x + s / 2, cy = y + s / 2, rad = s * .32;
+      c.beginPath(); c.arc(cx + .8, cy + 1.2, rad, 0, 7); c.fillStyle = 'rgba(0,0,0,.22)'; c.fill();
+      const gr = c.createLinearGradient(cx - rad, cy - rad, cx + rad, cy + rad);
+      gr.addColorStop(0, `rgb(${l(r)},${l(g)},${l(b)})`); gr.addColorStop(1, `rgb(${d(r)},${d(g)},${d(b)})`);
+      c.beginPath(); c.arc(cx, cy, rad, 0, 7); c.fillStyle = gr; c.fill();
+      c.beginPath(); c.arc(cx, cy, rad * .62, 0, 7); c.fillStyle = `rgb(${r},${g},${b})`; c.fill();
     }
-    if (document.readyState !== 'loading') init();
-    else document.addEventListener('DOMContentLoaded', init, {once:true});
+
+    function setup() {
+      W = wrap.clientWidth; H = wrap.clientHeight; if (!W || !H) return false;
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cell = Math.max(10, Math.round(W / 70));
+      const cols = Math.ceil(W / cell), rows = Math.ceil(H / cell);
+      // sample image colours on the brick grid
+      const sm = document.createElement('canvas'); sm.width = cols; sm.height = rows;
+      const sc = sm.getContext('2d'); sc.drawImage(img, 0, 0, cols, rows);
+      let px; try { px = sc.getImageData(0, 0, cols, rows).data; } catch (e) { px = null; }
+      const colour = (c, r) => px ? [px[(r * cols + c) * 4], px[(r * cols + c) * 4 + 1], px[(r * cols + c) * 4 + 2]] : [245, 197, 20];
+      // baseplate
+      plate = document.createElement('canvas'); plate.width = W * dpr; plate.height = H * dpr;
+      const pc = plate.getContext('2d'); pc.setTransform(dpr, 0, 0, dpr, 0, 0);
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) brick(pc, c * cell, r * cell, cell, [232, 232, 230]);
+      // one pre-rendered mosaic per UI block, sliced into rows for the drop
+      regions = REGIONS.map((R, i) => {
+        const c0 = Math.floor(R.x * W / cell), r0 = Math.floor(R.y * H / cell);
+        const c1 = Math.min(cols, Math.ceil((R.x + R.w) * W / cell)), r1 = Math.min(rows, Math.ceil((R.y + R.h) * H / cell));
+        const cv = document.createElement('canvas'); cv.width = (c1 - c0) * cell * dpr; cv.height = (r1 - r0) * cell * dpr;
+        const cc = cv.getContext('2d'); cc.setTransform(dpr, 0, 0, dpr, 0, 0);
+        for (let r = r0; r < r1; r++) for (let c = c0; c < c1; c++) brick(cc, (c - c0) * cell, (r - r0) * cell, cell, colour(c, r));
+        return { ...R, cv, x0: c0 * cell, y0: r0 * cell, w0: (c1 - c0) * cell, h0: (r1 - r0) * cell, rows: r1 - r0, start: 250 + i * STEP };
+      });
+      return true;
+    }
+
+    const clamp = v => Math.max(0, Math.min(1, v));
+    const back = t => { const s = 1.4; t -= 1; return t * t * ((s + 1) * t + s) + 1; };
+
+    function frame(now) {
+      const t = now - t0;
+      ctx.clearRect(0, 0, W, H);
+      const end = regions[regions.length - 1].start + DROP + SNAP + 200;
+      const fin = clamp((t - end) / FINAL);
+      ctx.globalAlpha = 1 - fin; ctx.drawImage(plate, 0, 0, W, H); ctx.globalAlpha = 1;
+      let label = null;
+      for (const R of regions) {
+        const lt = t - R.start; if (lt < 0) continue;
+        if (lt < DROP + SNAP) label = R.name;
+        for (let r = 0; r < R.rows; r++) {
+          const p = clamp((lt - r * (DROP * .5 / R.rows)) / (DROP * .5));
+          if (p <= 0) continue;
+          const dy = (1 - back(p)) * -cell * 3;
+          ctx.globalAlpha = Math.min(1, p * 1.6);
+          ctx.drawImage(R.cv, 0, r * cell * dpr, R.w0 * dpr, cell * dpr, R.x0, R.y0 + r * cell + dy, R.w0, cell);
+        }
+        const q = clamp((lt - DROP) / SNAP);
+        if (q > 0) {
+          const sx = R.x * img.naturalWidth, sy = R.y * img.naturalHeight, sw = R.w * img.naturalWidth, sh = R.h * img.naturalHeight;
+          ctx.globalAlpha = q; ctx.drawImage(img, sx, sy, sw, sh, R.x * W, R.y * H, R.w * W, R.h * H);
+        }
+        ctx.globalAlpha = 1;
+      }
+      if (fin > 0) { ctx.globalAlpha = fin; ctx.drawImage(img, 0, 0, W, H); ctx.globalAlpha = 1; }
+      if (stepEl && label) stepEl.textContent = 'Building · ' + label;
+      if (fin < 1) raf = requestAnimationFrame(frame);
+      else finish();
+    }
+
+    function finish() { running = false; wrap.classList.add('is-built'); badge && badge.classList.add('done'); }
+
+    function play() {
+      if (running) return;
+      if (reduce || !setup()) { finish(); return; }
+      running = true; wrap.classList.remove('is-built'); badge && badge.classList.remove('done');
+      if (stepEl) stepEl.textContent = 'Building the dashboard';
+      t0 = performance.now(); raf = requestAnimationFrame(frame);
+    }
+
+    function ready(fn) { if (img.complete && img.naturalWidth) fn(); else img.addEventListener('load', fn, { once: true }); }
+    ready(() => {
+      if (!('IntersectionObserver' in window)) return play();
+      const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); play(); } }, { threshold: .35 });
+      io.observe(wrap);
+    });
+    replay && replay.addEventListener('click', () => { cancelAnimationFrame(raf); running = false; play(); });
   })();
 </script>
 
