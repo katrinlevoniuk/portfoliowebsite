@@ -37,8 +37,8 @@
       font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
       color:var(--accent); margin-bottom:10px; display:block;
     }
-    .eo-cell-title { font-size:14px; font-weight:600; color:var(--text); margin-bottom:6px; }
-    .eo-cell-text { font-size:13px; color:var(--text-2); line-height:1.65; }
+    .eo-cell-title { font-size:17px; font-weight:600; color:var(--text); margin-bottom:6px; }
+    .eo-cell-text { font-size:15px; color:rgba(242,240,236,.78); line-height:1.6; }
 
     /* HIERARCHY */
     .eo-tree {
@@ -63,8 +63,8 @@
       font-family:var(--font-d); font-size:11px; font-weight:700;
       color:var(--accent); letter-spacing:0.08em; padding-top:2px;
     }
-    .eo-step-title { font-size:14px; font-weight:600; color:var(--text); margin-bottom:4px; }
-    .eo-step-text { font-size:13px; color:var(--text-2); line-height:1.65; }
+    .eo-step-title { font-size:17px; font-weight:600; color:var(--text); margin-bottom:4px; }
+    .eo-step-text { font-size:15px; color:rgba(242,240,236,.78); line-height:1.6; }
 
     /* CHAPTER BADGE + FLOW */
     .eo-badge {
@@ -118,7 +118,15 @@
       .eo-num-item { flex:1 1 50%; border-right:none; border-bottom:1px solid var(--line); }
       .eo-closing { padding:32px 20px; }
     }
-  </style>
+  
+    /* personas */
+    .eo-who { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text); margin: 10px 0 8px; }
+    .eo-av { width: 26px; height: 26px; border-radius: 50%; background: #A78BFA; color: #0a0a0a; display: inline-grid; place-items: center; font-size: 12px; font-weight: 800; flex: none; }
+    .eo-av--2 { margin-left: -14px; background: #E9DFFF; box-shadow: 0 0 0 2px var(--bg-1, #111); }
+    .eo-scene { margin: 24px 0 28px; padding: 22px 26px; border-radius: 16px; background: var(--bg-1, #111); border: 1px solid var(--line); border-left: 3px solid #A78BFA; max-width: 680px; }
+    .eo-scene-who { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-2); margin-bottom: 10px; }
+    .eo-scene p { font-family: var(--font-d); font-size: 21px !important; font-weight: 600; line-height: 1.35 !important; color: var(--text) !important; margin: 0 !important; }
+</style>
 </head>
 <body>
 
@@ -178,19 +186,11 @@
     <img class="cs-hero-mockup" src="../assets/images/eduopos/hero-mockup.jpg" alt="EduOpos worksheet configuration screen on an iPhone" />
   </section>
 
-  <!-- HERO -->
-  <div class="cs-hero-img">
-    <div class="container">
-      <img src="../assets/images/eduopos/hero.jpg" alt="EduOpos — mobile learning app for teachers preparing for oposiciones" class="eo-shot eo-shot--hero" />
-    </div>
-  </div>
-
   <!-- NUMBERS -->
   <div class="container">
     <div class="eo-nums reveal-up">
       <div class="eo-num-item"><span class="eo-num-n">69</span><span class="eo-num-l">Screens designed</span></div>
       <div class="eo-num-item"><span class="eo-num-n">8</span><span class="eo-num-l">User flows</span></div>
-      <div class="eo-num-item"><span class="eo-num-n">46h</span><span class="eo-num-l">UX/UI work</span></div>
       <div class="eo-num-item"><span class="eo-num-n">7+</span><span class="eo-num-l">AI worksheet types</span></div>
     </div>
   </div>
@@ -279,14 +279,17 @@
         <div class="eo-grid eo-grid--3">
           <div class="eo-cell">
             <span class="eo-cell-label">01 · Opositores</span>
+            <div class="eo-who"><span class="eo-av">C</span>Carlos</div>
             <div class="eo-cell-text">Study hundreds of fragments and nested practice cases.</div>
           </div>
           <div class="eo-cell">
             <span class="eo-cell-label">02 · Teachers</span>
+            <div class="eo-who"><span class="eo-av">M</span>María · Andalucía, Primaria</div>
             <div class="eo-cell-text">Need ready classroom materials for tomorrow.</div>
           </div>
           <div class="eo-cell">
             <span class="eo-cell-label">03 · Both</span>
+            <div class="eo-who"><span class="eo-av">M</span><span class="eo-av eo-av--2">C</span>María &amp; Carlos</div>
             <div class="eo-cell-text">Need region + specialty to match their curriculum.</div>
           </div>
         </div>
@@ -302,91 +305,18 @@
     </div>
   </section>
 
-  <!-- 04 DESIGN DECISIONS -->
-  <section class="cs-section">
-    <div class="container cs-two-col">
-      <div class="cs-col-label">
-        <div class="cs-chapter"><span class="cs-chapter-num">04</span><span class="cs-chapter-line"></span></div>
-        <p class="section-label">Design decisions</p>
-      </div>
-      <div class="cs-col-content reveal-up">
-        <h2>Redesign where it existed. Structure from scratch where it didn’t.</h2>
-        <p>Eight decisions that shaped the product. Each one started from structure and flow, not from visuals.</p>
-
-        <div class="eo-steps">
-          <div class="eo-step">
-            <div class="eo-step-num">01</div>
-            <div>
-              <div class="eo-step-title">Temario → Tema → Section → Fragment as one readable hierarchy.</div>
-              <div class="eo-step-text">Topics hold dozens or hundreds of fragments that must keep their original order. I mapped the structure first, then designed lists that show where you are inside it.</div>
-            </div>
-          </div>
-          <div class="eo-step">
-            <div class="eo-step-num">02</div>
-            <div>
-              <div class="eo-step-title">Open where reading flows, collapsible where it doesn’t.</div>
-              <div class="eo-step-text">I defined when content stays open and when it collapses, so users can scan a topic without opening every single fragment.</div>
-            </div>
-          </div>
-          <div class="eo-step">
-            <div class="eo-step-num">03</div>
-            <div>
-              <div class="eo-step-title">One clear progress signal instead of several.</div>
-              <div class="eo-step-text">I weighed progress bars, fragment counts, completed states and Memorizado / Necesita práctica, and cut anything that repeated.</div>
-            </div>
-          </div>
-          <div class="eo-step">
-            <div class="eo-step-num">04</div>
-            <div>
-              <div class="eo-step-title">An índice instead of tabs, with Resultado as the core.</div>
-              <div class="eo-step-text">Tabs broke on Explicación → Índice → Resultado → Estudio with nested Fase Inicial / Procesual / Final. An índice handles the nesting; Resultado is the main content of a case.</div>
-            </div>
-          </div>
-          <div class="eo-step">
-            <div class="eo-step-num">05</div>
-            <div>
-              <div class="eo-step-title">Personalisation through Especialidad and Comunidad Autónoma.</div>
-              <div class="eo-step-text">Both choices define the user’s temario. I refined selected states, specialty descriptions, card sizes, spacing, alignment and the CTA.</div>
-            </div>
-          </div>
-          <div class="eo-step">
-            <div class="eo-step-num">06</div>
-            <div>
-              <div class="eo-step-title">Asked whether Upload and Scan were needed at all.</div>
-              <div class="eo-step-text">AI already generates worksheets. Their distinct value is importing and digitising materials teachers already own, so they got a separate path, not two more buttons.</div>
-            </div>
-          </div>
-          <div class="eo-step">
-            <div class="eo-step-num">07</div>
-            <div>
-              <div class="eo-step-title">One icon set for specialties and regions.</div>
-              <div class="eo-step-text">Specialty and region icons read as different sets. I aligned stroke, visual weight and level of detail into a single style.</div>
-            </div>
-          </div>
-          <div class="eo-step">
-            <div class="eo-step-num">08</div>
-            <div>
-              <div class="eo-step-title">The first screen explains the value.</div>
-              <div class="eo-step-text">Splash, logo and Get Started screen: composition, typography and brand purple set up “Estudia con método” before sign-in.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- 05 DEEP DIVE — ONBOARDING -->
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
-        <div class="cs-chapter"><span class="cs-chapter-num">05.1</span><span class="cs-chapter-line"></span></div>
+        <div class="cs-chapter"><span class="cs-chapter-num">04.1</span><span class="cs-chapter-line"></span></div>
         <p class="section-label">Product deep dive</p>
       </div>
       <div class="cs-col-content reveal-up">
         <h2>Onboarding &amp; personalisation <span class="eo-badge">Redesign</span></h2>
         <p>María and Carlos move through the same onboarding, but the system adapts intent, region and specialty into personalized materials.</p>
+        <aside class="eo-scene"><span class="eo-scene-who"><span class="eo-av">M</span>María’s moment</span><p>Signs up, picks Andalucía and Primaria, and every next screen already speaks her curriculum.</p></aside>
         <p><strong>The problem.</strong> Each autonomous community and specialty has its own temario. Onboarding had to capture both clearly before the user sees any content.</p>
-        <p class="eo-refs">→ Design decisions 05, 07, 08</p>
 
         <div class="eo-steps">
           <div class="eo-step"><div class="eo-step-num">01</div><div><div class="eo-step-title">A first screen that explains the value.</div><div class="eo-step-text">Splash, logo and Get Started set up “Estudia con método” before sign-in.</div></div></div>
@@ -409,14 +339,14 @@
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
-        <div class="cs-chapter"><span class="cs-chapter-num">05.2</span><span class="cs-chapter-line"></span></div>
+        <div class="cs-chapter"><span class="cs-chapter-num">04.2</span><span class="cs-chapter-line"></span></div>
         <p class="section-label">Product deep dive</p>
       </div>
       <div class="cs-col-content reveal-up">
         <h2>Fichas / worksheet generator <span class="eo-badge">Redesign</span></h2>
         <p>An AI worksheet generator for teachers. I audited the existing flow and explored how to extend it beyond AI generation.</p>
+        <aside class="eo-scene"><span class="eo-scene-who"><span class="eo-av">M</span>María’s moment</span><p>Needs a maths worksheet for tomorrow’s class: browses the catalog, sets type and filters, generates.</p></aside>
         <p><strong>The problem.</strong> Teachers need ready materials fast: Matemáticas, Lectura, Crucigrama, Sopa de letras. Materials they already had stayed outside the app.</p>
-        <p class="eo-refs">→ Design decision 06</p>
 
         <div class="eo-steps">
           <div class="eo-step"><div class="eo-step-num">01</div><div><div class="eo-step-title">Audit of the existing flow.</div><div class="eo-step-text">Catalog, activity type, filters, parameters and result reviewed step by step.</div></div></div>
@@ -445,14 +375,14 @@
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
-        <div class="cs-chapter"><span class="cs-chapter-num">05.3</span><span class="cs-chapter-line"></span></div>
+        <div class="cs-chapter"><span class="cs-chapter-num">04.3</span><span class="cs-chapter-line"></span></div>
         <p class="section-label">Product deep dive</p>
       </div>
       <div class="cs-col-content reveal-up">
         <h2>Supuestos prácticos <span class="eo-badge">Redesign</span></h2>
         <p>Practice cases with nested phases, sections and references, restructured to be read and studied on a phone.</p>
+        <aside class="eo-scene"><span class="eo-scene-who"><span class="eo-av">C</span>Carlos’s moment</span><p>Creates a practice case manually or imports a PDF, then studies it phase by phase.</p></aside>
         <p><strong>The problem.</strong> A case goes Explicación → Índice → Resultado → Estudio, with Fase Inicial / Procesual / Final nested inside. Tab navigation couldn’t hold that depth.</p>
-        <p class="eo-refs">→ Design decision 04</p>
 
         <div class="eo-steps">
           <div class="eo-step"><div class="eo-step-num">01</div><div><div class="eo-step-title">Índice instead of tabs.</div><div class="eo-step-text">A table of contents handles nested phases and sections; users jump straight to the part they need.</div></div></div>
@@ -482,14 +412,14 @@
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
-        <div class="cs-chapter"><span class="cs-chapter-num">05.4</span><span class="cs-chapter-line"></span></div>
+        <div class="cs-chapter"><span class="cs-chapter-num">04.4</span><span class="cs-chapter-line"></span></div>
         <p class="section-label">Product deep dive</p>
       </div>
       <div class="cs-col-content reveal-up">
         <h2>Temario &amp; study loop <span class="eo-badge eo-badge--new">New module</span></h2>
         <p>Temario, fragments, statuses, notes and progress: the daily study loop for opositores.</p>
+        <aside class="eo-scene"><span class="eo-scene-who"><span class="eo-av">C</span>Carlos’s moment</span><p>Chooses a topic and continues reading from his saved position, marking fragments as he goes.</p></aside>
         <p><strong>The problem.</strong> Topics hold dozens or hundreds of fragments in a fixed order. Opening each one separately would make studying slow, and progress could easily repeat across screens.</p>
-        <p class="eo-refs">→ Design decisions 01, 02, 03</p>
 
         <div class="eo-steps">
           <div class="eo-step"><div class="eo-step-num">01</div><div><div class="eo-step-title">Temario → Tema → Section → Fragment.</div><div class="eo-step-text">One hierarchy that keeps the original order and shows where you are.</div></div></div>
@@ -518,7 +448,7 @@
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
-        <div class="cs-chapter"><span class="cs-chapter-num">06</span><span class="cs-chapter-line"></span></div>
+        <div class="cs-chapter"><span class="cs-chapter-num">05</span><span class="cs-chapter-line"></span></div>
         <p class="section-label">Visual language</p>
       </div>
       <div class="cs-col-content reveal-up">
@@ -558,11 +488,11 @@
   <section class="cs-section">
     <div class="container cs-two-col">
       <div class="cs-col-label">
-        <div class="cs-chapter"><span class="cs-chapter-num">07</span><span class="cs-chapter-line"></span></div>
+        <div class="cs-chapter"><span class="cs-chapter-num">06</span><span class="cs-chapter-line"></span></div>
         <p class="section-label">Outcomes</p>
       </div>
       <div class="cs-col-content reveal-up">
-        <h2>69 screens. 46 hours. 8 user flows. Shipped to the App Store.</h2>
+        <h2>69 screens. 8 user flows. Shipped to the App Store.</h2>
         <p>Complex educational content (temario, practice cases, worksheets and memorisation tools) structured into clear mobile journeys.</p>
 
         <div class="eo-grid eo-grid--3">
@@ -571,7 +501,7 @@
             <div class="eo-cell-text">Onboarding · Worksheets · Supuestos · Study tools</div>
           </div>
           <div class="eo-cell">
-            <span class="eo-cell-label">46h of UX/UI</span>
+            <span class="eo-cell-label">8 user flows</span>
             <div class="eo-cell-text">IA · Core flows · UI design · Design system</div>
           </div>
           <div class="eo-cell">
@@ -585,11 +515,6 @@
     </div>
   </section>
 
-  <div class="cs-img-row">
-    <div class="container">
-      <img src="../assets/images/eduopos/outcomes.jpg" alt="EduOpos outcomes: 69 screens, 46 hours of UX/UI work, 7+ AI worksheet types" class="eo-shot reveal-up" loading="lazy" />
-    </div>
-  </div>
 
   <!-- CLOSING -->
   <section class="cs-section">
