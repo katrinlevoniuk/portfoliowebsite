@@ -143,6 +143,22 @@
       .eo-stage { gap: 8px; padding: 36px 8px; }
       .eo-stage-caps span { font-size: 10px; }
     }
+
+    /* screens in iPhone frames */
+    .eo-phones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px 40px; }
+    .eo-ph { margin: 0; display: flex; flex-direction: column; align-items: center; }
+    .eo-ph img { width: 78%; height: auto !important; display: block; filter: drop-shadow(0 26px 40px rgba(0,0,0,.5)); transition: transform .5s var(--ease, cubic-bezier(.16,1,.3,1)); }
+    .eo-ph:hover img { transform: translateY(-8px); }
+    .eo-ph figcaption { margin-top: -6%; justify-content: center; text-align: center; display: flex; align-items: center; gap: 12px; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #B9A4FF; }
+    .eo-ph figcaption span { color: #A78BFA; }
+    .eo-ph figcaption span::after { content: ''; display: inline-block; width: 28px; height: 1px; background: rgba(185,164,255,.5); margin-left: 12px; vertical-align: middle; }
+    @media (max-width: 760px) {
+      .eo-phones { grid-template-columns: repeat(2, 1fr); gap: 36px 12px; }
+      .eo-ph img { width: 92%; }
+      .eo-ph figcaption { font-size: 10px; gap: 4px; letter-spacing: .08em; flex-direction: column; }
+      .eo-ph figcaption span::after { display: none; }
+      .eo-ph figcaption span::after { width: 14px; margin-left: 8px; }
+    }
 </style>
 </head>
 <body>
@@ -348,18 +364,14 @@
 
   <div class="cs-img-row">
     <div class="container">
-      <div class="eo-stage reveal-up">
-        <figure class="eo-phone eo-phone--l"><img src="../assets/images/eduopos/screens/onb-intent-phone.webp" alt="Intent screen: why are you using EduOpos" loading="lazy" /></figure>
-        <figure class="eo-phone eo-phone--c"><img src="../assets/images/eduopos/screens/onb-region-phone.webp" alt="Region screen with Andalucía selected" loading="lazy" /></figure>
-        <figure class="eo-phone eo-phone--r"><img src="../assets/images/eduopos/screens/onb-specialty-phone.webp" alt="Specialty screen with Primaria selected" loading="lazy" /></figure>
+      <div class="eo-phones reveal-up">
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/onb-1-phone.webp" alt="Onboarding overview" loading="lazy" /><figcaption><span>01</span>Onboarding overview</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/onb-2-phone.webp" alt="Sign up" loading="lazy" /><figcaption><span>02</span>Sign up</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/onb-3-phone.webp" alt="Select intent" loading="lazy" /><figcaption><span>03</span>Select intent</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/onb-4-phone.webp" alt="Select region" loading="lazy" /><figcaption><span>04</span>Select region</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/onb-5-phone.webp" alt="Select specialty" loading="lazy" /><figcaption><span>05</span>Select specialty</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/onb-6-phone.webp" alt="Verify contact" loading="lazy" /><figcaption><span>06</span>Verify contact</figcaption></figure>
       </div>
-      <div class="eo-stage-caps"><span>Intent first</span><span>Comunidad Autónoma</span><span>Especialidad</span></div>
-    </div>
-  </div>
-
-  <div class="cs-img-row">
-    <div class="container eo-scroll">
-      <img src="../assets/images/eduopos/onboarding-screens.jpg" alt="EduOpos onboarding screens: splash, sign in, intent, region, specialty and verification" class="eo-shot reveal-up" loading="lazy" />
     </div>
   </div>
 
@@ -388,8 +400,15 @@
   </section>
 
   <div class="cs-img-row">
-    <div class="container eo-scroll">
-      <img src="../assets/images/eduopos/worksheets-screens.jpg" alt="EduOpos worksheet generator screens: catalog, activity type, filters, AI generation, result and credits" class="eo-shot reveal-up" loading="lazy" />
+    <div class="container">
+      <div class="eo-phones reveal-up">
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/ws-1-phone.webp" alt="Worksheet catalog" loading="lazy" /><figcaption><span>01</span>Worksheet catalog</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/ws-2-phone.webp" alt="Select activity type" loading="lazy" /><figcaption><span>02</span>Select activity type</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/ws-3-phone.webp" alt="Apply filters" loading="lazy" /><figcaption><span>03</span>Apply filters</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/ws-4-phone.webp" alt="Generate with AI" loading="lazy" /><figcaption><span>04</span>Generate with AI</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/ws-5-phone.webp" alt="Review result" loading="lazy" /><figcaption><span>05</span>Review result</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/ws-6-phone.webp" alt="Credits & access" loading="lazy" /><figcaption><span>06</span>Credits & access</figcaption></figure>
+      </div>
     </div>
   </div>
 
@@ -431,8 +450,15 @@
   </div>
 
   <div class="cs-img-row">
-    <div class="container eo-scroll">
-      <img src="../assets/images/eduopos/supuestos-screens.jpg" alt="EduOpos Supuestos prácticos screens: case library, review dashboard, case status, practice, índice and reading" class="eo-shot reveal-up" loading="lazy" />
+    <div class="container">
+      <div class="eo-phones reveal-up">
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/sp-1-phone.webp" alt="Case library" loading="lazy" /><figcaption><span>01</span>Case library</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/sp-2-phone.webp" alt="Review dashboard" loading="lazy" /><figcaption><span>02</span>Review dashboard</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/sp-3-phone.webp" alt="Case status" loading="lazy" /><figcaption><span>03</span>Case status</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/sp-4-phone.webp" alt="Start practice" loading="lazy" /><figcaption><span>04</span>Start practice</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/sp-5-phone.webp" alt="Navigate content" loading="lazy" /><figcaption><span>05</span>Navigate content</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/sp-6-phone.webp" alt="Read & review" loading="lazy" /><figcaption><span>06</span>Read & review</figcaption></figure>
+      </div>
     </div>
   </div>
 
@@ -461,8 +487,15 @@
   </section>
 
   <div class="cs-img-row">
-    <div class="container eo-scroll">
-      <img src="../assets/images/eduopos/temario.jpg" alt="EduOpos Temario and study loop: flashcards, temario, notes, favorites and progress screens" class="eo-shot reveal-up" loading="lazy" />
+    <div class="container">
+      <div class="eo-phones reveal-up">
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/tm-1-phone.webp" alt="Review flashcards" loading="lazy" /><figcaption><span>01</span>Review flashcards</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/tm-2-phone.webp" alt="Open temario" loading="lazy" /><figcaption><span>02</span>Open temario</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/tm-3-phone.webp" alt="Save notes" loading="lazy" /><figcaption><span>03</span>Save notes</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/tm-4-phone.webp" alt="Favorites" loading="lazy" /><figcaption><span>04</span>Favorites</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/tm-5-phone.webp" alt="Track progress" loading="lazy" /><figcaption><span>05</span>Track progress</figcaption></figure>
+        <figure class="eo-ph"><img src="../assets/images/eduopos/screens/tm-6-phone.webp" alt="Dashboard overview" loading="lazy" /><figcaption><span>06</span>Dashboard overview</figcaption></figure>
+      </div>
     </div>
   </div>
 
