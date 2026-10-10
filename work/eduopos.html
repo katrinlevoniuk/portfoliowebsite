@@ -89,6 +89,9 @@
 
     /* SCREENS */
     .eo-shot { width:100%; height:auto; display:block; border-radius:3.2% / 4.3%; }
+    .eo-shot-cap { display:flex; gap:24px; align-items:baseline; margin-top:16px; font-size:15px; line-height:1.5; color:var(--text-2); }
+    .eo-shot-cap span { flex:none; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#B9A4FF; }
+    @media (max-width: 600px) { .eo-shot-cap { flex-direction:column; gap:6px; font-size:14px; } }
 
     /* dense screen slides: swipe sideways on phones */
     @media (max-width: 640px) {
@@ -414,7 +417,10 @@
 
   <div class="cs-img-row">
     <div class="container">
-      <img src="../assets/images/eduopos/worksheets-photo.jpg" alt="A teacher configuring a worksheet in EduOpos" class="eo-shot reveal-up" loading="lazy" />
+      <figure class="reveal-up" style="margin:0">
+        <img src="../assets/images/eduopos/worksheets-photo.jpg" alt="A teacher configuring a worksheet in EduOpos" class="eo-shot" loading="lazy" />
+        <figcaption class="eo-shot-cap"><span>Configure the worksheet</span>Teachers set the activity parameters before generating a classroom worksheet.</figcaption>
+      </figure>
     </div>
   </div>
 
@@ -495,7 +501,10 @@
 
   <div class="cs-img-row">
     <div class="container">
-      <img src="../assets/images/eduopos/temario-photo.jpg" alt="A flashcard reviewed and marked as memorised in EduOpos" class="eo-shot reveal-up" loading="lazy" />
+      <figure class="reveal-up" style="margin:0">
+        <img src="../assets/images/eduopos/temario-photo.jpg" alt="A flashcard reviewed and marked as memorised in EduOpos" class="eo-shot" loading="lazy" />
+        <figcaption class="eo-shot-cap"><span>Review flashcards</span>A flashcard is reviewed and marked as memorised.</figcaption>
+      </figure>
     </div>
   </div>
 
