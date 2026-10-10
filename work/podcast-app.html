@@ -182,6 +182,13 @@
     .problem-num { background: #E02435; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
     .problem-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(32px, 4.5vw, 56px); font-weight: 800; letter-spacing: -0.018em; line-height: 1.05; margin-bottom: 16px; }
     .problem-desc { font-size: 16px; color: var(--text2); line-height: 1.75; max-width: 520px; }
+    /* persona stories: tighter rhythm, readable captions, screens sized to sit with their text */
+    .problem-section { padding: 80px 0 32px; }
+    .photo-text-block { padding: 40px 0 !important; column-gap: 56px !important; border-top: none !important; }
+    .photo-text-block .ptb-img-wrap img { width: 64% !important; margin: 0 auto; }
+    .photo-text-block .problem-desc { font-size: 19px; color: var(--text); line-height: 1.6; }
+    .photo-text-block .ptb-cta { font-size: 14px !important; }
+    .problem-section + .photo-text-block { padding-top: 16px !important; }
     .user-moment { margin-top: 28px; display: flex; gap: 14px; align-items: baseline; max-width: 720px; }
     .um-label { flex: none; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--red); border: 1px solid rgba(255,58,70,.35); border-radius: 100px; padding: 4px 10px; }
     .user-moment p { font-size: 16px; color: var(--text); line-height: 1.6; font-style: italic; }
@@ -295,16 +302,17 @@
     }
     @media (max-width: 640px) {
       /* inline-styled two-column blocks stack on phones */
-      .photo-text-block { grid-template-columns: 1fr !important; gap: 28px !important; padding: 56px 24px !important; }
+      .photo-text-block { grid-template-columns: 1fr !important; gap: 18px !important; padding: 28px 24px !important; }
       .photo-text-block .ptb-img-wrap { order: 1; }
       .photo-text-block .ptb-m1 { order: 1; } .photo-text-block .ptb-m2 { order: 2; } .photo-text-block .ptb-m3 { order: 3; } .photo-text-block .ptb-m4 { order: 4; }
       .ptb-arrow { font-size: 0; } .ptb-arrow::after { content: '↓'; font-size: 13px; }
-      .photo-text-block .ptb-img-wrap img { width: 100% !important; }
+      .photo-text-block .ptb-img-wrap img { width: 82% !important; }
+      .photo-text-block .problem-desc { font-size: 17px; }
       .overview-img { padding: 32px 16px !important; }
       .w[style*="padding: 56px 48px"] { padding: 40px 24px !important; }
       section[style*="padding: 100px 0 60px"] { padding: 72px 0 40px !important; }
       .chapter { padding: 80px 0 48px; }
-      .problem-section { padding: 72px 0; }
+      .problem-section { padding: 64px 0 16px; }
       .stat-n { font-size: 44px; }
       .img-grid--2, .img-grid--3 { grid-template-columns: 1fr; }
       .palette { grid-template-columns: repeat(2,1fr); }
